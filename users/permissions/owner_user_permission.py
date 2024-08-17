@@ -13,4 +13,4 @@ class OwnUserPermission(permissions.BasePermission):
             return True
 
         # obj here is a UserProfile instance
-        return obj.user == request.user
+        return obj == request.user

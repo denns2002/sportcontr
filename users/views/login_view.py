@@ -48,7 +48,7 @@ class LoginAPIView(generics.GenericAPIView):
 
                 return Response(
                     {"message": f"Здравствуйте, {user.first_name.title()}! На вашу "
-                           f"почту отправленно письмо подтверждения"},
+                                f"почту отправленно письмо подтверждения"},
                     status=status.HTTP_200_OK,
                 )
             return Response({'token': token.key}, status=status.HTTP_200_OK)
