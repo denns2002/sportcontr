@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import re_path
 
 from users.views.change_email_view import (
     ChangeEmailAPIView,
@@ -15,17 +15,17 @@ from users.views.reset_password_view import (
 from users.views.user_view import UserListAPIView, UserDetailAPIView
 
 urlpatterns = [
-    path("login/", LoginAPIView.as_view(), name="login"),
-    path("verify/", VerifyAPIView.as_view(), name='verify', ),
-    path("logout/", Logout.as_view(), name="logout"),
-    path("register/", RegisterAPIView.as_view(), name="register"),
-    path("email-verify/", activate, name="email-verify"),
-    path("request-pass-reset/", RequestPasswordResetAPIView.as_view(), name="request-pass-reset"),
-    path("password-token-check/<uidb64>/<token>/", PasswordTokenCheckAPI.as_view(), name="password-token-check"),
-    path("set-password-token/", SetPasswordTokenAPI.as_view(), name="set-password-token"),
-    path("change-email/", ChangeEmailAPIView.as_view(), name="change-email"),
-    path("email-verify-new/", activate_new_email, name="email-verify-new"),
+    re_path(r"^login/", LoginAPIView.as_view(), name="login"),
+    re_path(r"^verify/", VerifyAPIView.as_view(), name='verify', ),
+    re_path(r"^logout/", Logout.as_view(), name="logout"),
+    re_path(r"^register/", RegisterAPIView.as_view(), name="register"),
+    re_path(r"^email-verify/", activate, name="email-verify"),
+    re_path(r"^request-pass-reset/", RequestPasswordResetAPIView.as_view(), name="request-pass-reset"),
+    re_path(r"^password-token-check/<uidb64>/<token>/", PasswordTokenCheckAPI.as_view(), name="password-token-check"),
+    re_path(r"^set-password-token/", SetPasswordTokenAPI.as_view(), name="set-password-token"),
+    re_path(r"^change-email/", ChangeEmailAPIView.as_view(), name="change-email"),
+    re_path(r"^email-verify-new/", activate_new_email, name="email-verify-new"),
 
-    path("user-list/", UserListAPIView.as_view(), name="user-list"),
-    path("user-detail/<int:id>/", UserDetailAPIView.as_view(), name="user-detail"),
+    re_path(r"^user-list/", UserListAPIView.as_view(), name="user-list"),
+    re_path(r"^user-detail/<int:id>/", UserDetailAPIView.as_view(), name="user-detail"),
 ]
