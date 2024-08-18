@@ -69,8 +69,6 @@ class Tests(TestCase):
     #             'password': self.password
     #         }
     #     )
-    #     print(response.status_code)
-    #     print(response.content.decode())
     #     self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_incorrect_login(self):
