@@ -1,4 +1,4 @@
-from django.urls import re_path
+from django.urls import re_path, path
 
 from users.views.change_email_view import (
     ChangeEmailAPIView,
@@ -27,5 +27,5 @@ urlpatterns = [
     re_path(r"^email-verify-new/", activate_new_email, name="email-verify-new"),
 
     re_path(r"^user-list/", UserListAPIView.as_view(), name="user-list"),
-    re_path(r"^user-detail/<int:id>/", UserDetailAPIView.as_view(), name="user-detail"),
+    path("user-detail/<int:id>/", UserDetailAPIView.as_view(), name="user-detail"),
 ]

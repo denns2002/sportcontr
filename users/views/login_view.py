@@ -38,7 +38,13 @@ class LoginAPIView(generics.GenericAPIView):
         if serializer.is_valid(raise_exception=True):
 
             user = get_user_model().objects.get(username=serializer.data["username"])
-            token, _ = Token.objects.get_or_create(user=user)
+            try:
+                token = Token.objects.get(user=user)
+                token.delete()
+            except Exception:
+                pass
+
+            token = Token.objects.create(user=user)
 
             if not user.is_verified:
                 subject = 'Подтвердите вашу почту'

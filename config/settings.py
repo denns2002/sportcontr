@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "corsheaders",
     'common',
     'users',
+    # 'projects',
     'mailings',
 ]
 
@@ -121,21 +122,27 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 
-
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ]
 }
 
 SWAGGER_SETTINGS = {
     'LOGIN_URL': '/users/login/',
-    # 'LOGOUT_URL': '/users/logout/',
+    'LOGOUT_URL': '/users/logout/',
     'PERSIST_AUTH': True,
     "USE_SESSION_AUTH": False,
     "REFETCH_SCHEMA_WITH_AUTH": True,
+    'SECURITY_DEFINITIONS': {
+        'DRF Token': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    }
 }

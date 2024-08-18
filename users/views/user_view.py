@@ -45,7 +45,7 @@ class UserListAPIView(ListAPIView, UserMixin):
     operation_description="DELETE Пользователь по ID",
 ))
 class UserDetailAPIView(RetrieveUpdateDestroyAPIView, UserMixin):
-    permission_classes = [OwnUserPermission, IsAuthenticated, IsAdminUser]
+    permission_classes = [OwnUserPermission, IsAuthenticated]
     lookup_field = 'id'
 
     def delete(self, request, *args, **kwargs):
