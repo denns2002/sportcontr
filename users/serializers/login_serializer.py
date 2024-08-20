@@ -13,23 +13,18 @@ class LoginSerializer(serializers.ModelSerializer):
         fields = ["username", 'email', "password"]
 
     def validate(self, attrs):
-        user_obj = (
+        user = (
             get_user_model().objects.filter(email=attrs.get("username")).first()
             or get_user_model().objects.filter(username=attrs.get("username")).first()
         )
-        credentials = {"username": "", "password": attrs.get("password")}
+        if user:
+            if user.check_password(attrs.get("password")):
+                return attrs
 
-        if user_obj:
-            credentials["username"] = user_obj.username
+            if not user.is_active:
+                raise AuthenticationFailed("Аккаунт отключен, обратитесь в поддержку.")
 
-        user = authenticate(username=credentials["username"], password=credentials["password"])
-        if not user:
-            raise AuthenticationFailed("Не правильные данные.")
-        if not user.is_active:
-            raise AuthenticationFailed("Аккаунт отключен, обратитесь в поддержку.")
-        attrs['user'] = user
-
-        return attrs
+        raise AuthenticationFailed("Не правильные данные.")
 
 
 class VerifySerializer(serializers.Serializer):

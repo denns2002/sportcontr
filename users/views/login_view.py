@@ -36,14 +36,9 @@ class LoginAPIView(generics.GenericAPIView):
         user = request.data
         serializer = self.serializer_class(data=user)
         if serializer.is_valid(raise_exception=True):
-
-            user = get_user_model().objects.get(username=serializer.data["username"])
-            try:
-                token = Token.objects.get(user=user)
-                token.delete()
-            except Exception:
-                pass
-
+            user = (get_user_model().objects.filter(email=serializer.data.get("username")).first()
+                    or get_user_model().objects.filter(username=serializer.data.get("username")).first())
+            Token.objects.filter(user=user).delete()
             token = Token.objects.create(user=user)
 
             if not user.is_verified:

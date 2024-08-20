@@ -29,7 +29,7 @@ class Tests(TestCase):
         self.user = get_user_model().objects.get(
             email=self.email,
         )
-        self.user.is_active = True
+        self.user.is_verified = True
         self.client.login(username=self.login, password=self.password)
 
     def test_registration(self):
@@ -61,15 +61,15 @@ class Tests(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-    # def test_login(self):
-    #     response = self.client.post(
-    #         reverse('login'),
-    #         {
-    #             'username': self.login,
-    #             'password': self.password
-    #         }
-    #     )
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
+    def test_login(self):
+        response = self.client.post(
+            reverse('login'),
+            {
+                'username': self.login,
+                'password': self.password
+            }
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_incorrect_login(self):
         response = self.client.post(
