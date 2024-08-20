@@ -1,3 +1,6 @@
+from itertools import chain
+
+from django.contrib.auth import get_user_model
 from django.shortcuts import render
 
 # Create your views here.
@@ -11,9 +14,13 @@ from rest_framework.generics import (
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 
+from mailings.utils.send_email import send_token
 from projects.models import Project
 from projects.permissions import ProjectOwnerPermission
-from projects.serializers import ProjectSerializer, ProjectChangeUrlSerializer
+from projects.serializers import (
+    ProjectSerializer, ProjectChangeUrlSerializer,
+    ProjectInviteSerializer
+)
 
 
 class ProjectMixin(GenericAPIView):
@@ -25,7 +32,7 @@ class ProjectMixin(GenericAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        queryset = Project.objects.filter(owner=user) | Project.objects.filter(members=user)
+        queryset = list(chain(Project.objects.filter(owner=user), Project.objects.filter(members=user)))
 
         return queryset
 
@@ -106,4 +113,25 @@ class ProjectChangeUrlAPIView(UpdateAPIView, ProjectMixin):
     def get_queryset(self):
         return Project.objects.all()
 
+@method_decorator(name='post', decorator=swagger_auto_schema(
+    tags=["Проекты"],
+    operation_id="project-invite_post/",
+    operation_description="Владелец может пригласить пользователя в свой "
+                          "проект по его email"
+))
+class ProjectInviteAPIView(ProjectMixin):
+    serializer_class = ProjectInviteSerializer
 
+    def post(self, request, slug):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            try:
+                user = get_user_model().objects.get(email=serializer.data['email'])
+                project = Project.objects.get(slug=slug)
+                project.members.add(user)
+                project.save()
+                return Response({'message': 'Пользователь добавлен в ваш проект'}, status=status.HTTP_200_OK)
+
+            except Exception as e:
+                print(e)
+        return Response({'message': 'Такого пользователя не существует'}, status=status.HTTP_400_BAD_REQUEST)

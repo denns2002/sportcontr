@@ -33,3 +33,7 @@ class ProjectSerializer(serializers.ModelSerializer):
             'updated_at',
             'slug',
         ]
+
+
+class ProjectInviteSerializer(serializers.Serializer):
+    email = serializers.CharField()

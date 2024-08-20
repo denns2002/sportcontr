@@ -6,7 +6,7 @@ from common.utils.slug_generator import SlugGeneratorMixin
 
 class Project(SlugGeneratorMixin):
     owner = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True)
-    members = models.ManyToManyField(get_user_model(), related_name='project_members')
+    members = models.ManyToManyField(get_user_model(), related_name='project_members', blank=True, null=True)
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     on_prod = models.BooleanField(default=False)
