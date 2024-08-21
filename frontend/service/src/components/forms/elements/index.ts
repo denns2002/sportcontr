@@ -1,1 +1,1 @@
-export * from './input'
+export * from './element-hoc'

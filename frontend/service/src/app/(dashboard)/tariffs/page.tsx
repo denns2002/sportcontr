@@ -28,7 +28,7 @@ function Tariffs() {
 	return (
 		<div className='h-full w-full flex flex-col max-w-screen-lg mx-auto'>
 			<H1>Выбирите тариф в зависимости от ваших потребностей</H1>
-			<div className='flex flex-row justify-center gap-y-5 gap-x-5 flex-wrap mt-10'>
+			<div className='flex flex-row justify-center gap-y-5 gap-x-5 flex-wrap'>
 				{tariffs.map((tariff, index) => (
 					<div
 						className='w-80 flex flex-col px-5 py-5 bg-white shadow-md rounded-2xl items-center'

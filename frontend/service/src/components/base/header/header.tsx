@@ -4,8 +4,8 @@ import Link from 'next/link'
 import { HeaderLink } from './header-link'
 import { DropdownMenu } from './dropdown-menu'
 import { ButtonLink, TransparentLink } from '@/components/custom/links'
-import { verifyUserService } from '@/data/services/auth'
 import { UserRound } from 'lucide-react'
+import { verifyUserService } from '@/data/services/auth'
 
 export async function Header() {
 	const { authenticated } = await verifyUserService()

@@ -1,3 +1,3 @@
-export * from './signin-form'
+export * from './signin'
 export * from './elements'
-export * from './signup-form'
+export * from './signup'
