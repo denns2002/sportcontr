@@ -32,9 +32,9 @@ class ProjectMixin(GenericAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        queryset = list(chain(Project.objects.filter(owner=user), Project.objects.filter(members=user)))
+        queryset = Project.objects.filter(owner=user) | Project.objects.filter(members=user)
 
-        return queryset
+        return queryset.distinct()
 
 
 @method_decorator(name='get', decorator=swagger_auto_schema(
