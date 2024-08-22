@@ -1,6 +1,7 @@
 'use server'
 
 import { H1 } from '@/components/custom/headers'
+import { ProjectEditForm } from '@/components/forms/project-edit'
 import { getProjectService } from '@/data/services/projects'
 
 type ProjectProps = {
@@ -8,13 +9,12 @@ type ProjectProps = {
 }
 
 async function Project({ params }: ProjectProps) {
-	const { data } = await getProjectService(params.slug)
-
-  console.log(data)
+	const project = await getProjectService(params.slug)
 
 	return (
 		<div className='h-full w-full mx-auto max-w-screen-lg flex flex-col'>
-			<H1>{data?.title}</H1>
+			<H1>Редактирование проекта</H1>
+			<ProjectEditForm project={project} />
 		</div>
 	)
 }

@@ -1,21 +1,30 @@
 'use client'
 
-import { createProjectAction } from '@/data/actions/projects/create'
+import { editProjectAction } from '@/data/actions/projects/edit'
 import { FormElementAttributes } from '@/types/forms'
 import { useFormState } from 'react-dom'
 import { FormElementWrapper } from './elements/element-hoc'
 import { ButtonLink } from '../custom/links'
-import { ArrowLeft, FilePlus2 } from 'lucide-react'
+import { ArrowLeft, FilePenLine, Trash2 } from 'lucide-react'
 import { DefaultButton } from '../custom/buttons'
+import { Project } from '@/types/projects'
+import { deleteProjectAction } from '@/data/actions/projects/delete'
 
-const INITIAL_STATE = {
-	data: null,
-	validationErrors: {},
-	requestError: null,
+type ProjectEditFormProps = {
+	project: Project
 }
 
-export function ProjectCreateForm() {
-	const [formState, formAction] = useFormState(createProjectAction, INITIAL_STATE)
+export function ProjectEditForm({ project }: ProjectEditFormProps) {
+	const INITIAL_STATE = {
+		data: project,
+		validationErrors: {},
+		requestError: null,
+	}
+
+	const [formState, formAction] = useFormState(
+		editProjectAction.bind(null, project.slug),
+		INITIAL_STATE
+	)
 
 	const elements: FormElementAttributes[] = [
 		{
@@ -44,11 +53,12 @@ export function ProjectCreateForm() {
 						<FormElementWrapper
 							attributes={attributes}
 							errors={formState?.validationErrors[attributes.name]}
+							value={formState.data[attributes.name]}
 						/>
 					</div>
 				))}
 			</div>
-			<div className='w-full flex flex-row flex-wrap gap-y-5 mt-5'>
+			<div className='w-full flex flex-row flex-wrap gap-y-5 gap-x-10 mt-5'>
 				<ButtonLink href='/projects' color='gray'>
 					<>
 						<ArrowLeft className='h-5 w-5' />
@@ -58,8 +68,21 @@ export function ProjectCreateForm() {
 				<div className='flex-1' />
 				<DefaultButton type='submit' full={false}>
 					<>
-						<FilePlus2 className='h-5 w-5' />
-						<span>Создать</span>
+						<FilePenLine className='h-5 w-5' />
+						<span>Сохранить</span>
+					</>
+				</DefaultButton>
+				<DefaultButton
+					color='red'
+					type='button'
+					full={false}
+					handler={() => {
+						deleteProjectAction(project.slug)
+					}}
+				>
+					<>
+						<Trash2 className='h-5 w-5' />
+						<span>Удалить</span>
 					</>
 				</DefaultButton>
 			</div>

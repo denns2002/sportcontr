@@ -34,8 +34,8 @@ function Tariffs() {
 						className='w-80 flex flex-col px-5 py-5 bg-white shadow-md rounded-2xl items-center'
 						key={index}
 					>
-						<span className=' text-2xl font-medium'>{tariff.title}</span>
-						<span className='text-4xl font-medium mt-2'>
+						<span className=' text-xl font-medium'>{tariff.title}</span>
+						<span className='text-3xl font-medium mt-2'>
 							<sup className='text-base'>₽</sup>
 							{tariff.cost}
 							<sub className='text-base'>/мес.</sub>
@@ -43,12 +43,12 @@ function Tariffs() {
             <span className='text-lg mt-5'>{tariff.description}</span>
 						<div className='flex flex-col gap-2 mt-5 mb-10'>
 							{tariff.points.map((point, indexPoint) => (
-								<span className='text-lg text-gray-500' key={indexPoint}>
+								<span className='text-base text-gray-500' key={indexPoint}>
 									- {point}
 								</span>
 							))}
 						</div>
-            <ButtonLink href='/projects/create'>ОФОРМИТЬ</ButtonLink>
+            <ButtonLink href='/projects/create'>Оформить</ButtonLink>
 					</div>
 				))}
 			</div>

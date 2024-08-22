@@ -7,7 +7,7 @@ type HeaderLinkProps = {
 
 export function HeaderLink({ href, children }: HeaderLinkProps) {
   return (
-      <Link href={href} className='text-lg hover:text-sky-500 transition-all duration-300 font-medium'>
+      <Link href={href} className='text-base hover:text-sky-500 transition-all duration-300 font-medium'>
         {children}
       </Link>
   )

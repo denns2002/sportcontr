@@ -22,8 +22,8 @@ export async function Header() {
 	]
 
 	return (
-		<header className='w-full mt-5 h-24 py-10 max-w-screen-xl mx-auto bg-white rounded-2xl flex items-center px-10 shadow-md'>
-			<Link href='/' className='font-medium text-2xl'>
+		<header className='w-full mt-5 h-20 py-8 max-w-screen-xl mx-auto bg-white rounded-2xl flex items-center px-10 shadow-md'>
+			<Link href='/' className='font-semibold text-xl'>
 				ЛОГОТИП
 			</Link>
 			<nav className='hidden lg:flex flex-1 gap-14 justify-center items-center'>

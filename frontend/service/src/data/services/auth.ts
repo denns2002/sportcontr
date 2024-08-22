@@ -41,7 +41,7 @@ export async function verifyUserService() {
 }
 
 export async function siginUserService(userData: SiginUserData) {
-	const url = new URL('/api/users/login/', 'http://127.0.0.1:8000')
+	const url = new URL('/api/users/login/', process.env.API_BASE_URL)
 
 	try {
 		const response = await fetch(url, {

@@ -8,7 +8,7 @@ export function ValidationError({ errors }: ValidationErrorProps) {
 	}
 
 	return errors.map((error, index) => (
-		<div key={index} className='text-red-500 text-sm italic'>
+		<div key={index} className='text-red-500 italic'>
 			{error}
 		</div>
 	))
