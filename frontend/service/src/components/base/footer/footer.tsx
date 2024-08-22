@@ -18,7 +18,7 @@ export function Footer() {
 
 	return (
 		<div className='min-h-40 w-full bg-slate-50 flex lg:flex-row flex-col lg:gap-0 gap-2 justify-center items-center lg:px-28 px-10 py-10'>
-			<span className='text-gray-500 text-lg'>
+			<span className='text-gray-500 text-base'>
 				© 2024 Веб-конструктор<sup className='text-xs'>TM</sup>. Все права защищены.
 			</span>
 			<div className='flex-1' />

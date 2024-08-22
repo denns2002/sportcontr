@@ -7,5 +7,5 @@ export function RequestError({ detail }: RequestErrorProps) {
 		return null
 	}
 
-	return <div className='text-red-500 text-md italic'>{detail}</div>
+	return <div className='text-red-500 italic'>{detail}</div>
 }

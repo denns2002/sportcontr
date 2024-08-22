@@ -1,16 +1,17 @@
 import { FormElementAttributes } from '@/types/forms'
 import { ValidationError } from '@/components/errors/'
 
-type InputPorps = FormElementAttributes & { errors: string[]; disabled?: boolean, value?: string }
+type TextareaPorps = FormElementAttributes & { errors: string[]; disabled?: boolean, value?: string }
 
-export function Input({ label, errors, value, ...attributes }: InputPorps) {
+export function Textarea({ label, errors, value, ...attributes }: TextareaPorps) {
 	return (
 		<div className='w-full'>
 			<label className='font-medium' htmlFor=''>
 				{label}
 			</label>
-			<input
+			<textarea
 				{...attributes}
+				rows={5}
 				defaultValue={value}
 				className='w-full mb-1 p-3 border-2 border-gray-300 rounded-lg focus:outline-none transition-all duration-300 focus:border-sky-500 mt-2'
 			/>

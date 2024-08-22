@@ -63,12 +63,10 @@ export async function signinAction(prevState: any, formData: FormData) {
 	cookies().set('token', responseData.token, config)
 
 	redirect('/')
+}
 
-	// return {
-	// 	...prevState,
-	// 	validationErrors: {},
-	// 	requestError: null,
-	// 	message: 'Вход был выполнен успешно',
-	// 	data: 'ok',
-	// }
+export async function signoutAction() {
+	cookies().set('token', '', { ...config, maxAge: 0 })
+
+	redirect('/')
 }

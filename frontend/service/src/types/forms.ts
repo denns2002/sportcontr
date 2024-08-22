@@ -1,5 +1,5 @@
-export type InputAttributes = {
-    name: string
+export type FormElementAttributes = {
+	name: string
 	type:
 		| 'number'
 		| 'date'
@@ -10,11 +10,8 @@ export type InputAttributes = {
 		| 'text'
 		| 'time'
 		| 'url'
-	disabled?: boolean
-	value?: string
 	placeholder: string
 	required: boolean
 	label: string
-	errors?: string[]
-	touched?: boolean
+	element: 'input' | 'textarea'
 }

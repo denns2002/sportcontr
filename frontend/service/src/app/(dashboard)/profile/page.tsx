@@ -4,7 +4,7 @@ import { DefaultButton } from '@/components/custom/buttons'
 import { ButtonLink } from '@/components/custom/links'
 import { signoutAction } from '@/data/actions/auth'
 import { verifyUserService } from '@/data/services/auth'
-import { parseDate } from '@/lib/dates'
+import { parseDateFull } from '@/lib/dates'
 import { LockKeyhole, LogOut, SlidersVertical, UserRound } from 'lucide-react'
 
 async function Profile() {
@@ -20,51 +20,51 @@ async function Profile() {
 					<div className='w-full flex flex-row gap-y-5 flex-wrap'>
 						<div className='flex flex-col gap-5 flex-1 min-w-52'>
 							<div className='flex flex-col gap-2'>
-								<span className='text-2xl font-semibold'>Фамилия:</span>
-								<span className='text-lg text-gray-500'>{data?.last_name}</span>
+								<span className='text-xl font-semibold'>Фамилия:</span>
+								<span className='text-base text-gray-500'>{data?.last_name}</span>
 							</div>
 							<div className='flex flex-col gap-2'>
-								<span className='text-2xl font-semibold'>Имя:</span>
-								<span className='text-lg text-gray-500'>{data?.first_name}</span>
+								<span className='text-xl font-semibold'>Имя:</span>
+								<span className='text-base text-gray-500'>{data?.first_name}</span>
 							</div>
 							<div className='flex flex-col gap-2'>
-								<span className='text-2xl font-semibold'>Имя профиля:</span>
-								<span className='text-lg text-gray-500'>{data?.username}</span>
+								<span className='text-xl font-semibold'>Имя профиля:</span>
+								<span className='text-base text-gray-500'>{data?.username}</span>
 							</div>
 						</div>
 						<div className='flex flex-col gap-5 flex-1 min-w-52'>
 							<div className='flex flex-col gap-2'>
-								<span className='text-2xl font-semibold'>Профиль создан:</span>
-								<span className='text-lg text-gray-500'>{parseDate(data?.created_at)}</span>
+								<span className='text-xl font-semibold'>Профиль создан:</span>
+								<span className='text-base text-gray-500'>{parseDateFull(data?.created_at)}</span>
 							</div>
 							<div className='flex flex-col gap-2'>
-								<span className='text-2xl font-semibold'>Почта:</span>
-								<span className='text-lg text-gray-500'>{data?.email}</span>
+								<span className='text-xl font-semibold'>Почта:</span>
+								<span className='text-base text-gray-500'>{data?.email}</span>
 							</div>
 							<div className='flex flex-col gap-2'>
-								<span className='text-2xl font-semibold'>Номер телефона:</span>
-								<span className='text-lg text-gray-500'>+7-777-777-77-77</span>
+								<span className='text-xl font-semibold'>Номер телефона:</span>
+								<span className='text-base text-gray-500'>{data?.userphonenumber_set[0].telephone}</span>
 							</div>
 						</div>
 					</div>
 					<div className='flex flex-row gap-10 flex-wrap gap-y-5'>
 						<ButtonLink href='/profile/edit' color='blue'>
 							<>
-								<SlidersVertical />
-								<span>ИЗМЕНИТЬ ДАННЫЕ</span>
+								<SlidersVertical className='h-5 w-5' />
+								<span>Редактировать</span>
 							</>
 						</ButtonLink>
 						<ButtonLink href='/profile/change-password'>
 							<>
-								<LockKeyhole />
-								<span>ИЗМЕНИТЬ ПАРОЛЬ</span>
+								<LockKeyhole className='h-5 w-5' />
+								<span>Изменить пароль</span>
 							</>
 						</ButtonLink>
 						<div className='flex-1' />
 						<DefaultButton color='red' type='button' full={false} handler={signoutAction}>
 							<>
-								<LogOut />
-								<span>ВЫЙТИ</span>
+								<LogOut className='h-5 w-5' />
+								<span>Выйти</span>
 							</>
 						</DefaultButton>
 					</div>
