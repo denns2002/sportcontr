@@ -17,3 +17,5 @@ class Project(SlugGeneratorMixin):
     def __str__(self):
         return str(self.title)
 
+
+# TODO: settings object

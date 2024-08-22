@@ -15,10 +15,7 @@ class SlugGeneratorMixin(models.Model):
 
         return slug
 
-    def save(
-            self, force_insert=False, force_update=False, using=None,
-            update_fields=None
-            ):
+    def save(self, force_insert=False, force_update=False, using=None,update_fields=None):
         if not self.slug:
             self.slug = self.get_slug(self.__class__)
 

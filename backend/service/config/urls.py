@@ -6,12 +6,8 @@ from rest_framework import permissions, authentication
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="СпортикАПИ",
-      default_version='v0.1',
-      description="",
-      terms_of_service="",
-      contact=openapi.Contact(email=""),
-      license=openapi.License(name=""),
+      title="SERVICEswagger",
+      default_version='v1',
    ),
    public=True,
    authentication_classes=[authentication.TokenAuthentication],
