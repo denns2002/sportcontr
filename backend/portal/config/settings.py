@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters',
@@ -29,13 +30,15 @@ INSTALLED_APPS = [
     "phonenumber_field",
     "corsheaders",
     'common',
+    'settings',
     'users',
-    # 'main',
     'news',
     'groups',
     # 'projects',
     'mailings',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
