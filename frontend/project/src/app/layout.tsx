@@ -4,7 +4,6 @@ import './globals.css'
 import type { Metadata } from 'next'
 
 import { Header } from '@/components/base/header'
-import { Footer } from '@/components/base/footer'
 
 export const metadata: Metadata = {
 	title: 'Create Next App',
@@ -26,11 +25,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
 	return (
 		<html lang='ru' className='h-full w-full'>
 			<body
-				className={`${roboto.variable} font-roboto h-full w-full bg-sky-100 flex flex-col gap-10`}
+				className={`${roboto.variable} font-roboto h-full w-full bg-sky-100 flex flex-row`}
 			>
 				<Header />
 				<main className='w-full flex-1'>{children}</main>
-				<Footer />
 			</body>
 		</html>
 	)

@@ -19,6 +19,10 @@ export async function Header() {
 			href: '/tariffs',
 			label: 'Тарифы',
 		},
+		{
+			href: '/demo',
+			label: 'Демо-просмотр',
+		},
 	]
 
 	return (
