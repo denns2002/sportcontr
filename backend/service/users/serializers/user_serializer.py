@@ -26,6 +26,7 @@ class UserSerializer(WritableNestedModelSerializer):
             "is_verified",
             "first_name",
             "last_name",
+            "is_superuser",
             'middle_name',
             'birth_date',
             'avatar',
