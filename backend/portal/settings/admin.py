@@ -11,9 +11,6 @@ class SiteSettingsAdmin(admin.ModelAdmin):
         'groups',
         'events'
     ]
-    readonly_fields = [
-        'site'
-    ]
 
     def has_add_permission(self, request):
         base_add_permission = super(SiteSettingsAdmin, self).has_add_permission(request)
