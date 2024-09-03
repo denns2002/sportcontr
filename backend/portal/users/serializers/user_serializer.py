@@ -23,6 +23,7 @@ class UserSerializer(WritableNestedModelSerializer):
             "email",
             "is_staff",
             "is_active",
+            "is_superuser",
             "is_verified",
             "is_trainer",
             "first_name",
