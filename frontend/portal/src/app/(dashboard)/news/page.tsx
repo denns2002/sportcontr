@@ -8,6 +8,9 @@ import { NewsCard } from './_components/news-card'
 async function News() {
 	const data = (await getNewsService()) as Array<NewsType>
 
+	console.log(data);
+	
+
 	return (
 		<div className='h-full w-full flex justify-center'>
 			<div className='w-full max-w-screen-xl mx-auto'>
@@ -19,7 +22,7 @@ async function News() {
 					</ButtonLink>
 				</div>
 				<div className='flex flex-row flex-wrap justify-center gap-5 mt-10'>
-					{data.map((news, index) => (
+					{data?.map((news, index) => (
 						<NewsCard news={news} key={index} />
 					))}
 					{data.map((news, index) => (

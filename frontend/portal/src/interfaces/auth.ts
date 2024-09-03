@@ -5,9 +5,10 @@ export interface SiginUserData {
 
 export interface SignupUserData {
 	username: string
-	email: string
+	email?: string
 	password: string
 	password_2: string
   first_name: string
   last_name: string
+	middle_name?: string
 }

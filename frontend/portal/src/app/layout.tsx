@@ -4,6 +4,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 
 import { Navbar } from '@/app/_components/navbar'
+import { getSettingsService } from '@/data/services/settings'
 
 export const metadata: Metadata = {
 	title: 'Create Next App',
@@ -54,6 +55,8 @@ const FONTS = {
 }
 
 export default async function RootLayout({ children }: RootLayoutProps) {
+	// const data = await getSettingsService()
+
 	return (
 		<html
 			lang='ru'
