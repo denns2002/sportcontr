@@ -57,6 +57,6 @@ export async function siginUserService(userData: SiginUserData) {
 	} catch (error) {
 		console.error('Signin Service Error:', error)
 
-		throw error
+		return false
 	}
 }

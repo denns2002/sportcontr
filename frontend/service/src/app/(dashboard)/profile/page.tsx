@@ -43,7 +43,7 @@ async function Profile() {
 							</div>
 							<div className='flex flex-col gap-2'>
 								<span className='text-xl font-semibold'>Номер телефона:</span>
-								<span className='text-base text-gray-500'>{data?.userphonenumber_set[0].telephone}</span>
+								<span className='text-base text-gray-500'>{data?.userphonenumber_set[0]?.telephone || (<span className='text-red-500'>Нет телефона</span>)}</span>
 							</div>
 						</div>
 					</div>
