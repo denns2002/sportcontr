@@ -4,5 +4,4 @@
 *venv
 *migrations
 *__pycache__
-!*/settings/migrations
 *media/
