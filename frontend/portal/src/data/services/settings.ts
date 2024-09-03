@@ -6,33 +6,16 @@ import { Settings, SettingsData } from '@/interfaces/settings'
 export async function getSettingsService() {
 	const url = new URL(`/api/settings/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
-
 	try {
 		const response = await fetch(url, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: `Token ${token}`,
 			},
 			cache: 'no-cache',
 		})
 
 		const responseData = await response.json()
-
-		if (responseData.message) {
-			await postSettingsService(
-				{
-					title: 'Test',
-					palette: 'sky',
-					typography: 'font-onest',
-					events: true,
-					groups: true,
-					news: true,
-				},
-				null
-			)
-		}
 
 		return responseData
 	} catch (error) {

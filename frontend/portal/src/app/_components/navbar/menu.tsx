@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { HeaderLink } from './link'
-import { Newspaper, Calendar, Settings, Users	, User } from 'lucide-react'
+import { Newspaper, Calendar, Settings, Users, User } from 'lucide-react'
 import { TransparentLink } from '@/components/custom/links'
 
 const NAV_LINKS = [
@@ -8,42 +8,52 @@ const NAV_LINKS = [
 		href: '/news/',
 		label: 'Новости',
 		icon: <Newspaper />,
+		isPublic: true,
 	},
 	{
 		href: '/events/',
 		label: 'Мероприятия',
 		icon: <Calendar />,
+		isPublic: true,
 	},
 	{
 		href: '/groups/',
 		label: 'Группы',
 		icon: <Users />,
+		isPublic: false,
 	},
 	{
 		href: '/settings/',
 		label: 'Настройки',
 		icon: <Settings />,
+		isPublic: false,
 	},
 ]
 
 interface MenuProps {
 	authenticated: boolean
 	lastName: string
-	firstName: string	
+	firstName: string
 }
 
 export function Menu({ authenticated, lastName, firstName }: MenuProps) {
 	return (
 		<nav className='h-full w-72 bg-primary py-8 flex flex-col overflow-y-auto'>
 			<div className='flex flex-col'>
-				{NAV_LINKS.map((link, index) => (
-					<HeaderLink href={link.href} key={index}>
-						<>
-							{link.icon}
-							<span>{link.label}</span>
-						</>
-					</HeaderLink>
-				))}
+				{NAV_LINKS.map((link, index) => {
+					if (!link.isPublic && !authenticated) {
+						return null
+					}
+
+					return (
+						<HeaderLink href={link.href} key={index}>
+							<>
+								{link.icon}
+								<span>{link.label}</span>
+							</>
+						</HeaderLink>
+					)
+				})}
 			</div>
 			<div className='flex-1' />
 			{authenticated ? (
