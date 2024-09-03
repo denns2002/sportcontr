@@ -5,27 +5,24 @@ import { TransparentLink } from '@/components/custom/links'
 
 const NAV_LINKS = [
 	{
+		name: 'news',
 		href: '/news/',
 		label: 'Новости',
 		icon: <Newspaper />,
 		isPublic: true,
 	},
 	{
+		name: 'events',
 		href: '/events/',
 		label: 'Мероприятия',
 		icon: <Calendar />,
 		isPublic: true,
 	},
 	{
+		name: 'groups',
 		href: '/groups/',
 		label: 'Группы',
 		icon: <Users />,
-		isPublic: false,
-	},
-	{
-		href: '/settings/',
-		label: 'Настройки',
-		icon: <Settings />,
 		isPublic: false,
 	},
 ]
@@ -34,14 +31,21 @@ interface MenuProps {
 	authenticated: boolean
 	lastName: string
 	firstName: string
+	modules: {
+		events: boolean
+		news: boolean
+		groups: boolean
+	}
 }
 
-export function Menu({ authenticated, lastName, firstName }: MenuProps) {
+export function Menu({ authenticated, lastName, firstName, modules }: MenuProps) {
+	type modulesKeys = keyof typeof modules
+
 	return (
 		<nav className='h-full w-72 bg-primary py-8 flex flex-col overflow-y-auto'>
 			<div className='flex flex-col'>
 				{NAV_LINKS.map((link, index) => {
-					if (!link.isPublic && !authenticated) {
+					if (!modules[link.name as modulesKeys] || (!link.isPublic && !authenticated)) {
 						return null
 					}
 
@@ -54,6 +58,14 @@ export function Menu({ authenticated, lastName, firstName }: MenuProps) {
 						</HeaderLink>
 					)
 				})}
+				{authenticated && (
+					<HeaderLink href='/settings/'>
+						<>
+							<Settings />
+							<span>Настройки</span>
+						</>
+					</HeaderLink>
+				)}
 			</div>
 			<div className='flex-1' />
 			{authenticated ? (
