@@ -1,13 +1,12 @@
 from django.http import Http404
-from django.shortcuts import render
+
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.generics import RetrieveUpdateDestroyAPIView, CreateAPIView
-from rest_framework.parsers import MultiPartParser, FormParser
-from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 
+from common.permissions.safe_any_unsafe_admin import SafeAnyUnsafeAdmin
 from settings.models import SiteSettings
 from settings.serializers import SettingsSerializer
 
@@ -39,7 +38,7 @@ from settings.serializers import SettingsSerializer
 ))
 class SettingsView(RetrieveUpdateDestroyAPIView, CreateAPIView):
     serializer_class = SettingsSerializer
-    permission_classes = [IsAdminUser]
+    permission_classes = [SafeAnyUnsafeAdmin]
     queryset = SiteSettings.objects.all()
 
     def get_parsers(self):
