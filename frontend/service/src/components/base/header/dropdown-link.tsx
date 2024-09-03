@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-type DropdownLinkProps = {
+interface DropdownLinkProps {
 	href: string
 	children: React.ReactElement | string
 }

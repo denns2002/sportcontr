@@ -5,7 +5,7 @@ import { ProjectEditForm } from '@/components/forms/project-edit'
 import { getProjectService } from '@/data/services/projects'
 import { notFound } from 'next/navigation'
 
-type ProjectProps = {
+interface ProjectProps {
 	params: { slug: string }
 }
 

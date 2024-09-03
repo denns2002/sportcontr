@@ -2,7 +2,7 @@ import { FormElementAttributes } from '@/types/forms'
 import { Input } from './input'
 import { Textarea } from './textarea'
 
-type FormElementWrapperProps = {
+interface FormElementWrapperProps {
 	attributes: FormElementAttributes
 	errors: string[]
 	disabled?: boolean

@@ -18,7 +18,7 @@ const roboto = Roboto({
 	variable: '--font-roboto',
 })
 
-type RootLayoutProps = {
+interface RootLayoutProps {
 	children: React.ReactNode
 }
 

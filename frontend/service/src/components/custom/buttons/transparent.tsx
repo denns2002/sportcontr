@@ -2,12 +2,11 @@
 
 import { useFormStatus } from 'react-dom'
 
-type TransparentButtonProps = {
+interface TransparentButtonProps {
 	children: React.ReactElement | string
 	type: 'button' | 'submit' | 'reset'
 	loadingText?: string
 	disabled?: boolean
-	color?: 'blue' | 'red' | 'green' | 'black'
 	size?: 'default' | 'small'
 	full?: boolean
 	handler?(): void
@@ -24,7 +23,6 @@ export function TransparentButton({
 	loadingText,
 	disabled,
 	handler = () => {},
-	color = 'black',
 	size = 'default',
 	full = true,
 }: TransparentButtonProps) {
@@ -33,7 +31,9 @@ export function TransparentButton({
 	return (
 		<button
 			onClick={() => handler()}
-			className={`flex items-center justify-center ${SIZES[size]} rounded-lg hover:bg-gray-200 transition-all duration-300 font-medium text-base`}
+			className={`${full && 'w-full'} flex items-center justify-center ${
+				SIZES[size]
+			} rounded-lg hover:bg-gray-200 transition-all duration-300 font-medium text-base`}
 			type={type}
 			disabled={disabled}
 		>

@@ -2,7 +2,7 @@
 
 import { useFormStatus } from 'react-dom'
 
-type DefaultButtonProps = {
+interface DefaultButtonProps {
 	children: React.ReactElement | string
 	type: 'button' | 'submit' | 'reset'
 	loadingText?: string

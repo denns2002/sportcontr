@@ -7,7 +7,7 @@ import { ButtonLink, TransparentLink } from '@/components/custom/links'
 import Link from 'next/link'
 import { TransparentButton } from '@/components/custom/buttons/transparent'
 
-type DropdownMenuProps = {
+interface DropdownMenuProps {
 	navLinks: {
 		href: string
 		label: string
