@@ -13,6 +13,7 @@ class UserPhonenumbersSerializer(serializers.ModelSerializer):
 
 class UserSerializer(WritableNestedModelSerializer):
     userphonenumber_set = UserPhonenumbersSerializer(many=True)
+    avatar = serializers.ImageField(required=False)
 
     class Meta:
         model = get_user_model()
@@ -26,11 +27,14 @@ class UserSerializer(WritableNestedModelSerializer):
             "is_trainer",
             "first_name",
             "last_name",
+            'middle_name',
+            'birth_date',
+            'avatar',
             "created_at",
             "updated_at",
             "userphonenumber_set"
         ]
         read_only_fields = [
             "id", "created_at", "updated_at", "is_staff", "is_trainer",
-            "is_active", "is_verified"
+            "is_active", "is_verified", 'email'
         ]

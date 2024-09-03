@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include, re_path
 from drf_yasg import openapi
@@ -19,9 +21,10 @@ urlpatterns = [
    re_path(r'^swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
    re_path(r'^swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
    re_path(r'^redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+   re_path(r'^settings/', include("settings.urls")),
    re_path(r'^users/', include("users.urls")),
    re_path(r'^news/', include("news.urls")),
    re_path(r'^groups/', include("groups.urls")),
 ]
 
-urlpatterns = [path(f'api/', include(urlpatterns))]
+urlpatterns = [path(f'api/', include(urlpatterns))]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

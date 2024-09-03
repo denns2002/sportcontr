@@ -4,8 +4,12 @@ from django.db import models
 from common.utils.slug_generator import SlugGeneratorMixin
 
 
+def upload_to(instance, filename):
+    return 'images/{filename}'.format(filename=filename)
+
+
 class News(SlugGeneratorMixin):
-    image = models.ImageField(blank=True, null=True)
+    image = models.ImageField(upload_to=upload_to, blank=True, null=True)
     title = models.CharField(max_length=255)
     description = models.TextField()
     is_published = models.BooleanField(default=True)

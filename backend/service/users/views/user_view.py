@@ -3,6 +3,7 @@ from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.generics import RetrieveUpdateDestroyAPIView, GenericAPIView, ListAPIView
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 
@@ -13,6 +14,13 @@ from users.serializers.user_serializer import UserSerializer
 class UserMixin(GenericAPIView):
     queryset = get_user_model().objects.all()
     serializer_class = UserSerializer
+    parser_classes = (MultiPartParser, FormParser)
+
+    def get_parsers(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return []
+
+        return super().get_parsers()
 
 
 @method_decorator(name='get', decorator=swagger_auto_schema(

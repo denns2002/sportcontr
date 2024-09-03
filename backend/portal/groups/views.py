@@ -8,6 +8,7 @@ from rest_framework.generics import (
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 
+from common.permissions.settings_permission import HasSettingsPermission
 from groups.models import Group
 from groups.permissions import IsAdminOrTrainer
 from groups.serializers import GroupSerializer, GroupTrainerSerializer
@@ -16,7 +17,7 @@ from groups.serializers import GroupSerializer, GroupTrainerSerializer
 class GroupMixin(GenericAPIView):
     serializer_class = GroupSerializer
     lookup_field = "slug"
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser, HasSettingsPermission('events')]
     queryset = Group.objects.all()
 
 
@@ -60,7 +61,7 @@ class GroupsDetailView(RetrieveUpdateDestroyAPIView, GroupMixin):
 
 class GroupsTrainerMixin(GroupMixin):
     serializer_class = GroupTrainerSerializer
-    permission_classes = [IsAdminOrTrainer]
+    permission_classes = [IsAdminOrTrainer, HasSettingsPermission('events')]
 
     def get_queryset(self):
         queryset = Group.objects.filter(trainers=self.request.user)

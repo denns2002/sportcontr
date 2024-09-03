@@ -20,12 +20,14 @@ class UserAdmin(UserAdmin):
         "email",
         "first_name",
         "last_name",
+        'middle_name',
+        'birth_date',
     ]
     list_filter = ["created_at", "updated_at"]
 
     fieldsets = (
         (None, {'fields': ('id', 'username', 'email', 'password')}),
-        ('Personal info', {'fields': ('first_name', 'last_name')}),
+        ('Personal info', {'fields': ('avatar', 'first_name', 'last_name', 'middle_name', 'birth_date')}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'is_trainer', "is_verified", 'groups', 'user_permissions')}),
         ('Important dates', {'fields': ('created_at', 'updated_at')}),
     )

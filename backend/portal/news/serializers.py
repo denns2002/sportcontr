@@ -4,6 +4,8 @@ from news.models import News
 
 
 class NewsSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField(required=False)
+
     class Meta:
         model = News
         fields = (
