@@ -30,14 +30,14 @@ async function Profile() {
 								<span className='text-base text-gray-500'>{data?.first_name}</span>
 							</div>
 							<div className='flex flex-col gap-2'>
-								<span className='text-xl font-semibold'>Имя профиля:</span>
-								<span className='text-base text-gray-500'>{data?.username}</span>
+								<span className='text-xl font-semibold'>Отчество:</span>
+								<span className='text-base text-gray-500'>{data?.middle_name}</span>
 							</div>
 						</div>
 						<div className='flex flex-col gap-5 flex-1 min-w-52'>
 							<div className='flex flex-col gap-2'>
-								<span className='text-xl font-semibold'>Профиль создан:</span>
-								<span className='text-base text-gray-500'>{parseDateFull(data?.created_at)}</span>
+								<span className='text-xl font-semibold'>Возраст:</span>
+								<span className='text-base text-gray-500'>{parseDateFull(data?.birth_date)}</span>
 							</div>
 							<div className='flex flex-col gap-2'>
 								<span className='text-xl font-semibold'>Почта:</span>

@@ -28,8 +28,8 @@ export async function verifyUserService() {
 
 		const responseData = await response.json()
 
-		if (responseData.detail) {
-			return { authenticated: false, data: null, error: responseData.detail }
+		if (responseData.message) {
+			return { authenticated: false, data: null, error: responseData.message }
 		}
 
 		return { authenticated: true, data: responseData.user, error: null }
