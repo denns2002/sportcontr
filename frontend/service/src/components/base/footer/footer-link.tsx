@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-type FooterLinkProps = {
+interface FooterLinkProps {
 	href: string
 	children: React.ReactElement | string
 }

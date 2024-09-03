@@ -4,7 +4,7 @@ import { SignInForm } from '@/components/forms'
 
 function SignIn() {
 	return (
-		<div className='h-full w-full flex flex-col items-center gap-10'>
+		<div className='h-full w-full flex flex-col items-center '>
 			<SignInForm />
 		</div>
 	)

@@ -10,7 +10,7 @@ import { DefaultButton } from '../custom/buttons'
 import { Project } from '@/types/projects'
 import { deleteProjectAction } from '@/data/actions/projects/delete'
 
-type ProjectEditFormProps = {
+interface ProjectEditFormProps {
 	project: Project
 }
 

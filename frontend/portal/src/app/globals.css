@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .sky {
+    --primary-color: #0284c7;
+    --hover-color: #7dd3fc;
+    --active-color: #0c4a6e;
+    --background-color: #e0f2fe;
+    --error-color: #f43f5e;
+    --warning-color: #d97706;
+  }
+  .emerald {
+    --primary-color: #059669;
+    --hover-color: #6ee7b7;
+    --active-color: #064e3b;
+    --background-color: #d1fae5;
+    --error-color: #f43f5e;
+    --warning-color:#ca8a04;
+  }
+  .violet {
+    --primary-color: #7c3aed;
+    --hover-color: #c4b5fd;
+    --active-color: #4c1d95;
+    --background-color: #ede9fe;
+    --error-color: #f43f5e;
+    --warning-color: #fb923c;
+  }
+}

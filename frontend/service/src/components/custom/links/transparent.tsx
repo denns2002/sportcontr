@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-type TransparentLinkProps = {
+interface TransparentLinkProps {
 	href: string
 	children: React.ReactElement | string
 	size?: 'default' | 'small'

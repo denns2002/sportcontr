@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-type ButtonLinkProps = {
+interface ButtonLinkProps {
 	href: string
 	children: React.ReactElement | string
 	color?: 'blue' | 'red' | 'green' | 'black' | 'gray'
