@@ -5,7 +5,6 @@ from rest_framework.generics import (
     GenericAPIView, ListAPIView, CreateAPIView,
     RetrieveUpdateDestroyAPIView
 )
-from rest_framework.parsers import MultiPartParser, FormParser
 
 from common.permissions.safe_any_unsafe_admin import SafeAnyUnsafeAdmin
 from common.permissions.settings_permission import HasSettingsPermission

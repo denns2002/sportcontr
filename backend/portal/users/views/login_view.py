@@ -70,15 +70,17 @@ class VerifyAPIView(generics.GenericAPIView):
     permission_classes = [AllowAny]
     serializer_class = VerifySerializer
 
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
         token = request.data
         serializer = self.serializer_class(data=token)
         if serializer.is_valid():
             try:
                 token = Token.objects.get(key=token['token'])
                 user = get_user_model().objects.get(id=token.user.id)
+                kwargs.setdefault('context', self.get_serializer_context())
                 user = UserSerializer(user)
                 user = user.data
+                user['avatar'] = f'{"https" if request.is_secure() else "http"}://{request.META["HTTP_HOST"]}{user["avatar"]}'
                 return Response({'user': user}, status=status.HTTP_200_OK)
             except Exception:
                 return Response({'message': 'Токен не существует'}, status=status.HTTP_400_BAD_REQUEST)
