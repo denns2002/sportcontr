@@ -45,14 +45,27 @@ interface MenuProps {
 	roles: Array<string>
 }
 
-export function Menu({ authenticated, lastName, firstName, modules, roles, avatar, logo }: MenuProps) {
+export function Menu({
+	authenticated,
+	lastName,
+	firstName,
+	modules,
+	roles,
+	avatar,
+	logo,
+}: MenuProps) {
 	type modulesKeys = keyof typeof modules
-
-	console.log(logo);
-	
-
 	return (
-		<nav className='h-full w-72 bg-primary py-8 flex flex-col overflow-y-auto'>
+		<nav className='h-full w-72 bg-primary py-8 flex flex-col overflow-y-auto gap-8'>
+			{logo ? (
+				<div className='flex justify-center items-center'>
+					<Image src={logo} alt='avatar' width={1000} height={1000} className='object-cover w-64' />
+				</div>
+			) : (
+				<div className='font-bold text-white text-3xl flex justify-center items-center'>
+					ЛОГОТИП
+				</div>
+			)}
 			<div className='flex flex-col'>
 				{NAV_LINKS.map((link, index) => {
 					if (
@@ -94,7 +107,7 @@ export function Menu({ authenticated, lastName, firstName, modules, roles, avata
 								alt='avatar'
 								width={1000}
 								height={1000}
-								className='object-cover h-[2.75rem] w-2.75rem]'
+								className='object-cover h-[2.75rem] w-[2.75rem]'
 							/>
 						</div>
 					) : (

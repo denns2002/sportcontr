@@ -12,8 +12,6 @@ interface NewsEditProps {
 async function NewsEdit({ params }: NewsEditProps) {
 	const data = await getNewsDetailsService(params.slug)
 
-	const file = await blobUrlToFile('https://lucide.dev/logo.dark.svg')
-
 	return (
 		<div className='h-full w-full flex justify-center'>
 			<div className='w-full max-w-screen-xl mx-auto'>

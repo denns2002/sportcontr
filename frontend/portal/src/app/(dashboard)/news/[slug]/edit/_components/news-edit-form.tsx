@@ -4,11 +4,10 @@ import { DefaultButton } from '@/components/custom/buttons'
 import { ButtonLink } from '@/components/custom/links'
 import { FormElementWrapper } from '@/components/form-elements'
 import { deleteNewsAction, editNewsAction } from '@/data/actions/news'
-import { blobUrlToFile } from '@/data/custom'
 import { FormElementAttributes } from '@/interfaces/forms'
 import { News } from '@/interfaces/news'
 import { ArrowLeft, FilePenLine, Plus, Trash2, X } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useFormState } from 'react-dom'
 
 interface NewsEditFormProps {
@@ -24,33 +23,10 @@ export function NewsEditForm({ news }: NewsEditFormProps) {
 
 	const [isPublished, setIsPublished] = useState(news.is_published || false)
 
-	const [file, setFile] = useState<File | null>()
-
-	useEffect(() => {
-		async function fetchData() {
-			const image = await blobUrlToFile('https://lucide.dev/logo.dark.svg')
-
-			setFile(image)
-		}
-
-		fetchData()
-	}, [])
-
 	const [formState, formAction] = useFormState(
 		editNewsAction.bind(null, news.slug || '', isPublished),
 		INITIAL_STATE
 	)
-
-	function handleUpload(event: React.FormEvent<HTMLInputElement>) {
-		if (!event?.currentTarget?.files?.[0]) {
-			console.log('file upload error')
-
-			return
-		}
-
-		setFile(event?.currentTarget?.files?.[0])
-	}
-	
 
 	const elements: FormElementAttributes[] = [
 		{
@@ -71,21 +47,21 @@ export function NewsEditForm({ news }: NewsEditFormProps) {
 			element: 'textarea',
 			id: 'description',
 		},
-		// {
-		// 	name: 'image',
-		// 	type: 'file',
-		// 	label: 'Загрузить изображение',
-		// 	placeholder: 'Картинка котика',
-		// 	required: false,
-		// 	element: 'uploader',
-		// 	id: 'image',
-		// },
+		{
+			name: 'image',
+			type: 'file',
+			label: 'Загрузить изображение',
+			placeholder: 'Картинка котика',
+			required: false,
+			element: 'uploader',
+			id: 'image',
+		},
 	]
 
 	return (
 		<form action={formAction} className='w-full flex flex-col gap-5'>
 			<div className='w-full flex flex-col gap-5'>
-				{elements.map((attributes, index) => (
+				{elements.slice(0,2).map((attributes, index) => (
 					<div className='w-full bg-white p-5 shadow-md' key={index}>
 						<FormElementWrapper
 							attributes={attributes}
@@ -95,7 +71,11 @@ export function NewsEditForm({ news }: NewsEditFormProps) {
 					</div>
 				))}
 				<div className='w-full bg-white p-5 shadow-md'>
-				<input type='file' placeholder='image' name='image' />
+					<FormElementWrapper
+						attributes={elements[2]}
+						errors={formState?.validationErrors[elements[2].name]}
+						value={formState.data[elements[2].name]}
+					/>
 				</div>
 				<div className='w-full bg-white p-5 shadow-md flex flex-row flex-wrap gap-5 items-center'>
 					<label className='font-medium'>Опубликовать новость:</label>
