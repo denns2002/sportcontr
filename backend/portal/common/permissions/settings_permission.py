@@ -20,4 +20,5 @@ class HasSettingsPermission(permissions.BasePermission):
 
         return False
 
-    has_object_permission = has_permission
+    def has_object_permission(self, request, view, obj):
+        return self.has_permission(request, view)
