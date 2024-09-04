@@ -58,9 +58,6 @@ export async function patchUserDetailsService(id: number, userData: FormData) {
 
 	const token = await getTokenService()
 
-	console.log(userData);
-	
-
 	try {
 		const response = await fetch(url, {
 			method: 'PATCH',

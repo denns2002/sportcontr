@@ -41,8 +41,6 @@ export async function createNewsAction(is_published: boolean, prevState: any, fo
 		newsData.append('image', image)
 	}
 
-	console.log(newsData);
-
 	const responseData = await postNewsService(newsData)
 
 	if (!responseData) {

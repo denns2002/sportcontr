@@ -10,8 +10,6 @@ type InputPorps = FormElementAttributes & {
 }
 
 export function FileUploader({ label, id, file, handler, ...attributes }: InputPorps) {
-  console.log(file);
-
 	return (
 		<label
 			className='cursor-pointer flex flex-row justify-center items-center gap-2 border-2 border-dashed border-primary p-2'

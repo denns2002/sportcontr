@@ -34,8 +34,6 @@ export async function editProfileAction(user: User, prevState: any, formData: Fo
 	// 	}
 	// }
 
-	console.log(formData);
-
 	// if (prevState?.data?.email.toLowerCase() !== validatedFields?.data?.email.toLowerCase()) {
 	// 	const responseEmail = await postEmailService(validatedFields?.data?.email.toLowerCase())
 

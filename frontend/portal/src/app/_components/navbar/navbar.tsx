@@ -10,9 +10,10 @@ interface NavbarProps {
 		news: boolean
 		groups: boolean
 	}
+	logo: string
 }
 
-export async function Navbar({ modules }: NavbarProps) {
+export async function Navbar({ modules, logo }: NavbarProps) {
 	const { authenticated, data } = await verifyUserService()
 
 	const roles: Array<string> = ['sportsman']
@@ -35,6 +36,7 @@ export async function Navbar({ modules }: NavbarProps) {
 					firstName={data?.first_name || ''}
 					roles={roles}
 					avatar={data?.avatar}
+					logo={logo}
 				/>
 			</div>
 			<ModalNavbar
@@ -44,6 +46,7 @@ export async function Navbar({ modules }: NavbarProps) {
 				firstName={data?.first_name || ''}
 				roles={roles}
 				avatar={data?.avatar}
+				logo={logo}
 			/>
 		</aside>
 	)

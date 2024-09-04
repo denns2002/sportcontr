@@ -88,6 +88,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
 						events: settings.events || false,
 						groups: settings.groups || false,
 					}}
+					logo={settings?.logo}
 				/>
 				<main className='min-h-[100vh] w-full px-10 lg:ml-72 lg:px-20 py-10'>{children}</main>
 			</body>

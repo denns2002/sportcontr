@@ -10,6 +10,7 @@ type ModalNavbar = {
 	lastName: string
 	firstName: string
 	avatar: string
+	logo: string
 	modules: {
 		events: boolean
 		news: boolean
@@ -18,7 +19,15 @@ type ModalNavbar = {
 	roles: Array<string>
 }
 
-export function ModalNavbar({ authenticated, lastName, firstName, modules, roles, avatar }: ModalNavbar) {
+export function ModalNavbar({
+	authenticated,
+	lastName,
+	firstName,
+	modules,
+	roles,
+	avatar,
+	logo,
+}: ModalNavbar) {
 	const [isActive, setIsActive] = useState(false)
 
 	return (
@@ -44,6 +53,7 @@ export function ModalNavbar({ authenticated, lastName, firstName, modules, roles
 							lastName={lastName}
 							firstName={firstName}
 							avatar={avatar}
+							logo={logo}
 						/>
 					</div>
 				</div>

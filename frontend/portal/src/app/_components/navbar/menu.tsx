@@ -36,6 +36,7 @@ interface MenuProps {
 	lastName: string
 	firstName: string
 	avatar: string
+	logo: string
 	modules: {
 		events: boolean
 		news: boolean
@@ -44,8 +45,11 @@ interface MenuProps {
 	roles: Array<string>
 }
 
-export function Menu({ authenticated, lastName, firstName, modules, roles, avatar }: MenuProps) {
+export function Menu({ authenticated, lastName, firstName, modules, roles, avatar, logo }: MenuProps) {
 	type modulesKeys = keyof typeof modules
+
+	console.log(logo);
+	
 
 	return (
 		<nav className='h-full w-72 bg-primary py-8 flex flex-col overflow-y-auto'>
@@ -86,7 +90,7 @@ export function Menu({ authenticated, lastName, firstName, modules, roles, avata
 					{avatar ? (
 						<div className='h-[2.75rem] w-[2.75rem] flex justify-center items-center'>
 							<Image
-								src={`http://127.0.0.1:8000${avatar}`}
+								src={avatar}
 								alt='avatar'
 								width={1000}
 								height={1000}

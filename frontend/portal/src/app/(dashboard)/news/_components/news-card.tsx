@@ -10,8 +10,6 @@ interface NewsCardProps {
 }
 
 export function NewsCard({ news }: NewsCardProps) {
-	console.log(news)
-
 	return (
 		<Link
 			href={`/news/${news.slug}/`}

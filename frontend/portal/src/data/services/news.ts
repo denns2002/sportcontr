@@ -90,9 +90,6 @@ export async function getNewsDetailsService(slug: string) {
 			cache: 'no-cache',
 		})
 
-		console.log(response);
-		
-
 		const responseData = await response.json()
 
 		return responseData

@@ -11,9 +11,6 @@ import Image from 'next/image'
 async function Profile() {
 	const { data } = await verifyUserService()
 
-	console.log(data);
-	
-
 	return (
 		<div className='h-full w-full flex flex-col gap-5 justify-center'>
 			<div className='w-full max-w-screen-xl mx-auto flex flex-col gap-5'>
@@ -21,7 +18,7 @@ async function Profile() {
 					<div className='h-[20rem] w-full md:w-fit flex justify-center items-center'>
 						{data.avatar ? (
 							<Image
-								src={`http://127.0.0.1:8000${data.avatar}`}
+								src={data.avatar}
 								alt='avatar'
 								width={1000}
 								height={1000}
