@@ -42,15 +42,15 @@ export function NewsCreateForm() {
 			element: 'textarea',
       id: 'description'
 		},
-		{
-			name: 'image',
-			type: 'file',
-			label: 'Загрузить изображение',
-			placeholder: 'Картинка котика',
-			required: false,
-			element: 'uploader',
-      id: 'image'
-		},
+		// {
+		// 	name: 'image',
+		// 	type: 'file',
+		// 	label: 'Загрузить изображение',
+		// 	placeholder: 'Картинка котика',
+		// 	required: false,
+		// 	element: 'uploader',
+    //   id: 'image'
+		// },
 	]
 
 	return (
@@ -64,6 +64,7 @@ export function NewsCreateForm() {
 						/>
 					</div>
 				))}
+				<input type='file' placeholder='image' name='image' />
 				<div className='w-full bg-white p-5 shadow-md flex flex-row flex-wrap gap-5 items-center'>
 					<label className='font-medium'>Опубликовать новость:</label>
 					<div className='flex-1' />

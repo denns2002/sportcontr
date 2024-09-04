@@ -25,7 +25,7 @@ export async function getSettingsService() {
 	}
 }
 
-export async function postSettingsService(settingsData: SettingsData, formData: any) {
+export async function postSettingsService(settingsData: FormData) {
 	const url = new URL(`/api/settings/`, process.env.API_BASE_URL)
 
 	const token = await getTokenService()
@@ -34,10 +34,9 @@ export async function postSettingsService(settingsData: SettingsData, formData: 
 		const response = await fetch(url, {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json',
 				Authorization: `Token ${token}`,
 			},
-			body: JSON.stringify({ ...settingsData }),
+			body: settingsData,
 			cache: 'no-cache',
 		})
 
@@ -51,7 +50,7 @@ export async function postSettingsService(settingsData: SettingsData, formData: 
 	}
 }
 
-export async function patchSettingsService(settingsData: SettingsData, formData: any) {
+export async function patchSettingsService(settingsData: FormData) {
 	const url = new URL(`/api/settings/`, process.env.API_BASE_URL)
 
 	const token = await getTokenService()
@@ -60,12 +59,15 @@ export async function patchSettingsService(settingsData: SettingsData, formData:
 		const response = await fetch(url, {
 			method: 'PATCH',
 			headers: {
-				'Content-Type': 'application/json',
 				Authorization: `Token ${token}`,
 			},
-			body: JSON.stringify({ ...settingsData, ...formData }),
+			body: settingsData,
 			cache: 'no-cache',
 		})
+
+		if (response.status === 404) {
+			return await postSettingsService(settingsData)
+		}
 
 		const responseData = await response.json()
 
@@ -77,7 +79,7 @@ export async function patchSettingsService(settingsData: SettingsData, formData:
 	}
 }
 
-export async function putSettingsService(settings: SettingsData, formData: any) {
+export async function putSettingsService(settingsData: FormData) {
 	const url = new URL(`/api/settings/`, process.env.API_BASE_URL)
 
 	const token = await getTokenService()
@@ -86,10 +88,9 @@ export async function putSettingsService(settings: SettingsData, formData: any) 
 		const response = await fetch(url, {
 			method: 'PUT',
 			headers: {
-				'Content-Type': 'application/json',
 				Authorization: `Token ${token}`,
 			},
-			body: JSON.stringify({ ...settings, ...formData }),
+			body: settingsData,
 			cache: 'no-cache',
 		})
 
@@ -112,7 +113,6 @@ export async function deleteSettingsService() {
 		const response = await fetch(url, {
 			method: 'DELETE',
 			headers: {
-				'Content-Type': 'application/json',
 				Authorization: `Token ${token}`,
 			},
 			cache: 'no-cache',

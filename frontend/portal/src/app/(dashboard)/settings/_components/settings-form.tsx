@@ -8,6 +8,8 @@ import { useState } from 'react'
 import { Calendar, CalendarDays, FilePenLine, Newspaper, Plus, Users, X } from 'lucide-react'
 import { DefaultButton } from '@/components/custom/buttons'
 import { ButtonLink } from '@/components/custom/links'
+import { Settings } from '@/interfaces/settings'
+import { editSettingsAction } from '@/data/actions/settings'
 
 const PALETTES = ['sky', 'violet', 'emerald']
 const FONTS = ['font-roboto', 'font-montserrat', 'font-notosans', 'font-onest']
@@ -47,7 +49,7 @@ const MODULES = [
 ]
 
 interface SettingsFormProps {
-	settings: any
+	settings: Settings | undefined
 }
 
 export function SettingsForm({ settings }: SettingsFormProps) {
@@ -57,14 +59,20 @@ export function SettingsForm({ settings }: SettingsFormProps) {
 		requestError: null,
 	}
 
-	// const [formState, formAction] = useFormState(
-	// 	editTrainerGroupAction.bind(null, addedMembersIds),
-	// 	INITIAL_STATE
-	// )
+	type settingsKeys = keyof typeof settings
 
-	const [settedPalette, setPalette] = useState(PALETTES[0])
-	const [settedFont, setFont] = useState(FONTS[0])
-	const [settedModules, setModules] = useState<Array<string>>([])
+	const modules: Array<string> = MODULES.map((module) => module.name).filter(
+		(module) => settings?.[module as settingsKeys]
+	)
+
+	const [settedPalette, setPalette] = useState(settings?.palette || PALETTES[0])
+	const [settedFont, setFont] = useState(settings?.typography || FONTS[0])
+	const [settedModules, setModules] = useState<Array<string>>([...modules])
+
+	const [formState, formAction] = useFormState(
+		editSettingsAction.bind(null, settedModules, settedPalette, settedFont),
+		INITIAL_STATE
+	)
 
 	const elements: FormElementAttributes[] = [
 		{
@@ -76,33 +84,39 @@ export function SettingsForm({ settings }: SettingsFormProps) {
 			element: 'input',
 			id: 'titile',
 		},
-		{
-			name: 'logo',
-			type: 'file',
-			label: 'Загрузить логотип',
-			placeholder: 'Картинка котика',
-			required: false,
-			element: 'uploader',
-			id: 'logo',
-		},
-		{
-			name: 'favicon',
-			type: 'file',
-			label: 'Загрузить favicon',
-			placeholder: 'Картинка котика',
-			required: false,
-			element: 'uploader',
-			id: 'favicon',
-		},
+		// {
+		// 	name: 'logo',
+		// 	type: 'file',
+		// 	label: 'Загрузить логотип',
+		// 	placeholder: 'Картинка котика',
+		// 	required: false,
+		// 	element: 'uploader',
+		// 	id: 'logo',
+		// },
+		// {
+		// 	name: 'favicon',
+		// 	type: 'file',
+		// 	label: 'Загрузить favicon',
+		// 	placeholder: 'Картинка котика',
+		// 	required: false,
+		// 	element: 'uploader',
+		// 	id: 'favicon',
+		// },
 	]
 
 	return (
-		<form action='' className='w-full flex flex-col gap-5'>
+		<form action={formAction} className='w-full flex flex-col gap-5'>
 			{elements.map((attributes, index) => (
 				<div className='w-full bg-white p-5 shadow-md' key={index}>
-					<FormElementWrapper attributes={attributes} errors={[]} />
+					<FormElementWrapper
+						attributes={attributes}
+						errors={formState?.validationErrors[attributes.name]}
+						value={formState?.data[attributes.name]}
+					/>
 				</div>
 			))}
+			<input type='file' placeholder='favicon' name='favicon' />
+			<input type='file' placeholder='favicon' name='logo' />
 			<div className='flex flex-col gap-2 p-5 bg-white shadow-md'>
 				<label className='font-medium'>Выбирите палитру:</label>
 				<div className={`w-full flex flex-row flex-wrap gap-5`}>
@@ -147,7 +161,11 @@ export function SettingsForm({ settings }: SettingsFormProps) {
 					{MODULES.map((module, index) => (
 						<div
 							key={index}
-							className={`p-5 border-2 transition-all duration-300 flex-1 flex flex-col gap-5 items-center ${module.isImplemented ? 'border-primary hover:border-hover' : 'border-gray-400 text-gray-400'}`}
+							className={`p-5 border-2 transition-all duration-300 flex-1 flex flex-col gap-5 items-center ${
+								module.isImplemented
+									? 'border-primary hover:border-hover'
+									: 'border-gray-400 text-gray-400'
+							}`}
 						>
 							<div className='w-full flex flex-row gap-5'>
 								<div className='text-lg font-medium'>{module.label}</div>

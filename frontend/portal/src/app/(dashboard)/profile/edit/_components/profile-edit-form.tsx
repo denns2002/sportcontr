@@ -25,28 +25,29 @@ export function ProfileEditForm({ user, ...data }: ProfileEditFormProps) {
 	const [formState, formAction] = useFormState(editProfileAction.bind(null, user), INITIAL_STATE)
 
 	const elements: FormElementAttributes[] = [
-		{
-			name: 'email',
-			type: 'email',
-			label: 'Почта',
-			placeholder: 'mail@mail.mail',
-			required: true,
-			element: 'input',
-			id: 'title',
-		},
-		{
-			name: 'telephone',
-			type: 'tel',
-			label: 'Номер телефона',
-			placeholder: '+7-777-777-77-77',
-			required: false,
-			element: 'input',
-			id: 'title',
-		},
+		// {
+		// 	name: 'email',
+		// 	type: 'email',
+		// 	label: 'Почта',
+		// 	placeholder: 'mail@mail.mail',
+		// 	required: true,
+		// 	element: 'input',
+		// 	id: 'title',
+		// },
+		// {
+		// 	name: 'telephone',
+		// 	type: 'tel',
+		// 	label: 'Номер телефона',
+		// 	placeholder: '+7-777-777-77-77',
+		// 	required: false,
+		// 	element: 'input',
+		// 	id: 'title',
+		// },
 	]
 
 	return (
 		<form action={formAction} className='w-full flex flex-col gap-5'>
+			<input type='file' placeholder='avatar' name='avatar' />
 			{elements.map((attributes, index) => (
 				<div className='w-full bg-white p-5 shadow-md' key={index}>
 					<FormElementWrapper

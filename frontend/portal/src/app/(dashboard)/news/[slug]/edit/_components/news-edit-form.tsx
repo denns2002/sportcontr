@@ -22,7 +22,7 @@ export function NewsEditForm({ news }: NewsEditFormProps) {
 		requestError: null,
 	}
 
-	const [isPublished, setIsPublished] = useState(news.is_published)
+	const [isPublished, setIsPublished] = useState(news.is_published || false)
 
 	const [file, setFile] = useState<File | null>()
 
@@ -37,7 +37,7 @@ export function NewsEditForm({ news }: NewsEditFormProps) {
 	}, [])
 
 	const [formState, formAction] = useFormState(
-		editNewsAction.bind(null, news.slug, isPublished),
+		editNewsAction.bind(null, news.slug || '', isPublished),
 		INITIAL_STATE
 	)
 
@@ -71,21 +71,21 @@ export function NewsEditForm({ news }: NewsEditFormProps) {
 			element: 'textarea',
 			id: 'description',
 		},
-		{
-			name: 'image',
-			type: 'file',
-			label: 'Загрузить изображение',
-			placeholder: 'Картинка котика',
-			required: false,
-			element: 'uploader',
-			id: 'image',
-		},
+		// {
+		// 	name: 'image',
+		// 	type: 'file',
+		// 	label: 'Загрузить изображение',
+		// 	placeholder: 'Картинка котика',
+		// 	required: false,
+		// 	element: 'uploader',
+		// 	id: 'image',
+		// },
 	]
 
 	return (
 		<form action={formAction} className='w-full flex flex-col gap-5'>
 			<div className='w-full flex flex-col gap-5'>
-				{elements.slice(0, 2).map((attributes, index) => (
+				{elements.map((attributes, index) => (
 					<div className='w-full bg-white p-5 shadow-md' key={index}>
 						<FormElementWrapper
 							attributes={attributes}
@@ -95,12 +95,7 @@ export function NewsEditForm({ news }: NewsEditFormProps) {
 					</div>
 				))}
 				<div className='w-full bg-white p-5 shadow-md'>
-					<FormElementWrapper
-						attributes={elements[2]}
-						errors={formState?.validationErrors[elements[2].name]}
-						handler={handleUpload}
-						file={file!}
-					/>
+				<input type='file' placeholder='image' name='image' />
 				</div>
 				<div className='w-full bg-white p-5 shadow-md flex flex-row flex-wrap gap-5 items-center'>
 					<label className='font-medium'>Опубликовать новость:</label>
@@ -146,7 +141,7 @@ export function NewsEditForm({ news }: NewsEditFormProps) {
 					type='button'
 					full={false}
 					handler={() => {
-						deleteNewsAction(news.slug)
+						deleteNewsAction(news.slug || '')
 					}}
 				>
 					<>
