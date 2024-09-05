@@ -5,10 +5,9 @@ import { getNewsDetailsService } from '@/data/services/news'
 import { News } from '@/interfaces/news'
 import Image from 'next/image'
 
-import placeholder from '@/static/promise.jpg'
 import { parseDateShort } from '@/lib/dates'
 import { ButtonLink } from '@/components/custom/links'
-import { ArrowLeft, FileText } from 'lucide-react'
+import { ArrowLeft, Camera, FileText } from 'lucide-react'
 
 interface NewsDetailedProps {
 	params: { slug: string }
@@ -24,11 +23,19 @@ async function NewsDetailed({ params }: NewsDetailedProps) {
 				<div className='flex flex-row justify-center flex-wrap gap-x-10 gap-y-5 mt-10'>
 					<div className='h-fit w-[22rem] lg:w-[25rem] flex flex-col gap-5'>
 						<div className='h-fit w-[22rem] lg:w-[25rem] bg-white p-5 flex flex-col gap-5 shadow-md'>
-							<Image
-								src={placeholder}
-								alt='image'
-								className='object-cover h-[14.5rem] lg:h-[13.6rem] w-[19.5rem] lg:w-[22.5rem]'
-							/>
+							{data.image ? (
+								<Image
+									src={data.image}
+									alt='image'
+									width={1000}
+									height={1000}
+									className='object-cover h-[14.5rem] w-[19.5rem] lg:h-[13.6rem] lg:w-[22.5rem]'
+								/>
+							) : (
+								<div className='flex justify-center items-center bg-gray-500 h-[14.5rem] w-[19.5rem] lg:h-[13.6rem] lg:w-[22.5rem]'>
+									<Camera className='h-20 w-20 text-white' />
+								</div>
+							)}
 							<div className='flex flex-col gap-1'>
 								<div>
 									<span className='font-medium'>Создано: </span>

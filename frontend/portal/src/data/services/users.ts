@@ -53,7 +53,7 @@ export async function getUserDetailsService(id: number) {
 	}
 }
 
-export async function patchUserDetailsService(id: number, userData: UserData) {
+export async function patchUserDetailsService(id: number, userData: FormData) {
 	const url = new URL(`/api/users/user-detail/${id}/`, process.env.API_BASE_URL)
 
 	const token = await getTokenService()
@@ -62,11 +62,10 @@ export async function patchUserDetailsService(id: number, userData: UserData) {
 		const response = await fetch(url, {
 			method: 'PATCH',
 			headers: {
-				'Content-Type': 'application/json',
 				Authorization: `Token ${token}`,
 			},
 			cache: 'no-cache',
-			body: JSON.stringify({ ...userData }),
+			body: userData,
 		})
 
 		const responseData = await response.json()
@@ -79,7 +78,7 @@ export async function patchUserDetailsService(id: number, userData: UserData) {
 	}
 }
 
-export async function putUserDetailsService(id: number, userData: UserData) {
+export async function putUserDetailsService(id: number, userData: FormData) {
 	const url = new URL(`/api/users/user-detail/${id}/`, process.env.API_BASE_URL)
 
 	const token = await getTokenService()
@@ -88,11 +87,10 @@ export async function putUserDetailsService(id: number, userData: UserData) {
 		const response = await fetch(url, {
 			method: 'PUT',
 			headers: {
-				'Content-Type': 'application/json',
 				Authorization: `Token ${token}`,
 			},
 			cache: 'no-cache',
-			body: JSON.stringify({ ...userData }),
+			body: userData,
 		})
 
 		const responseData = await response.json()
@@ -114,7 +112,6 @@ export async function deleteUserDetailsService(id: number) {
 		const response = await fetch(url, {
 			method: 'DELETE',
 			headers: {
-				'Content-Type': 'application/json',
 				Authorization: `Token ${token}`,
 			},
 			cache: 'no-cache',

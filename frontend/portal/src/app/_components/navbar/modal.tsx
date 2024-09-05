@@ -9,9 +9,25 @@ type ModalNavbar = {
 	authenticated: boolean
 	lastName: string
 	firstName: string
+	avatar: string
+	logo: string
+	modules: {
+		events: boolean
+		news: boolean
+		groups: boolean
+	}
+	roles: Array<string>
 }
 
-export function ModalNavbar({ authenticated, lastName, firstName }: ModalNavbar) {
+export function ModalNavbar({
+	authenticated,
+	lastName,
+	firstName,
+	modules,
+	roles,
+	avatar,
+	logo,
+}: ModalNavbar) {
 	const [isActive, setIsActive] = useState(false)
 
 	return (
@@ -30,7 +46,15 @@ export function ModalNavbar({ authenticated, lastName, firstName }: ModalNavbar)
 				<div className={`h-full lg:hidden z-50 ${!isActive && 'hidden'}`}>
 					<div className='fixed inset-0 bg-gray-800 opacity-25' />
 					<div className='fixed top-0 left-0 bottom-0'>
-						<NavMenu authenticated={authenticated} lastName={lastName} firstName={firstName} />
+						<NavMenu
+							roles={roles}
+							modules={modules}
+							authenticated={authenticated}
+							lastName={lastName}
+							firstName={firstName}
+							avatar={avatar}
+							logo={logo}
+						/>
 					</div>
 				</div>
 			)}

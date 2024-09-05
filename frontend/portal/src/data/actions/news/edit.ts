@@ -29,12 +29,25 @@ export async function editNewsAction(
 		}
 	}
 
-	const responseData = await patchNewsDetailsService(slug, {
-		...validatedFields.data,
-		is_published,
-	})
+	const newsData = new FormData()
 
-	console.log('cringe', formData.get('image'));
+	newsData.append('title', validatedFields.data.title)
+	newsData.append('description', validatedFields.data.description)
+	newsData.append('is_published', is_published ? 'true' : 'false')
+
+	const image = formData.get('image') as File
+
+	if (
+		image.name !== 'undefined' &&
+		image.size !== 0 &&
+		image.type !== 'application/octet-stream'
+	) {
+		newsData.append('image', image)
+	}
+
+	console.log('action', newsData, image)
+
+	const responseData = await patchNewsDetailsService(slug, newsData)
 
 	if (!responseData) {
 		return {

@@ -2,10 +2,11 @@
 
 import { verifyUserService } from '@/data/services/auth'
 import { signoutAction } from '@/data/actions/auth'
-import { LockKeyhole, LogOut, SlidersVertical, User } from 'lucide-react'
+import { Camera, LockKeyhole, LogOut, SlidersVertical, User } from 'lucide-react'
 import { parseDateFull } from '@/lib/dates'
 import { ButtonLink } from '@/components/custom/links'
 import { DefaultButton } from '@/components/custom/buttons'
+import Image from 'next/image'
 
 async function Profile() {
 	const { data } = await verifyUserService()
@@ -14,10 +15,20 @@ async function Profile() {
 		<div className='h-full w-full flex flex-col gap-5 justify-center'>
 			<div className='w-full max-w-screen-xl mx-auto flex flex-col gap-5'>
 				<div className='w-full my-auto mx-auto bg-white shadow-md flex flex-row items-center flex-wrap gap-5'>
-					<div className='w-full lg:w-fit flex justify-center items-center'>
-						<div className='h-80 w-60 bg-gray-500 drop-shadow-md flex items-center justify-center'>
-							<User className='h-52 w-52 text-white' />
-						</div>
+					<div className='h-[20rem] w-full md:w-fit flex justify-center items-center'>
+						{data.avatar ? (
+							<Image
+								src={data.avatar}
+								alt='avatar'
+								width={1000}
+								height={1000}
+								className='object-cover h-[20rem] w-[15rem]'
+							/>
+						) : (
+							<div className='flex justify-center items-center bg-gray-500 h-[20rem] w-[15rem]'>
+								<Camera className='h-20 w-20 text-white' />
+							</div>
+						)}
 					</div>
 					<div className='flex flex-1 flex-row flex-wrap gap-5 p-5'>
 						<div className='flex flex-col gap-5 flex-1 min-w-52'>

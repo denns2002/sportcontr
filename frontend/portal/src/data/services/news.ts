@@ -3,18 +3,28 @@
 import { NewsData } from '@/interfaces/news'
 import { getTokenService } from './auth'
 
-export async function getNewsService() {
+export async function getNewsService(isPublished?: boolean) {
 	const url = new URL('/api/news/', process.env.API_BASE_URL)
 
 	const token = await getTokenService()
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Token ${token}`,
-			},
+			headers,
 			cache: 'no-cache',
 		})
 
@@ -28,7 +38,7 @@ export async function getNewsService() {
 	}
 }
 
-export async function postNewsService(newsData: NewsData) {
+export async function postNewsService(newsData: FormData) {
 	const url = new URL('/api/news/', process.env.API_BASE_URL)
 
 	const token = await getTokenService()
@@ -37,11 +47,10 @@ export async function postNewsService(newsData: NewsData) {
 		const response = await fetch(url, {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json',
 				Authorization: `Token ${token}`,
 			},
 			cache: 'no-cache',
-			body: JSON.stringify({ ...newsData }),
+			body: newsData,
 		})
 
 		const responseData = await response.json()
@@ -59,11 +68,23 @@ export async function getNewsDetailsService(slug: string) {
 
 	const token = await getTokenService()
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'GET',
 			headers: {
-				'Content-Type': 'application/json',
 				Authorization: `Token ${token}`,
 			},
 			cache: 'no-cache',
@@ -79,7 +100,7 @@ export async function getNewsDetailsService(slug: string) {
 	}
 }
 
-export async function patchNewsDetailsService(slug: string, newsData: NewsData) {
+export async function patchNewsDetailsService(slug: string, newsData: FormData) {
 	const url = new URL(`/api/news/detail/${slug}/`, process.env.API_BASE_URL)
 
 	const token = await getTokenService()
@@ -88,11 +109,10 @@ export async function patchNewsDetailsService(slug: string, newsData: NewsData) 
 		const response = await fetch(url, {
 			method: 'PATCH',
 			headers: {
-				'Content-Type': 'application/json',
 				Authorization: `Token ${token}`,
 			},
 			cache: 'no-cache',
-      body: JSON.stringify({ ...newsData }),
+			body: newsData,
 		})
 
 		const responseData = await response.json()
@@ -105,7 +125,7 @@ export async function patchNewsDetailsService(slug: string, newsData: NewsData) 
 	}
 }
 
-export async function putNewsDetailsService(slug: string, newsData: NewsData) {
+export async function putNewsDetailsService(slug: string, newsData: FormData) {
 	const url = new URL(`/api/news/detail/${slug}/`, process.env.API_BASE_URL)
 
 	const token = await getTokenService()
@@ -114,11 +134,10 @@ export async function putNewsDetailsService(slug: string, newsData: NewsData) {
 		const response = await fetch(url, {
 			method: 'PUT',
 			headers: {
-				'Content-Type': 'application/json',
 				Authorization: `Token ${token}`,
 			},
 			cache: 'no-cache',
-      body: JSON.stringify({ ...newsData }),
+			body: newsData,
 		})
 
 		const responseData = await response.json()
@@ -140,7 +159,6 @@ export async function deleteNewsDetailsService(slug: string) {
 		const response = await fetch(url, {
 			method: 'DELETE',
 			headers: {
-				'Content-Type': 'application/json',
 				Authorization: `Token ${token}`,
 			},
 			cache: 'no-cache',
