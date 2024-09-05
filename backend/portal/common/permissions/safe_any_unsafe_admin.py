@@ -10,10 +10,10 @@ class SafeAnyUnsafeAdmin(permissions.BasePermission):
         if request.method in SAFE_METHODS:
             return True
 
-        return request.user and (request.user.is_superuser or request.user.is_staff)
+        return request.user.is_authenticated and (request.user.is_superuser or request.user.is_staff)
 
     def has_object_permission(self, request, view, obj):
         if request.method in SAFE_METHODS:
             return True
 
-        return request.user and (request.user.is_superuser or request.user.is_staff)
+        return request.user.is_authenticated and (request.user.is_superuser or request.user.is_staff)

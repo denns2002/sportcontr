@@ -3,10 +3,10 @@ from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.generics import RetrieveUpdateDestroyAPIView, GenericAPIView, ListAPIView
-from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 
+from users.permissions.is_admin_or_trainer_permission import IsAdminOrTrainer
 from users.permissions.owner_user_permission import OwnUserPermission
 from users.serializers.user_serializer import UserSerializer
 
@@ -28,7 +28,7 @@ class UserMixin(GenericAPIView):
     operation_description="Список пользователей",
 ))
 class UserListAPIView(ListAPIView, UserMixin):
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminOrTrainer]
 
 
 @method_decorator(name='get', decorator=swagger_auto_schema(

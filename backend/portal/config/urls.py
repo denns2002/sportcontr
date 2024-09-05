@@ -25,6 +25,7 @@ urlpatterns = [
    re_path(r'^users/', include("users.urls")),
    re_path(r'^news/', include("news.urls")),
    re_path(r'^groups/', include("groups.urls")),
+   re_path(r'^events/', include("events.urls")),
 ]
 
 urlpatterns = [path(f'api/', include(urlpatterns))]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

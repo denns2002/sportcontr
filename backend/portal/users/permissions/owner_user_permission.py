@@ -9,7 +9,7 @@ class OwnUserPermission(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         # Read permissions are allowed to any request,
         # so we'll always allow GET, HEAD or OPTIONS requests.
-        if bool(request.user and request.user.is_staff):
+        if request.user.is_authenticated and (request.user.is_staff or request.user.is_superuser or request.user.is_trainer):
             return True
 
         # obj here is a UserProfile instance

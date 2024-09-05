@@ -80,7 +80,8 @@ class VerifyAPIView(generics.GenericAPIView):
                 kwargs.setdefault('context', self.get_serializer_context())
                 user = UserSerializer(user)
                 user = user.data
-                user['avatar'] = f'{"https" if request.is_secure() else "http"}://{request.META["HTTP_HOST"]}{user["avatar"]}'
+                if user['avatar']:
+                    user['avatar'] = f'{"https" if request.is_secure() else "http"}://{request.META["HTTP_HOST"]}{user["avatar"]}'
                 return Response({'user': user}, status=status.HTTP_200_OK)
             except Exception:
                 return Response({'message': 'Токен не существует'}, status=status.HTTP_400_BAD_REQUEST)
