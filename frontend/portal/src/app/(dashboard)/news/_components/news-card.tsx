@@ -30,7 +30,7 @@ export function NewsCard({ news }: NewsCardProps) {
 			)}
 			<span className='text-lg font-medium flex-1'>{news.title}</span>
 			<div className='line-clamp-2'>{news.description}</div>
-			<span className='text-end'>{parseDate(news.updated_at || '')}</span>
+			<span className='text-end'>{parseDate(news.created_at || '')}</span>
 		</Link>
 	)
 }

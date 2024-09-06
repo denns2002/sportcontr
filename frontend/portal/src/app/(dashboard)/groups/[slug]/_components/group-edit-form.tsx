@@ -1,5 +1,6 @@
 'use client'
 
+import { Dropdown } from '@/app/_components/custom/dropdown'
 import { DefaultButton, TransparentButton } from '@/components/custom/buttons'
 import { ButtonLink } from '@/components/custom/links'
 import { FormElementWrapper } from '@/components/form-elements'
@@ -14,24 +15,21 @@ import { useFormState } from 'react-dom'
 
 interface GroupEditFormProps {
 	group: Group
-	members: Array<User>
+	users: Array<User>
 }
 
-export function GroupEditForm({ group, members }: GroupEditFormProps) {
+export function GroupEditForm({ group, users }: GroupEditFormProps) {
 	const INITIAL_STATE = {
 		data: group,
 		validationErrors: {},
 		requestError: null,
 	}
 
-	const [isActiveAdded, setIsActiveAdded] = useState(false)
-	const [isActiveNew, setIsActiveNew] = useState(false)
-
 	const [addedMembersIds, setAddedMembersIds] = useState(group.members)
 	const [usersIds, setUsersIds] = useState<Array<number>>(
-		members
-			?.filter((member) => addedMembersIds?.includes(member?.id!) && !member?.is_trainer)
-			.map((member) => member?.id!)
+		users
+			?.filter((users) => !addedMembersIds?.includes(users?.id!) && !users?.is_trainer)
+			.map((users) => users?.id!)
 	)
 
 	const [formState, formAction] = useFormState(
@@ -73,32 +71,11 @@ export function GroupEditForm({ group, members }: GroupEditFormProps) {
 					</div>
 				))}
 			</div>
-			<div className='w-full'>
-				<div className='w-full bg-white p-5 shadow-md flex flex-row items-center'>
-					<div className='font-medium'>Состав группы:</div>
-					<div className='flex-1' />
-					<div>
-						<TransparentButton
-							type='button'
-							full={false}
-							handler={() => setIsActiveAdded((prev) => !prev)}
-						>
-							<ChevronDown
-								className={`h-5 w-5 ${
-									isActiveAdded ? '-rotate-180' : null
-								} transition-all duration-300`}
-							/>
-						</TransparentButton>
-					</div>
-				</div>
-				<div
-					className={`${
-						isActiveAdded ? null : 'hidden'
-					} w-full flex flex-col bg-white shadow-md border-t-2 border-primary`}
-				>
+			<Dropdown label='Добавленные участники'>
+				<div className='w-full flex flex-col'>
 					{addedMembersIds.length > 0 ? (
-						members.map((member, index) => {
-							if (member.is_trainer || usersIds.includes(member?.id!)) {
+						users.map((user, index) => {
+							if (user.is_trainer || usersIds.includes(user?.id!)) {
 								return null
 							}
 
@@ -108,10 +85,10 @@ export function GroupEditForm({ group, members }: GroupEditFormProps) {
 									key={index}
 								>
 									<div className='flex flex-row flex-wrap gap-2'>
-										<span>{member.last_name}</span>
-										<span>{member.first_name}</span>
-										<span>{member.middle_name},</span>
-										<span>{getUserAge(member.birth_date!)}</span>
+										<span>{user.last_name}</span>
+										<span>{user.first_name}</span>
+										<span>{user.middle_name},</span>
+										<span>{getUserAge(user.birth_date!)}</span>
 										<span>лет</span>
 									</div>
 									<div className='flex-1' />
@@ -121,7 +98,7 @@ export function GroupEditForm({ group, members }: GroupEditFormProps) {
 										full={false}
 										handler={() => {
 											setAddedMembersIds((prev: Array<number>) => {
-												let newMembers = [...prev.filter((e) => e !== member.id)]
+												let newMembers = [...prev.filter((e) => e !== user.id)]
 
 												return newMembers
 											})
@@ -129,7 +106,7 @@ export function GroupEditForm({ group, members }: GroupEditFormProps) {
 											setUsersIds((prev: Array<number>) => {
 												let newMembers = [...prev]
 
-												newMembers.push(member?.id!)
+												newMembers.push(user?.id!)
 
 												return newMembers
 											})
@@ -145,33 +122,12 @@ export function GroupEditForm({ group, members }: GroupEditFormProps) {
 						<span className='p-5'>Состав группы будет пустым...</span>
 					)}
 				</div>
-			</div>
-			<div className='w-full'>
-				<div className='w-full bg-white p-5 shadow-md flex flex-row items-center'>
-					<div className='font-medium'>Добавить участников:</div>
-					<div className='flex-1' />
-					<div>
-						<TransparentButton
-							type='button'
-							full={false}
-							handler={() => setIsActiveNew((prev) => !prev)}
-						>
-							<ChevronDown
-								className={`h-5 w-5 ${
-									isActiveNew ? '-rotate-180' : null
-								} transition-all duration-300`}
-							/>
-						</TransparentButton>
-					</div>
-				</div>
-				<div
-					className={`${
-						isActiveNew ? null : 'hidden'
-					} w-full flex flex-col bg-white shadow-md border-t-2 border-primary`}
-				>
+			</Dropdown>
+			<Dropdown label='Добавить в состав'>
+				<div className='w-full flex flex-col'>
 					{usersIds.length > 0 ? (
-						members.map((member, index) => {
-							if (member.is_trainer || addedMembersIds.includes(member?.id!)) {
+						users.map((user, index) => {
+							if (user.is_trainer || addedMembersIds.includes(user?.id!)) {
 								return null
 							}
 
@@ -181,10 +137,10 @@ export function GroupEditForm({ group, members }: GroupEditFormProps) {
 									key={index}
 								>
 									<div className='flex flex-row flex-wrap gap-2'>
-										<span>{member.last_name}</span>
-										<span>{member.first_name}</span>
-										<span>{member.middle_name},</span>
-										<span>{getUserAge(member.birth_date!)}</span>
+										<span>{user.last_name}</span>
+										<span>{user.first_name}</span>
+										<span>{user.middle_name},</span>
+										<span>{getUserAge(user.birth_date!)}</span>
 										<span>лет</span>
 									</div>
 									<div className='flex-1' />
@@ -195,13 +151,13 @@ export function GroupEditForm({ group, members }: GroupEditFormProps) {
 											setAddedMembersIds((prev: Array<number>) => {
 												let newMembers = [...prev]
 
-												newMembers.push(member?.id!)
+												newMembers.push(user?.id!)
 
 												return newMembers
 											})
 
 											setUsersIds((prev: Array<number>) => {
-												let newMembers = [...prev.filter((e) => e !== member.id)]
+												let newMembers = [...prev.filter((e) => e !== user.id)]
 
 												return newMembers
 											})
@@ -217,7 +173,7 @@ export function GroupEditForm({ group, members }: GroupEditFormProps) {
 						<span className='p-5'>Больше некого добавлять...</span>
 					)}
 				</div>
-			</div>
+			</Dropdown>
 			<div className='w-full flex flex-row flex-wrap gap-y-5 gap-x-10'>
 				<ButtonLink href='/groups/' color='gray'>
 					<>

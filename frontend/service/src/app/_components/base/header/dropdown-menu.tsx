@@ -6,6 +6,7 @@ import { DropdownLink } from './dropdown-link'
 import { ButtonLink, TransparentLink } from '@/components/custom/links'
 import Link from 'next/link'
 import { TransparentButton } from '@/components/custom/buttons/transparent'
+import Image from 'next/image'
 
 interface DropdownMenuProps {
 	navLinks: {
@@ -13,17 +14,30 @@ interface DropdownMenuProps {
 		label: string
 	}[]
 	authenticated: boolean
-	userName: string
+	first_name: string
+	last_name: string
+	avatar: string
 }
 
-export function DropdownMenu({ navLinks, authenticated, userName }: DropdownMenuProps) {
+export function DropdownMenu({
+	navLinks,
+	authenticated,
+	first_name,
+	last_name,
+	avatar,
+}: DropdownMenuProps) {
 	const [isActive, setIsActive] = useState(false)
 
 	return (
 		<>
 			<div className='lg:hidden flex-1' />
 			<div className='lg:hidden'>
-				<TransparentButton type='button' full={false} size='small' handler={() => setIsActive((prev) => !prev)}>
+				<TransparentButton
+					type='button'
+					full={false}
+					size='small'
+					handler={() => setIsActive((prev) => !prev)}
+				>
 					<Menu className='h-6 w-6' />
 				</TransparentButton>
 			</div>
@@ -44,14 +58,27 @@ export function DropdownMenu({ navLinks, authenticated, userName }: DropdownMenu
 					<div className='flex-1' />
 					{authenticated ? (
 						<Link
-							href='/profile'
+							href='/profile/'
 							className='flex flex-row items-center justify-center gap-5 px-10 group'
 						>
-							<div className='rounded-full bg-gray-500 p-1 drop-shadow-md group-hover:bg-opacity-80 transition-all duration-500'>
-								<UserRound className='h-10 w-10 text-white' />
-							</div>
-							<div className='flex-1 text-base font-medium group-hover:text-sky-500 transition-all duration-500'>
-								{userName}
+							{avatar ? (
+									<Image
+										src={avatar}
+										alt='avatar'
+										width={500}
+										height={500}
+										className='object-cover h-[2.75rem] w-[2.75rem] rounded-full'
+									/>
+							) : (
+								<div
+									className='rounded-full bg-gray-500 p-1 drop-shadow-md hover:drop-shadow-lg hover:bg-opacity-80 transition-all duration-300'
+								>
+									<UserRound className='h-10 w-10 text-white' />
+								</div>
+							)}
+							<div className='flex-1 flex flex-row flex-wrap gap-2 text-base font-medium group-hover:text-sky-500 transition-all duration-500'>
+								<span>{last_name}</span>
+								<span>{first_name}</span>
 							</div>
 						</Link>
 					) : (

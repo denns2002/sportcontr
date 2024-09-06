@@ -10,19 +10,20 @@ interface GroupCreateProps {
 }
 
 async function GroupCreate({ roles }: GroupCreateProps) {
-	const members = await getUsersService()
-
-	console.log(members);
-	
+	const users = await getUsersService()
 
 	return (
-		<div className='h-full w-full flex justify-center'>
-			<div className='w-full max-w-screen-xl mx-auto'>
+		<div className='h-full w-full flex flex-col gap-10'>
+			<div className='h-fit w-full bg-white px-10 lg:px-10 py-10 shadow-md flex flex-col gap-10'>
 				<H1>Создать группу</H1>
-				<GroupCreateForm members={members} />
+			</div>
+			<div className='w-full px-10 lg:px-20'>
+				<div className='w-full max-w-screen-xl mx-auto flex flex-col gap-5'>
+					<GroupCreateForm users={users} />
+				</div>
 			</div>
 		</div>
 	)
 }
 
-export default withAuth(GroupCreate, ['admin', 'trainer'], true)
+export default withAuth(GroupCreate, ['admin'], true)

@@ -5,6 +5,7 @@ import { ButtonLink } from '@/components/custom/links'
 import { signoutAction } from '@/data/actions/auth'
 import { verifyUserService } from '@/data/services/auth'
 import { LockKeyhole, LogOut, SlidersVertical, UserRound } from 'lucide-react'
+import Image from 'next/image'
 
 async function Profile() {
 	const { data } = await verifyUserService()
@@ -12,9 +13,19 @@ async function Profile() {
 	return (
 		<div className='h-full w-full mx-auto max-w-screen-lg flex flex-col'>
 			<div className='w-full relative flex flex-col items-center mt-20'>
-				<div className='h-40 w-40 absolute -top-20 rounded-full bg-gray-500 p-1 drop-shadow-md flex items-center justify-center'>
-					<UserRound className='h-36 w-36 text-white' />
-				</div>
+				{data?.avatar ? (
+					<Image
+						src={data?.avatar}
+						alt='avatar'
+						width={500}
+						height={500}
+						className='object-cover h-40 w-40 absolute -top-20 rounded-full  drop-shadow-md'
+					/>
+				) : (
+					<div className='h-40 w-40 absolute -top-20 rounded-full bg-gray-500 p-1 drop-shadow-md flex items-center justify-center'>
+						<UserRound className='h-36 w-36 text-white' />
+					</div>
+				)}
 				<div className='w-full bg-white rounded-lg shadow-md px-10 pb-5 pt-28 flex flex-col gap-10'>
 					<div className='w-full flex flex-row gap-y-5 flex-wrap'>
 						<div className='flex flex-col gap-5 flex-1 min-w-52'>
@@ -42,7 +53,11 @@ async function Profile() {
 							</div>
 							<div className='flex flex-col gap-2'>
 								<span className='text-xl font-semibold'>Номер телефона:</span>
-								<span className='text-base text-gray-500'>{data?.userphonenumber_set[0]?.telephone || (<span className='text-red-500'>Нет телефона</span>)}</span>
+								<span className='text-base text-gray-500'>
+									{data?.userphonenumber_set[0]?.telephone || (
+										<span className='text-red-500'>Нет телефона</span>
+									)}
+								</span>
 							</div>
 						</div>
 					</div>

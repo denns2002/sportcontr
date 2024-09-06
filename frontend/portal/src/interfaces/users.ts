@@ -25,3 +25,10 @@ export interface UserData {
 	birth_date?: string
 	userphonenumber_set: { telephone: string }[]
 }
+
+export interface UserCreateData {
+	first_name: string
+	last_name: string
+	middle_name?: string
+	birth_date?: string
+}

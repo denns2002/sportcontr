@@ -11,9 +11,10 @@ import { getUserAge } from '@/lib/dates'
 interface GroupCardProps {
 	group: Group
 	members: Array<User>
+	isEditable: boolean
 }
 
-export function GroupCard({ group, members }: GroupCardProps) {
+export function GroupCard({ group, members, isEditable }: GroupCardProps) {
 	const [isActive, setIsActive] = useState(false)
 
 	return (
@@ -23,12 +24,14 @@ export function GroupCard({ group, members }: GroupCardProps) {
 				<span className='text-base text-gray-500'>{group.members.length} участников</span>
 				<div className='flex-1' />
 				<div className='flex flex-row gap-5 justify-between'>
-					<ButtonLink href={`/groups/${group.slug}/`}>
-						<>
-							<AlignLeft />
-							<span>Редактировать</span>
-						</>
-					</ButtonLink>
+					{isEditable ? (
+						<ButtonLink href={`/groups/${group.slug}/`}>
+							<>
+								<AlignLeft />
+								<span>Редактировать</span>
+							</>
+						</ButtonLink>
+					) : null}
 					<TransparentButton type='button' handler={() => setIsActive((prev) => !prev)}>
 						<ChevronDown
 							className={`h-5 w-5 ${isActive ? '-rotate-180' : null} transition-all duration-300`}

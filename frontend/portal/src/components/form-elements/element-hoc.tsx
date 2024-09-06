@@ -5,7 +5,7 @@ import { FileUploader } from './file-uploader';
 
 interface FormElementWrapperProps {
 	attributes: FormElementAttributes
-	errors: string[]
+	errors?: string[]
 	disabled?: boolean
 	value?: string
 }
