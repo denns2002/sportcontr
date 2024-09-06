@@ -4,7 +4,6 @@ import { DefaultButton } from '@/components/custom/buttons'
 import { ButtonLink } from '@/components/custom/links'
 import { signoutAction } from '@/data/actions/auth'
 import { verifyUserService } from '@/data/services/auth'
-import { parseDateFull } from '@/lib/dates'
 import { LockKeyhole, LogOut, SlidersVertical, UserRound } from 'lucide-react'
 
 async function Profile() {

@@ -84,24 +84,24 @@ export function SettingsForm({ settings }: SettingsFormProps) {
 			element: 'input',
 			id: 'titile',
 		},
-		// {
-		// 	name: 'logo',
-		// 	type: 'file',
-		// 	label: 'Загрузить логотип',
-		// 	placeholder: 'Картинка котика',
-		// 	required: false,
-		// 	element: 'uploader',
-		// 	id: 'logo',
-		// },
-		// {
-		// 	name: 'favicon',
-		// 	type: 'file',
-		// 	label: 'Загрузить favicon',
-		// 	placeholder: 'Картинка котика',
-		// 	required: false,
-		// 	element: 'uploader',
-		// 	id: 'favicon',
-		// },
+		{
+			name: 'logo',
+			type: 'file',
+			label: 'Загрузить логотип',
+			placeholder: 'Картинка котика',
+			required: false,
+			element: 'uploader',
+			id: 'logo',
+		},
+		{
+			name: 'favicon',
+			type: 'file',
+			label: 'Загрузить favicon',
+			placeholder: 'Картинка котика',
+			required: false,
+			element: 'uploader',
+			id: 'favicon',
+		},
 	]
 
 	return (
@@ -115,8 +115,6 @@ export function SettingsForm({ settings }: SettingsFormProps) {
 					/>
 				</div>
 			))}
-			<input type='file' placeholder='favicon' name='favicon' />
-			<input type='file' placeholder='favicon' name='logo' />
 			<div className='flex flex-col gap-2 p-5 bg-white shadow-md'>
 				<label className='font-medium'>Выбирите палитру:</label>
 				<div className={`w-full flex flex-row flex-wrap gap-5`}>

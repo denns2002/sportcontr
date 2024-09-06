@@ -2,7 +2,7 @@ import { News } from '@/interfaces/news'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { parseDateShort } from '@/lib/dates'
+import { parseDate } from '@/lib/dates'
 import { Camera } from 'lucide-react'
 
 interface NewsCardProps {
@@ -30,7 +30,7 @@ export function NewsCard({ news }: NewsCardProps) {
 			)}
 			<span className='text-lg font-medium flex-1'>{news.title}</span>
 			<div className='line-clamp-2'>{news.description}</div>
-			<span className='text-end'>{parseDateShort(news.updated_at || '')}</span>
+			<span className='text-end'>{parseDate(news.updated_at || '')}</span>
 		</Link>
 	)
 }

@@ -8,13 +8,23 @@ export async function getTrainersGroupsService() {
 
 	const token = await getTokenService()
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Token ${token}`,
-			},
+			headers: { ...headers },
 			cache: 'no-cache',
 		})
 
@@ -33,13 +43,23 @@ export async function postTrainersGroupService(groupData: TrainerGroupData) {
 
 	const token = await getTokenService()
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Token ${token}`,
-			},
+			headers: { ...headers },
 			cache: 'no-cache',
 			body: JSON.stringify({ ...groupData }),
 		})
@@ -59,13 +79,23 @@ export async function getTrainersGroupDetailsService(slug: string) {
 
 	const token = await getTokenService()
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Token ${token}`,
-			},
+			headers: { ...headers },
 			cache: 'no-cache',
 		})
 
@@ -84,13 +114,23 @@ export async function patchTrainersGroupDetailsService(slug: string, groupData: 
 
 	const token = await getTokenService()
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'PATCH',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Token ${token}`,
-			},
+			headers: { ...headers },
 			cache: 'no-cache',
 			body: JSON.stringify({ ...groupData }),
 		})
@@ -110,13 +150,23 @@ export async function putTrainersGroupDetailsService(slug: string, groupData: Tr
 
 	const token = await getTokenService()
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'PUT',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Token ${token}`,
-			},
+			headers: { ...headers },
 			cache: 'no-cache',
 			body: JSON.stringify({ ...groupData }),
 		})
@@ -136,13 +186,23 @@ export async function deleteTrainersGroupDetailsService(slug: string) {
 
 	const token = await getTokenService()
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'DELETE',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Token ${token}`,
-			},
+			headers: { ...headers },
 			cache: 'no-cache',
 		})
 	} catch (error) {

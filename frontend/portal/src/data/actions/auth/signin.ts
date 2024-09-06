@@ -3,7 +3,7 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
-import { siginUserService } from '@/data/services/auth'
+import { siginUserService, verifyUserService } from '@/data/services/auth'
 
 const config = {
 	maxAge: 60 * 60 * 24 * 7, // 1 неделя

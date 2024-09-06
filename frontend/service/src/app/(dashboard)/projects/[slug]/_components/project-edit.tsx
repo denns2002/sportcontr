@@ -1,14 +1,14 @@
 'use client'
 
 import { editProjectAction } from '@/data/actions/projects/edit'
-import { FormElementAttributes } from '@/types/forms'
+import { FormElementAttributes } from '@/interfaces/forms'
 import { useFormState } from 'react-dom'
-import { FormElementWrapper } from './elements/element-hoc'
-import { ButtonLink } from '../custom/links'
-import { ArrowLeft, FilePenLine, Trash2 } from 'lucide-react'
-import { DefaultButton } from '../custom/buttons'
-import { Project } from '@/types/projects'
+import { Project } from '@/interfaces/projects'
 import { deleteProjectAction } from '@/data/actions/projects/delete'
+import { FormElementWrapper } from '@/components/form-elements'
+import { ButtonLink } from '@/components/custom/links'
+import { ArrowLeft, FilePenLine, Trash2 } from 'lucide-react'
+import { DefaultButton } from '@/components/custom/buttons'
 
 interface ProjectEditFormProps {
 	project: Project
@@ -34,6 +34,7 @@ export function ProjectEditForm({ project }: ProjectEditFormProps) {
 			placeholder: 'Название',
 			required: true,
 			element: 'input',
+			id: 'title'
 		},
 		{
 			name: 'description',
@@ -42,6 +43,7 @@ export function ProjectEditForm({ project }: ProjectEditFormProps) {
 			placeholder: 'Портал школы по самому популярному в мире спорту...',
 			required: true,
 			element: 'textarea',
+			id: 'description'
 		},
 	]
 

@@ -41,7 +41,7 @@ const onest = Onest({
 	preload: false,
 })
 
-type Props = {
+interface Props {
 	params: { id: string }
 	searchParams: { [key: string]: string | string[] | undefined }
 }

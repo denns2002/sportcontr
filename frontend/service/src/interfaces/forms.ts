@@ -1,4 +1,4 @@
-export type FormElementAttributes = {
+export interface FormElementAttributes {
 	name: string
 	type:
 		| 'number'
@@ -10,8 +10,11 @@ export type FormElementAttributes = {
 		| 'text'
 		| 'time'
 		| 'url'
+		| 'file'
+		| 'tel'
 	placeholder: string
 	required: boolean
 	label: string
-	element: 'input' | 'textarea'
+	id: string
+	element: 'input' | 'textarea' | 'uploader'
 }

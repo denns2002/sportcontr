@@ -1,12 +1,12 @@
 'use client'
 
-import { FormElementAttributes } from '@/types/forms'
+import { FormElementAttributes } from '@/interfaces/forms'
 import { signinAction } from '@/data/actions/auth'
 import { useFormState } from 'react-dom'
 import { RequestError } from '@/components/errors'
 import { DefaultButton } from '@/components/custom/buttons'
 import { TextLink } from '@/components/custom/links'
-import { FormElementWrapper } from './elements'
+import { FormElementWrapper } from '../../../../components/form-elements'
 
 const INITIAL_STATE = {
 	data: null,

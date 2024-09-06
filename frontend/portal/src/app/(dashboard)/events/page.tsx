@@ -1,21 +1,13 @@
 import { H1 } from '@/components/custom/headers'
 import { ButtonLink } from '@/components/custom/links'
-import { verifyUserService } from '@/data/services/auth'
 import { Plus } from 'lucide-react'
+import { withAuth } from '@/hocs';
 
-async function Events() {
-	const { data: user } = await verifyUserService()
+interface EventsProps {
+	roles: Array<string>
+}
 
-	const roles: Array<string> = ['sportsman']
-
-	if (user?.is_trainer) {
-		roles.push('trainer')
-	}
-
-	if (user?.is_superuser) {
-		roles.push('admin')
-	}
-
+async function Events({roles}: EventsProps) {
 	return (
 		<div className='h-full w-full flex justify-center'>
 			<div className='w-full max-w-screen-xl mx-auto'>
@@ -33,4 +25,4 @@ async function Events() {
 	)
 }
 
-export default Events
+export default withAuth(Events, ['admin', 'trainer', 'sportsman'], false)

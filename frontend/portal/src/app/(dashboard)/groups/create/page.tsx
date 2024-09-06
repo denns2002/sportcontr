@@ -1,12 +1,19 @@
 'use server'
 
 import { H1 } from '@/components/custom/headers'
-import { getTrainersGroupDetailsService } from '@/data/services/groups-trainers'
 import { getUsersService } from '@/data/services/users'
 import { GroupCreateForm } from './_components/group-create-form'
+import { withAuth } from '@/hocs/'
 
-async function GroupCreate() {
+interface GroupCreateProps {
+	roles: Array<string>
+}
+
+async function GroupCreate({ roles }: GroupCreateProps) {
 	const members = await getUsersService()
+
+	console.log(members);
+	
 
 	return (
 		<div className='h-full w-full flex justify-center'>
@@ -18,4 +25,4 @@ async function GroupCreate() {
 	)
 }
 
-export default GroupCreate
+export default withAuth(GroupCreate, ['admin', 'trainer'], true)

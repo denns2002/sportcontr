@@ -2,6 +2,7 @@
 
 import { H1 } from '@/components/custom/headers'
 import { NewsCreateForm } from './_components/news-create-form'
+import { withAuth } from '@/hocs/'
 
 async function NewsCreate() {
 	return (
@@ -14,4 +15,4 @@ async function NewsCreate() {
 	)
 }
 
-export default NewsCreate
+export default withAuth(NewsCreate, ['admin'], true)

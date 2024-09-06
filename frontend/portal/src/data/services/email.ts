@@ -7,13 +7,23 @@ export async function postEmailService(email: string) {
 
 	const token = await getTokenService()
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Token ${token}`,
-			},
+			headers: { ...headers },
 			cache: 'no-cache',
 			body: JSON.stringify({ email }),
 		})
@@ -33,13 +43,23 @@ export async function getEmailVerifyService() {
 
 	const token = await getTokenService()
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Token ${token}`,
-			},
+			headers: { ...headers },
 			cache: 'no-cache',
 		})
 

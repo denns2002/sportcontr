@@ -5,16 +5,23 @@ import { getNewsDetailsService } from '@/data/services/news'
 import { News } from '@/interfaces/news'
 import Image from 'next/image'
 
-import { parseDateShort } from '@/lib/dates'
+import { parseDate } from '@/lib/dates'
 import { ButtonLink } from '@/components/custom/links'
-import { ArrowLeft, Camera, FileText } from 'lucide-react'
+import { Camera, FileText } from 'lucide-react'
+import { withAuth } from '@/hocs'
+import { notFound } from 'next/navigation'
 
 interface NewsDetailedProps {
 	params: { slug: string }
+	roles: Array<string>
 }
 
-async function NewsDetailed({ params }: NewsDetailedProps) {
-	const data = (await getNewsDetailsService(params.slug)) as News
+async function NewsDetailed({ params, roles }: NewsDetailedProps) {
+	const data = (await getNewsDetailsService(params.slug))
+
+	if (data.detail) {
+		notFound()
+	}
 
 	return (
 		<div className='h-full w-full flex justify-center'>
@@ -39,20 +46,22 @@ async function NewsDetailed({ params }: NewsDetailedProps) {
 							<div className='flex flex-col gap-1'>
 								<div>
 									<span className='font-medium'>Создано: </span>
-									<span>{parseDateShort(data?.created_at || '')}</span>
+									<span>{parseDate(data?.created_at || '')}</span>
 								</div>
 								<div>
 									<span className='font-medium'>Изменено: </span>
-									<span>{parseDateShort(data?.updated_at || '')}</span>
+									<span>{parseDate(data?.updated_at || '')}</span>
 								</div>
 							</div>
 						</div>
-						<ButtonLink href={`/news/${data.slug}/edit/`}>
-							<>
-								<FileText className='h-5 w-5' />
-								<span>Редактировать</span>
-							</>
-						</ButtonLink>
+						{roles.includes('admin') ? (
+							<ButtonLink href={`/news/${data.slug}/edit/`}>
+								<>
+									<FileText className='h-5 w-5' />
+									<span>Редактировать</span>
+								</>
+							</ButtonLink>
+						) : null}
 					</div>
 					<div className='flex-1 sm:min-w-[30rem] bg-white p-5 shadow-md'>{data.description}</div>
 				</div>
@@ -61,4 +70,4 @@ async function NewsDetailed({ params }: NewsDetailedProps) {
 	)
 }
 
-export default NewsDetailed
+export default withAuth(NewsDetailed, ['admin', 'trainer', 'sportsman'], false)

@@ -10,12 +10,10 @@ import { ArrowLeft, FilePenLine } from 'lucide-react'
 import { useFormState } from 'react-dom'
 
 interface ProfileEditFormProps {
-	email: string
-	telephone: string
 	user: User
 }
 
-export function ProfileEditForm({ user, ...data }: ProfileEditFormProps) {
+export function ProfileEditForm({ user }: ProfileEditFormProps) {
 	const INITIAL_STATE = {
 		data: user,
 		validationErrors: {},
@@ -25,24 +23,51 @@ export function ProfileEditForm({ user, ...data }: ProfileEditFormProps) {
 	const [formState, formAction] = useFormState(editProfileAction.bind(null, user), INITIAL_STATE)
 
 	const elements: FormElementAttributes[] = [
-		// {
-		// 	name: 'email',
-		// 	type: 'email',
-		// 	label: 'Почта',
-		// 	placeholder: 'mail@mail.mail',
-		// 	required: true,
-		// 	element: 'input',
-		// 	id: 'title',
-		// },
-		// {
-		// 	name: 'telephone',
-		// 	type: 'tel',
-		// 	label: 'Номер телефона',
-		// 	placeholder: '+7-777-777-77-77',
-		// 	required: false,
-		// 	element: 'input',
-		// 	id: 'title',
-		// },
+		{
+			name: 'username',
+			type: 'text',
+			label: 'Имя пользователя',
+			placeholder: 'Username',
+			required: true,
+			element: 'input',
+			id: 'username',
+		},
+		{
+			name: 'first_name',
+			type: 'text',
+			label: 'Имя',
+			placeholder: 'Иван',
+			required: true,
+			element: 'input',
+			id: 'first_name',
+		},
+		{
+			name: 'last_name',
+			type: 'text',
+			label: 'Фамилия',
+			placeholder: 'Иванов',
+			required: true,
+			element: 'input',
+			id: 'last_name',
+		},
+		{
+			name: 'middle_name',
+			type: 'text',
+			label: 'Отчество',
+			placeholder: 'Иванович',
+			required: false,
+			element: 'input',
+			id: 'middle_name',
+		},
+		{
+			name: 'birth_date',
+			type: 'date',
+			label: 'День рождения',
+			placeholder: '01.01.2000',
+			required: false,
+			element: 'input',
+			id: 'birth_date',
+		},
 		{
 			name: 'avatar',
 			type: 'file',
@@ -57,7 +82,7 @@ export function ProfileEditForm({ user, ...data }: ProfileEditFormProps) {
 	return (
 		<form action={formAction} className='w-full flex flex-col gap-5'>
 			{elements.map((attributes, index) => (
-				<div className='w-full bg-white p-5 shadow-md' key={index}>
+				<div className='w-full bg-white p-5 shadow-md rounded-lg' key={index}>
 					<FormElementWrapper
 						attributes={attributes}
 						errors={formState?.validationErrors[attributes.name]}

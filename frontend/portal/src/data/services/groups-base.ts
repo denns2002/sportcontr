@@ -8,13 +8,23 @@ export async function getGroupsService() {
 
 	const token = await getTokenService()
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Token ${token}`,
-			},
+			headers: { ...headers },
 			cache: 'no-cache',
 		})
 
@@ -33,13 +43,23 @@ export async function postGroupService(groupData: GroupData) {
 
 	const token = await getTokenService()
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Token ${token}`,
-			},
+			headers: { ...headers },
 			cache: 'no-cache',
 			body: JSON.stringify({ ...groupData }),
 		})
@@ -59,13 +79,23 @@ export async function getGroupDetailsService(slug: string) {
 
 	const token = await getTokenService()
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Token ${token}`,
-			},
+			headers: { ...headers },
 			cache: 'no-cache',
 		})
 
@@ -84,13 +114,23 @@ export async function patchGroupDetailsService(slug: string, groupData: GroupDat
 
 	const token = await getTokenService()
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'PATCH',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Token ${token}`,
-			},
+			headers: { ...headers },
 			cache: 'no-cache',
 			body: JSON.stringify({ ...groupData }),
 		})
@@ -110,13 +150,23 @@ export async function putGroupDetailsService(slug: string, groupData: GroupData)
 
 	const token = await getTokenService()
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'PUT',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Token ${token}`,
-			},
+			headers: { ...headers },
 			cache: 'no-cache',
 			body: JSON.stringify({ ...groupData }),
 		})
@@ -136,19 +186,25 @@ export async function deleteGroupDetailsService(slug: string) {
 
 	const token = await getTokenService()
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'PATCH',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Token ${token}`,
-			},
+			headers: { ...headers },
 			cache: 'no-cache',
 		})
-
-		const responseData = await response.json()
-
-		return responseData
 	} catch (error) {
 		console.error('Get Projects Service Error:', error)
 

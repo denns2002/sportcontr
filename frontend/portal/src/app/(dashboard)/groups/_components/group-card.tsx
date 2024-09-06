@@ -6,6 +6,7 @@ import { AlignLeft, ChevronDown } from 'lucide-react'
 import { useState } from 'react'
 import { User } from '@/interfaces/users'
 import { TransparentButton } from '@/components/custom/buttons'
+import { getUserAge } from '@/lib/dates'
 
 interface GroupCardProps {
 	group: Group
@@ -17,9 +18,7 @@ export function GroupCard({ group, members }: GroupCardProps) {
 
 	return (
 		<div>
-			<div
-				className='flex flex-row flex-wrap justify-around gap-5 bg-white shadow-md p-5 items-center'
-			>
+			<div className='flex flex-row flex-wrap justify-around gap-5 bg-white shadow-md p-5 items-center'>
 				<span className='text-lg font-medium'>{group.name}</span>
 				<span className='text-base text-gray-500'>{group.members.length} участников</span>
 				<div className='flex-1' />
@@ -45,9 +44,12 @@ export function GroupCard({ group, members }: GroupCardProps) {
 				{members.length > 0 ? (
 					members.map((member, index) => {
 						return (
-							<div className='flex flex-row gap-2 p-5' key={index}>
+							<div className='flex flex-row flex-wrap gap-2 p-5' key={index}>
 								<span>{member.last_name}</span>
 								<span>{member.first_name}</span>
+								<span>{member.middle_name},</span>
+								<span>{getUserAge(member.birth_date!)}</span>
+								<span>лет</span>
 							</div>
 						)
 					})

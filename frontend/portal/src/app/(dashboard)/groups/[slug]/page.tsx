@@ -4,13 +4,20 @@ import { H1 } from '@/components/custom/headers'
 import { getTrainersGroupDetailsService } from '@/data/services/groups-trainers'
 import { GroupEditForm } from './_components/group-edit-form'
 import { getUsersService } from '@/data/services/users'
+import { withAuth } from '@/hocs/'
+import { notFound } from 'next/navigation'
 
 interface GroupEditProps {
 	params: { slug: string }
+	roles?: Array<string>
 }
 
-async function GroupEdit({ params }: GroupEditProps) {
+async function GroupEdit({ params, roles }: GroupEditProps) {
 	const data = await getTrainersGroupDetailsService(params.slug)
+
+	if (data.detail) {
+		notFound()
+	}
 
 	const members = await getUsersService()
 
@@ -24,4 +31,4 @@ async function GroupEdit({ params }: GroupEditProps) {
 	)
 }
 
-export default GroupEdit
+export default withAuth(GroupEdit, ['admin', 'trainer'], true)

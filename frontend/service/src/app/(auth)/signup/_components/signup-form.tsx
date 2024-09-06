@@ -1,12 +1,12 @@
 'use client'
 
-import { FormElementAttributes } from '@/types/forms'
+import { FormElementAttributes } from '@/interfaces/forms'
 import { signinAction } from '@/data/actions/auth'
 import { useFormState } from 'react-dom'
 import { RequestError } from '@/components/errors'
 import { DefaultButton } from '@/components/custom/buttons'
 import { TextLink } from '@/components/custom/links'
-import { FormElementWrapper } from './elements'
+import { FormElementWrapper } from '../../../../components/form-elements'
 
 const INITIAL_STATE = {
 	data: null,
@@ -24,6 +24,7 @@ export function SignUpForm() {
 			placeholder: 'Username',
 			required: true,
 			element: 'input',
+			id: 'username',
 		},
 		{
 			name: 'email',
@@ -32,22 +33,34 @@ export function SignUpForm() {
 			placeholder: 'mail@mail.mail',
 			required: true,
 			element: 'input',
+			id: 'email',
 		},
 		{
-			name: 'firstName',
+			name: 'first_name',
 			type: 'text',
 			label: 'Имя',
 			placeholder: 'Иван',
 			required: true,
 			element: 'input',
+			id: 'first_name',
 		},
 		{
-			name: 'secondName',
+			name: 'last_name',
 			type: 'text',
 			label: 'Фамилия',
 			placeholder: 'Иванов',
 			required: true,
 			element: 'input',
+			id: 'last_name',
+		},
+		{
+			name: 'middle_name',
+			type: 'text',
+			label: 'Отчество',
+			placeholder: 'Иванович',
+			required: false,
+			element: 'input',
+			id: 'middle_name',
 		},
 		{
 			name: 'password',
@@ -56,14 +69,16 @@ export function SignUpForm() {
 			placeholder: '******',
 			required: true,
 			element: 'input',
+			id: 'password',
 		},
 		{
-			name: 'passwordConfirm',
+			name: 'password_2',
 			type: 'password',
 			label: 'Подтвердите пароль',
 			placeholder: '******',
 			required: true,
 			element: 'input',
+			id: 'password_2',
 		},
 	]
 
@@ -91,7 +106,7 @@ export function SignUpForm() {
 			</div>
 			<div className='flex flex-row gap-1 mt-5 justify-center'>
 				<span className='text-gray-500'>Уже есть аккаунт?</span>
-				<TextLink href='/signup'>Войти</TextLink>
+				<TextLink href='/signin/'>Войти</TextLink>
 			</div>
 		</form>
 	)

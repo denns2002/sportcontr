@@ -3,7 +3,8 @@
 import { H1 } from '@/components/custom/headers'
 import { getNewsDetailsService } from '@/data/services/news'
 import { NewsEditForm } from './_components/news-edit-form'
-import { blobUrlToFile } from '@/data/custom'
+import { withAuth } from '@/hocs/';
+import { notFound } from 'next/navigation';
 
 interface NewsEditProps {
 	params: { slug: string }
@@ -11,6 +12,10 @@ interface NewsEditProps {
 
 async function NewsEdit({ params }: NewsEditProps) {
 	const data = await getNewsDetailsService(params.slug)
+
+	if (data.detail) {
+		notFound()
+	}
 
 	return (
 		<div className='h-full w-full flex justify-center'>
@@ -22,4 +27,4 @@ async function NewsEdit({ params }: NewsEditProps) {
 	)
 }
 
-export default NewsEdit
+export default withAuth(NewsEdit, ['admin'], true)

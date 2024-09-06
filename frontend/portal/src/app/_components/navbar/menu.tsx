@@ -55,6 +55,7 @@ export function Menu({
 	logo,
 }: MenuProps) {
 	type modulesKeys = keyof typeof modules
+
 	return (
 		<nav className='h-full w-72 bg-primary py-8 flex flex-col overflow-y-auto gap-8'>
 			{logo ? (

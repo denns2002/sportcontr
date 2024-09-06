@@ -1,4 +1,4 @@
-export type Project = {
+export interface Project {
 	owner: number
 	members: number[]
 	title: string
@@ -10,17 +10,17 @@ export type Project = {
 	slug: string
 }
 
-export type ProjectCreate = {
+export interface ProjectCreate {
   title: string
 	description: string
 }
 
-export type ProjectDataChange = {
+export interface ProjectDataChange {
   title: string
 	description: string
 }
 
-export type ProjectSettingsChange = {
+export interface ProjectSettingsChange {
   on_prod: boolean
 	url: string
 } 

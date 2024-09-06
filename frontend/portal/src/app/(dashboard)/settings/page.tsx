@@ -3,6 +3,7 @@
 import { H1 } from '@/components/custom/headers'
 import { SettingsForm } from './_components/settings-form'
 import { getSettingsService } from '@/data/services/settings'
+import { withAuth } from '@/hocs'
 
 async function Settings() {
 	const settings = await getSettingsService()
@@ -17,4 +18,4 @@ async function Settings() {
 	)
 }
 
-export default Settings
+export default withAuth(Settings, ['admin'], true)

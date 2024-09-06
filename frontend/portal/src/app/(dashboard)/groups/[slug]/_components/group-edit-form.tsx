@@ -7,6 +7,7 @@ import { deleteTrainerGroupAction, editTrainerGroupAction } from '@/data/actions
 import { FormElementAttributes } from '@/interfaces/forms'
 import { Group } from '@/interfaces/groups'
 import { User } from '@/interfaces/users'
+import { getUserAge } from '@/lib/dates'
 import { ArrowLeft, ChevronDown, FilePenLine, Plus, Trash2, X } from 'lucide-react'
 import { useState } from 'react'
 import { useFormState } from 'react-dom'
@@ -29,8 +30,8 @@ export function GroupEditForm({ group, members }: GroupEditFormProps) {
 	const [addedMembersIds, setAddedMembersIds] = useState(group.members)
 	const [usersIds, setUsersIds] = useState<Array<number>>(
 		members
-			.filter((member) => !addedMembersIds.includes(member.id) && !member.is_trainer)
-			.map((member) => member.id)
+			?.filter((member) => addedMembersIds?.includes(member?.id!) && !member?.is_trainer)
+			.map((member) => member?.id!)
 	)
 
 	const [formState, formAction] = useFormState(
@@ -97,7 +98,7 @@ export function GroupEditForm({ group, members }: GroupEditFormProps) {
 				>
 					{addedMembersIds.length > 0 ? (
 						members.map((member, index) => {
-							if (member.is_trainer || usersIds.includes(member.id)) {
+							if (member.is_trainer || usersIds.includes(member?.id!)) {
 								return null
 							}
 
@@ -106,9 +107,12 @@ export function GroupEditForm({ group, members }: GroupEditFormProps) {
 									className='w-full flex flex-row items-center p-5 hover:bg-hover hover:text-active transition-all duration-300'
 									key={index}
 								>
-									<div className='flex flex-row gap-2'>
+									<div className='flex flex-row flex-wrap gap-2'>
 										<span>{member.last_name}</span>
 										<span>{member.first_name}</span>
+										<span>{member.middle_name},</span>
+										<span>{getUserAge(member.birth_date!)}</span>
+										<span>лет</span>
 									</div>
 									<div className='flex-1' />
 									<DefaultButton
@@ -125,7 +129,7 @@ export function GroupEditForm({ group, members }: GroupEditFormProps) {
 											setUsersIds((prev: Array<number>) => {
 												let newMembers = [...prev]
 
-												newMembers.push(member.id)
+												newMembers.push(member?.id!)
 
 												return newMembers
 											})
@@ -167,7 +171,7 @@ export function GroupEditForm({ group, members }: GroupEditFormProps) {
 				>
 					{usersIds.length > 0 ? (
 						members.map((member, index) => {
-							if (member.is_trainer || addedMembersIds.includes(member.id)) {
+							if (member.is_trainer || addedMembersIds.includes(member?.id!)) {
 								return null
 							}
 
@@ -176,9 +180,12 @@ export function GroupEditForm({ group, members }: GroupEditFormProps) {
 									className='w-full flex flex-row items-center p-5 hover:bg-hover hover:text-active transition-all duration-300'
 									key={index}
 								>
-									<div className='flex flex-row gap-2'>
+									<div className='flex flex-row flex-wrap gap-2'>
 										<span>{member.last_name}</span>
 										<span>{member.first_name}</span>
+										<span>{member.middle_name},</span>
+										<span>{getUserAge(member.birth_date!)}</span>
+										<span>лет</span>
 									</div>
 									<div className='flex-1' />
 									<DefaultButton
@@ -188,7 +195,7 @@ export function GroupEditForm({ group, members }: GroupEditFormProps) {
 											setAddedMembersIds((prev: Array<number>) => {
 												let newMembers = [...prev]
 
-												newMembers.push(member.id)
+												newMembers.push(member?.id!)
 
 												return newMembers
 											})

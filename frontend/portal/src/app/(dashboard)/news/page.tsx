@@ -5,21 +5,26 @@ import { getNewsService } from '@/data/services/news'
 import { News as NewsType } from '@/interfaces/news'
 import { NewsCard } from './_components/news-card'
 import { verifyUserService } from '@/data/services/auth'
-import { User } from '@/interfaces/users'
+import { getRoles } from '@/lib/roles'
+import { withAuth } from '@/hocs'
 
-async function News() {
-	const data = (await getNewsService()) as Array<NewsType>
+interface Props {
+	searchParams: { [key: string]: string | string[] | undefined }
+	roles: Array<string>
+}
 
-	const { data: user } = await verifyUserService()
+async function News({ searchParams, roles }: Props) {
+	const isPublished = searchParams['is_published']
 
-	const roles: Array<string> = ['sportsman']
+	console.log(isPublished);
+	
 
-	if (user?.is_trainer) {
-		roles.push('trainer')
-	}
-
-	if (user?.is_superuser) {
-		roles.push('admin')
+	if (isPublished) {
+		var data = (await getNewsService(
+			isPublished === 'true' ? true : false
+		)) as Array<NewsType>
+	} else {
+		var data = (await getNewsService()) as Array<NewsType>
 	}
 
 	return (
@@ -27,27 +32,27 @@ async function News() {
 			<div className='w-full max-w-screen-xl mx-auto'>
 				<H1>Новости</H1>
 				{roles.includes('admin') ? (
-					<div className='flex flex-row gap-5 items-center'>
+					<div className='flex flex-row flex-wrap gap-5 items-center'>
 						<span className='text-xl font-semibold'>Хотите добавить новую новость?</span>
 						<ButtonLink href='/news/create/' size='small'>
 							<Plus className='h-5 w-5' />
 						</ButtonLink>
+						<div className='flex-1' />
+						<div className='flex flex-wrap flex-row gap-5'>
+							<ButtonLink href='/news/' color={!isPublished ? 'primary' : 'gray'} size='small'>
+								Все
+							</ButtonLink>
+							<ButtonLink href='/news/?is_published=true' color={isPublished === 'true' ? 'primary' : 'gray'} size='small'>
+								Опубликованные
+							</ButtonLink>
+							<ButtonLink href='/news/?is_published=false' color={isPublished === 'false' ? 'primary' : 'gray'} size='small'>
+								Неопубликованные
+							</ButtonLink>
+						</div>
 					</div>
 				) : null}
 				<div className='flex flex-row flex-wrap justify-center gap-5 mt-10'>
 					{data?.map((news, index) => (
-						<NewsCard news={news} key={index} />
-					))}
-					{data.map((news, index) => (
-						<NewsCard news={news} key={index} />
-					))}
-					{data.map((news, index) => (
-						<NewsCard news={news} key={index} />
-					))}
-					{data.map((news, index) => (
-						<NewsCard news={news} key={index} />
-					))}
-					{data.map((news, index) => (
 						<NewsCard news={news} key={index} />
 					))}
 				</div>
@@ -56,4 +61,4 @@ async function News() {
 	)
 }
 
-export default News
+export default withAuth(News, ['admin', 'trainer', 'sportsman'], false)

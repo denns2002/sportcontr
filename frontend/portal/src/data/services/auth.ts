@@ -10,12 +10,25 @@ export async function getTokenService() {
 export async function verifyEmailService() {
 	const url = new URL('/api/users/email-verify/', process.env.API_BASE_URL)
 
+	const token = await getTokenService()
+
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-			},
+			headers: { ...headers },
 			cache: 'no-cache',
 		})
 
@@ -30,17 +43,30 @@ export async function verifyEmailService() {
 export async function siginUserService(userData: SiginUserData) {
 	const url = new URL('/api/users/login/', process.env.API_BASE_URL)
 
+	const token = await getTokenService()
+
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
+			headers: { ...headers },
 			body: JSON.stringify({ ...userData }),
 			cache: 'no-cache',
 		})
 
-		return response.json()
+		return await response.json()
 	} catch (error) {
 		console.error('Signin Service Error:', error)
 
@@ -57,12 +83,23 @@ export async function signoutUserService() {
 		return { authenticated: false, data: null, error: null }
 	}
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-			},
+			headers: { ...headers },
 			cache: 'no-cache',
 		})
 
@@ -89,12 +126,23 @@ export async function signupUserService(userData: SignupUserData) {
 		return { authenticated: false, data: null, error: null }
 	}
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
+			headers: { ...headers },
 			body: JSON.stringify({ ...userData }),
 			cache: 'no-cache',
 		})
@@ -122,12 +170,23 @@ export async function verifyUserService() {
 		return { authenticated: false, data: null, error: null }
 	}
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
+			headers: { ...headers },
 			body: JSON.stringify({ token: token }),
 			cache: 'no-cache',
 		})

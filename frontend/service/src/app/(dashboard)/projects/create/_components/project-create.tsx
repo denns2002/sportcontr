@@ -1,12 +1,12 @@
 'use client'
 
+import { DefaultButton } from '@/components/custom/buttons'
+import { ButtonLink } from '@/components/custom/links'
+import { FormElementWrapper } from '@/components/form-elements'
 import { createProjectAction } from '@/data/actions/projects/create'
-import { FormElementAttributes } from '@/types/forms'
-import { useFormState } from 'react-dom'
-import { FormElementWrapper } from './elements/element-hoc'
-import { ButtonLink } from '../custom/links'
+import { FormElementAttributes } from '@/interfaces/forms'
 import { ArrowLeft, FilePlus2 } from 'lucide-react'
-import { DefaultButton } from '../custom/buttons'
+import { useFormState } from 'react-dom'
 
 const INITIAL_STATE = {
 	data: null,
@@ -25,6 +25,7 @@ export function ProjectCreateForm() {
 			placeholder: 'Название',
 			required: true,
 			element: 'input',
+			id: 'title',
 		},
 		{
 			name: 'description',
@@ -33,6 +34,7 @@ export function ProjectCreateForm() {
 			placeholder: 'Портал школы по самому популярному в мире спорту...',
 			required: true,
 			element: 'textarea',
+			id: 'description',
 		},
 	]
 
