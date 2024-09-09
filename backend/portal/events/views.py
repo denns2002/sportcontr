@@ -1,3 +1,4 @@
+from django.utils import timezone
 from rest_framework.generics import (
     GenericAPIView, ListAPIView, CreateAPIView,
     RetrieveUpdateDestroyAPIView, UpdateAPIView
@@ -19,6 +20,14 @@ class EventMixin(GenericAPIView):
     lookup_field = "slug"
     permission_classes = [IsAdminUser, HasSettingsPermission('events')]
     queryset = Event.objects.all().order_by('-created_at')
+
+    def get_queryset(self):
+        queryset = Event.objects.order_by('-created_at')
+        active = self.request.query_params.get('active')
+        if active:
+            queryset = queryset.filter(date_end__gte=timezone.now())
+
+        return queryset
 
     def get_parsers(self):
         if getattr(self, 'swagger_fake_view', False):
