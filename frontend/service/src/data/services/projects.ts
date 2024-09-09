@@ -1,6 +1,6 @@
 'use server'
 
-import { ProjectDataChange, ProjectCreate, ProjectSettingsChange } from '@/types/projects'
+import { ProjectDataChange, ProjectCreate, ProjectSettingsChange } from '@/interfaces/projects'
 import { getTokenService } from './auth'
 
 export async function getUserProjectsService() {
@@ -8,13 +8,23 @@ export async function getUserProjectsService() {
 
 	const token = await getTokenService()
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Token ${token}`,
-			},
+			headers: { ...headers },
 			cache: 'no-cache',
 		})
 
@@ -33,13 +43,23 @@ export async function postProjectService(projectData: ProjectCreate) {
 
 	const token = await getTokenService()
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Token ${token}`,
-			},
+			headers: { ...headers },
 			body: JSON.stringify({ ...projectData }),
 			cache: 'no-cache',
 		})
@@ -59,13 +79,23 @@ export async function patchProjectService(slug: string, projectData: ProjectData
 
 	const token = await getTokenService()
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'PATCH',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Token ${token}`,
-			},
+			headers: { ...headers },
 			body: JSON.stringify({ ...projectData }),
 			cache: 'no-cache',
 		})
@@ -85,13 +115,23 @@ export async function putProjectService(slug: string, projectData: ProjectDataCh
 
 	const token = await getTokenService()
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'PUT',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Token ${token}`,
-			},
+			headers: { ...headers },
 			body: JSON.stringify({ ...projectData }),
 			cache: 'no-cache',
 		})
@@ -111,13 +151,23 @@ export async function getProjectService(slug: string) {
 
 	const token = await getTokenService()
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Token ${token}`,
-			},
+			headers: { ...headers },
 			cache: 'no-cache',
 		})
 
@@ -160,13 +210,23 @@ export async function patchProjectSettingsService(
 
 	const token = await getTokenService()
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'PATCH',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Token ${token}`,
-			},
+			headers: { ...headers },
 			body: JSON.stringify({ ...projectData }),
 			cache: 'no-cache',
 		})
@@ -186,13 +246,23 @@ export async function putProjectSettingsService(slug: string, projectData: Proje
 
 	const token = await getTokenService()
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'PUT',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Token ${token}`,
-			},
+			headers: { ...headers },
 			body: JSON.stringify({ ...projectData }),
 			cache: 'no-cache',
 		})

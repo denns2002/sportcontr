@@ -45,8 +45,6 @@ export async function editNewsAction(
 		newsData.append('image', image)
 	}
 
-	console.log('action', newsData, image)
-
 	const responseData = await patchNewsDetailsService(slug, newsData)
 
 	if (!responseData) {

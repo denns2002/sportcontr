@@ -6,12 +6,25 @@ import { Settings, SettingsData } from '@/interfaces/settings'
 export async function getSettingsService() {
 	const url = new URL(`/api/settings/`, process.env.API_BASE_URL)
 
+	const token = await getTokenService()
+
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-			},
+			headers: { ...headers },
 			cache: 'no-cache',
 		})
 
@@ -30,12 +43,20 @@ export async function postSettingsService(settingsData: FormData) {
 
 	const token = await getTokenService()
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'POST',
-			headers: {
-				Authorization: `Token ${token}`,
-			},
+			headers: { ...headers },
 			body: settingsData,
 			cache: 'no-cache',
 		})
@@ -55,12 +76,20 @@ export async function patchSettingsService(settingsData: FormData) {
 
 	const token = await getTokenService()
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'PATCH',
-			headers: {
-				Authorization: `Token ${token}`,
-			},
+			headers: { ...headers },
 			body: settingsData,
 			cache: 'no-cache',
 		})
@@ -84,12 +113,20 @@ export async function putSettingsService(settingsData: FormData) {
 
 	const token = await getTokenService()
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'PUT',
-			headers: {
-				Authorization: `Token ${token}`,
-			},
+			headers: { ...headers },
 			body: settingsData,
 			cache: 'no-cache',
 		})
@@ -109,12 +146,23 @@ export async function deleteSettingsService() {
 
 	const token = await getTokenService()
 
+	var headers = {}
+
+	if (token !== undefined) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
 	try {
 		const response = await fetch(url, {
 			method: 'DELETE',
-			headers: {
-				Authorization: `Token ${token}`,
-			},
+			headers: { ...headers },
 			cache: 'no-cache',
 		})
 

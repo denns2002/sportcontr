@@ -3,8 +3,8 @@
 import { H1 } from '@/components/custom/headers'
 import { ButtonLink, TransparentLink } from '@/components/custom/links'
 import { getUserProjectsService } from '@/data/services/projects'
-import { parseDateShort } from '@/lib/dates'
-import { Project } from '@/types/projects'
+import { parseDate } from '@/lib/dates'
+import { Project } from '@/interfaces/projects'
 import { ArrowUpRight, Code, Plus } from 'lucide-react'
 
 async function Projects() {
@@ -26,12 +26,12 @@ async function Projects() {
 						key={index}
 					>
 						<div className='flex flex-row gap-2 justify-center items-center'>
-						<div className='h-3 w-3 rounded-full bg-green-500' />
+							<div className='h-3 w-3 rounded-full bg-green-500' />
 							<span className='text-lg font-medium'>{project?.title}</span>
 						</div>
 						<div className='flex-1' />
 						<span className='text-base text-gray-500'>
-							{parseDateShort(project?.created_at?.split('T')[0] || '')}
+							{parseDate(project?.created_at?.split('T')[0] || '')}
 						</span>
 						<div className='flex flex-row flex-wrap gap-5 justify-center items-center'>
 							<ButtonLink href={`/projects/${project.slug}/`}>

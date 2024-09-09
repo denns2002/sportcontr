@@ -1,32 +1,33 @@
 'use client'
 
-import { DefaultButton } from '@/components/custom/buttons'
+import { Dropdown } from '@/app/_components/custom/dropdown'
+import { DefaultButton, TransparentButton } from '@/components/custom/buttons'
 import { ButtonLink } from '@/components/custom/links'
 import { FormElementWrapper } from '@/components/form-elements'
 import { createTrainerGroupAction } from '@/data/actions/groups-trainer'
 import { FormElementAttributes } from '@/interfaces/forms'
 import { User } from '@/interfaces/users'
-import { ArrowLeft, FilePlus2, Plus, X } from 'lucide-react'
+import { getUserAge } from '@/lib/dates'
+import { ArrowLeft, ChevronDown, FilePlus2, Plus, X } from 'lucide-react'
 import { useState } from 'react'
 import { useFormState } from 'react-dom'
 
 interface GroupCreateFormProps {
-	members: Array<User>
+	users: Array<User>
 }
 
-export function GroupCreateForm({ members }: GroupCreateFormProps) {
+export function GroupCreateForm({ users }: GroupCreateFormProps) {
 	const INITIAL_STATE = {
 		data: null,
 		validationErrors: {},
 		requestError: null,
 	}
 
-	const [isActive, setIsActive] = useState(false)
-
-	const [membersIds, setMembersIds] = useState<Array<number>>([])
+	const [addedMembersIds, setAddedMembersIds] = useState<Array<number>>([])
+	const [usersIds, setUsersIds] = useState<Array<number>>(users.map((user) => user?.id!))
 
 	const [formState, formAction] = useFormState(
-		createTrainerGroupAction.bind(null, membersIds),
+		createTrainerGroupAction.bind(null, addedMembersIds),
 		INITIAL_STATE
 	)
 
@@ -38,6 +39,7 @@ export function GroupCreateForm({ members }: GroupCreateFormProps) {
 			placeholder: 'Название',
 			required: true,
 			element: 'input',
+			id: 'name',
 		},
 		{
 			name: 'description',
@@ -46,6 +48,7 @@ export function GroupCreateForm({ members }: GroupCreateFormProps) {
 			placeholder: 'Группа школы по самому популярному в мире спорту...',
 			required: false,
 			element: 'textarea',
+			id: 'description',
 		},
 	]
 
@@ -61,69 +64,109 @@ export function GroupCreateForm({ members }: GroupCreateFormProps) {
 					</div>
 				))}
 			</div>
-			<div className='w-full'>
-				<div
-					className='w-full bg-white p-5 shadow-md flex flex-col gap-5 hover:cursor-pointer'
-					onClick={() => setIsActive((prev) => !prev)}
-				>
-					<label className='font-medium'>Состав группы:</label>
-				</div>
-				<div
-					className={`${
-						isActive ? null : 'hidden'
-					} w-full flex flex-col gap-5 py-5 bg-white shadow-md border-t-2 border-primary`}
-				>
-					{members.map((member, index) => {
-						if (member.is_trainer) {
-							return null
-						}
+			<Dropdown label='Добавленные участники'>
+				<div className='w-full flex flex-col'>
+					{addedMembersIds.length > 0 ? (
+						users.map((user, index) => {
+							if (user.is_trainer || usersIds.includes(user?.id!)) {
+								return null
+							}
 
-						return (
-							<div className='w-full flex flex-row items-center px-5 py-2 shadow-md' key={index}>
-								<div className='flex flex-row gap-2'>
-									<span>{member.last_name}</span>
-									<span>{member.first_name}</span>
-								</div>
-								<div className='flex-1' />
-								{membersIds.length > 0 && membersIds?.includes(member.id) ? (
+							return (
+								<div
+									className='w-full flex flex-row items-center p-5 hover:bg-hover hover:text-active transition-all duration-300'
+									key={index}
+								>
+									<div className='flex flex-row flex-wrap gap-2'>
+										<span>{user.last_name}</span>
+										<span>{user.first_name}</span>
+										<span>{user.middle_name},</span>
+										<span>{getUserAge(user.birth_date!)}</span>
+										<span>лет</span>
+									</div>
+									<div className='flex-1' />
 									<DefaultButton
 										color='error'
 										type='button'
 										full={false}
-										handler={() =>
-											setMembersIds((prev: Array<number>) => {
-												let newMembers = [...prev.filter((e) => e !== member.id)]
+										handler={() => {
+											setAddedMembersIds((prev: Array<number>) => {
+												let newMembers = [...prev.filter((e) => e !== user.id)]
 
 												return newMembers
 											})
-										}
+
+											setUsersIds((prev: Array<number>) => {
+												let newMembers = [...prev]
+
+												newMembers.push(user?.id!)
+
+												return newMembers
+											})
+										}}
 										size='small'
 									>
 										<X className='h-5 w-5' />
 									</DefaultButton>
-								) : (
+								</div>
+							)
+						})
+					) : (
+						<span className='p-5'>Состав группы будет пустым...</span>
+					)}
+				</div>
+			</Dropdown>
+			<Dropdown label='Добавить в состав'>
+				<div className='w-full flex flex-col'>
+					{usersIds.length > 0 ? (
+						users.map((user, index) => {
+							if (user.is_trainer || addedMembersIds.includes(user?.id!)) {
+								return null
+							}
+
+							return (
+								<div
+									className='w-full flex flex-row items-center p-5 hover:bg-hover hover:text-active transition-all duration-300'
+									key={index}
+								>
+									<div className='flex flex-row flex-wrap gap-2'>
+										<span>{user.last_name}</span>
+										<span>{user.first_name}</span>
+										<span>{user.middle_name},</span>
+										<span>{getUserAge(user.birth_date!)}</span>
+										<span>лет</span>
+									</div>
+									<div className='flex-1' />
 									<DefaultButton
 										type='button'
 										full={false}
-										handler={() =>
-											setMembersIds((prev: Array<number>) => {
+										handler={() => {
+											setAddedMembersIds((prev: Array<number>) => {
 												let newMembers = [...prev]
 
-												newMembers.push(member.id)
+												newMembers.push(user?.id!)
 
 												return newMembers
 											})
-										}
+
+											setUsersIds((prev: Array<number>) => {
+												let newMembers = [...prev.filter((e) => e !== user.id)]
+
+												return newMembers
+											})
+										}}
 										size='small'
 									>
 										<Plus className='h-5 w-5' />
 									</DefaultButton>
-								)}
-							</div>
-						)
-					})}
+								</div>
+							)
+						})
+					) : (
+						<span className='p-5'>Больше некого добавлять...</span>
+					)}
 				</div>
-			</div>
+			</Dropdown>
 			<div className='w-full flex flex-row flex-wrap gap-y-5 gap-x-10'>
 				<ButtonLink href='/groups/' color='gray'>
 					<>

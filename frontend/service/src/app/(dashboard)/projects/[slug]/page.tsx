@@ -1,9 +1,9 @@
 'use server'
 
 import { H1 } from '@/components/custom/headers'
-import { ProjectEditForm } from '@/components/forms/project-edit'
 import { getProjectService } from '@/data/services/projects'
 import { notFound } from 'next/navigation'
+import { ProjectEditForm } from './_components/project-edit'
 
 interface ProjectProps {
 	params: { slug: string }
@@ -12,7 +12,7 @@ interface ProjectProps {
 async function Project({ params }: ProjectProps) {
 	const project = await getProjectService(params.slug)
 
-	if (project.detail === 'No Project matches the given query.') {
+	if (project.detail) {
 		notFound()
 	}
 

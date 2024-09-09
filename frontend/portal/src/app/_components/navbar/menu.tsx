@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { HeaderLink } from './link'
-import { Newspaper, Calendar, Settings, Users, User } from 'lucide-react'
+import { Newspaper, Calendar, Settings, Users, User, Contact } from 'lucide-react'
 import { TransparentLink } from '@/components/custom/links'
 import Image from 'next/image'
 
@@ -55,6 +55,7 @@ export function Menu({
 	logo,
 }: MenuProps) {
 	type modulesKeys = keyof typeof modules
+
 	return (
 		<nav className='h-full w-72 bg-primary py-8 flex flex-col overflow-y-auto gap-8'>
 			{logo ? (
@@ -86,12 +87,20 @@ export function Menu({
 					)
 				})}
 				{authenticated && roles.includes('admin') && (
-					<HeaderLink href='/settings/'>
-						<>
-							<Settings />
-							<span>Настройки</span>
-						</>
-					</HeaderLink>
+					<>
+						<HeaderLink href='/users/'>
+							<>
+								<Contact />
+								<span>Пользователи</span>
+							</>
+						</HeaderLink>
+						<HeaderLink href='/settings/'>
+							<>
+								<Settings />
+								<span>Настройки</span>
+							</>
+						</HeaderLink>
+					</>
 				)}
 			</div>
 			<div className='flex-1' />

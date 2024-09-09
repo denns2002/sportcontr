@@ -61,7 +61,7 @@ export function NewsEditForm({ news }: NewsEditFormProps) {
 	return (
 		<form action={formAction} className='w-full flex flex-col gap-5'>
 			<div className='w-full flex flex-col gap-5'>
-				{elements.slice(0,2).map((attributes, index) => (
+				{elements.map((attributes, index) => (
 					<div className='w-full bg-white p-5 shadow-md' key={index}>
 						<FormElementWrapper
 							attributes={attributes}
@@ -70,13 +70,6 @@ export function NewsEditForm({ news }: NewsEditFormProps) {
 						/>
 					</div>
 				))}
-				<div className='w-full bg-white p-5 shadow-md'>
-					<FormElementWrapper
-						attributes={elements[2]}
-						errors={formState?.validationErrors[elements[2].name]}
-						value={formState.data[elements[2].name]}
-					/>
-				</div>
 				<div className='w-full bg-white p-5 shadow-md flex flex-row flex-wrap gap-5 items-center'>
 					<label className='font-medium'>Опубликовать новость:</label>
 					<div className='flex-1' />

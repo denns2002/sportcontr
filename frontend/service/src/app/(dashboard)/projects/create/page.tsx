@@ -1,5 +1,5 @@
 import { H1 } from "@/components/custom/headers"
-import { ProjectCreateForm } from "@/components/forms/project-create"
+import { ProjectCreateForm } from "./_components/project-create"
 
 function ProjectCreate() {
 	return (

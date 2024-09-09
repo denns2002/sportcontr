@@ -1,6 +1,6 @@
 'use server'
 
-import { SignInForm } from '@/components/forms'
+import { SignInForm } from "./_components/signin-form"
 
 function SignIn() {
 	return (

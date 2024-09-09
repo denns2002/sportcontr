@@ -3,6 +3,8 @@
 import { verifyUserService } from '@/data/services/auth'
 import { Menu as NavMenu } from './menu'
 import { ModalNavbar } from './modal'
+import { cookies } from 'next/headers';
+import { getRoles } from '@/lib/roles';
 
 interface NavbarProps {
 	modules: {
@@ -16,15 +18,7 @@ interface NavbarProps {
 export async function Navbar({ modules, logo }: NavbarProps) {
 	const { authenticated, data } = await verifyUserService()
 
-	const roles: Array<string> = ['sportsman']
-
-	if (data?.is_trainer) {
-		roles.push('trainer')
-	}
-
-	if (data?.is_superuser) {
-		roles.push('admin')
-	}
+	const roles: Array<string> = getRoles(data)
 
 	return (
 		<aside className='h-full'>

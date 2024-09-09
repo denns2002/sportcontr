@@ -13,33 +13,7 @@ export const monthes = {
 	'12': 'декабря',
 }
 
-export function parseDateFull(date: string) {
-	if (!date) {
-		return ''
-	}
-
-	const arr = date.split('-')
-
-	const time = arr[2].split('T').length > 1 ? arr[2].split('T')[1] : ''
-
-	type ObjectKey = keyof typeof monthes
-
-	return (
-		[
-			time
-				? arr[2][0] === '0'
-					? arr[2][1]
-					: arr[2].slice(0, 2)
-				: arr[2][0] === '0'
-				? arr[2][1]
-				: arr[2],
-			monthes[arr[1] as ObjectKey],
-			arr[0],
-		].join(' ') + (time ? `, ${time.slice(0, 5)}` : '')
-	)
-}
-
-export function parseDateShort(date: string) {
+export function parseDate(date: string) {
 	if (!date) {
 		return ''
 	}

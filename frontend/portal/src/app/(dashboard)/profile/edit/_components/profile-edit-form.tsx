@@ -17,7 +17,7 @@ interface ProfileEditFormProps {
 
 export function ProfileEditForm({ user, ...data }: ProfileEditFormProps) {
 	const INITIAL_STATE = {
-		data: data,
+		data: user,
 		validationErrors: {},
 		requestError: null,
 	}
@@ -43,11 +43,19 @@ export function ProfileEditForm({ user, ...data }: ProfileEditFormProps) {
 		// 	element: 'input',
 		// 	id: 'title',
 		// },
+		{
+			name: 'avatar',
+			type: 'file',
+			label: 'Загрузить аватарку',
+			placeholder: 'Картинка котика',
+			required: false,
+			element: 'uploader',
+			id: 'avatar',
+		},
 	]
 
 	return (
 		<form action={formAction} className='w-full flex flex-col gap-5'>
-			<input type='file' placeholder='avatar' name='avatar' />
 			{elements.map((attributes, index) => (
 				<div className='w-full bg-white p-5 shadow-md' key={index}>
 					<FormElementWrapper

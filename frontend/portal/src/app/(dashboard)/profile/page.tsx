@@ -3,10 +3,11 @@
 import { verifyUserService } from '@/data/services/auth'
 import { signoutAction } from '@/data/actions/auth'
 import { Camera, LockKeyhole, LogOut, SlidersVertical, User } from 'lucide-react'
-import { parseDateFull } from '@/lib/dates'
+import { getUserAge, parseDate } from '@/lib/dates'
 import { ButtonLink } from '@/components/custom/links'
 import { DefaultButton } from '@/components/custom/buttons'
 import Image from 'next/image'
+import { withAuth } from '@/hocs'
 
 async function Profile() {
 	const { data } = await verifyUserService()
@@ -48,7 +49,9 @@ async function Profile() {
 						<div className='flex flex-col gap-5 flex-1 min-w-52'>
 							<div className='flex flex-col gap-2'>
 								<span className='text-xl font-semibold'>Возраст:</span>
-								<span className='text-base text-gray-500'>{parseDateFull(data?.birth_date)}</span>
+								<span className='text-base text-gray-500'>{`${getUserAge(
+									data?.birth_date
+								)} лет, (${parseDate(data?.birth_date)})`}</span>
 							</div>
 							<div className='flex flex-col gap-2'>
 								<span className='text-xl font-semibold'>Почта:</span>
@@ -91,4 +94,4 @@ async function Profile() {
 	)
 }
 
-export default Profile
+export default withAuth(Profile, ['admin', 'trainer', 'sportsman'], true)
