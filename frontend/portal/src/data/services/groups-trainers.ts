@@ -1,16 +1,16 @@
 'use server'
 
 import { TrainerGroupData } from '@/interfaces/groups'
-import { getTokenService } from './auth'
+import { getCookie } from '../actions/cookies/get'
 
 export async function getTrainersGroupsService() {
 	const url = new URL('/api/groups/trainer/', process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,
@@ -41,11 +41,11 @@ export async function getTrainersGroupsService() {
 export async function postTrainersGroupService(groupData: TrainerGroupData) {
 	const url = new URL('/api/groups/trainer/', process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,
@@ -77,11 +77,11 @@ export async function postTrainersGroupService(groupData: TrainerGroupData) {
 export async function getTrainersGroupDetailsService(slug: string) {
 	const url = new URL(`/api/groups/trainer/detail/${slug}/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,
@@ -112,11 +112,11 @@ export async function getTrainersGroupDetailsService(slug: string) {
 export async function patchTrainersGroupDetailsService(slug: string, groupData: TrainerGroupData) {
 	const url = new URL(`/api/groups/trainer/detail/${slug}/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,
@@ -148,11 +148,11 @@ export async function patchTrainersGroupDetailsService(slug: string, groupData: 
 export async function putTrainersGroupDetailsService(slug: string, groupData: TrainerGroupData) {
 	const url = new URL(`/api/groups/trainer/detail/${slug}/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,
@@ -184,11 +184,11 @@ export async function putTrainersGroupDetailsService(slug: string, groupData: Tr
 export async function deleteTrainersGroupDetailsService(slug: string) {
 	const url = new URL(`/api/groups/detail/${slug}/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,

@@ -25,6 +25,7 @@ export function SignInForm() {
 			placeholder: 'Username',
 			required: true,
 			element: 'input',
+			id: 'username'
 		},
 		{
 			name: 'password',
@@ -33,6 +34,7 @@ export function SignInForm() {
 			placeholder: '******',
 			required: true,
 			element: 'input',
+			id: 'password'
 		},
 	]
 

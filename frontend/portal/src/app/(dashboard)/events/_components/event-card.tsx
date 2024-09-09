@@ -2,7 +2,7 @@ import { News } from '@/interfaces/news'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { parseDate } from '@/lib/dates'
+import { isRegClosed, parseDate } from '@/lib/dates'
 import { Event } from '@/interfaces/events'
 import { Check, X } from 'lucide-react'
 
@@ -14,7 +14,7 @@ export function EventCard({ event }: EventCardProps) {
 	const dateStartArray = parseDate(event.date_start || '').split(' ')
 	const dateEndArray = parseDate(event.date_end || '').split(' ')
 
-	const regClosed = parseDate(event?.reg_end || '')
+	const regClosed = isRegClosed(event?.reg_end || '')
 
 	return (
 		<Link

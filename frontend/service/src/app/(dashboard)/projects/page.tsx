@@ -20,7 +20,7 @@ async function Projects() {
 				</ButtonLink>
 			</div>
 			<div className='w-full mt-10 flex flex-col gap-5	'>
-				{projects.map((project: Project, index: number) => (
+				{!projects.detail ? projects?.map((project: Project, index: number) => (
 					<div
 						className='w-full bg-white shadow-md rounded-xl p-5 flex flex-row flex-wrap gap-x-10 gap-y-5 items-center'
 						key={index}
@@ -45,7 +45,7 @@ async function Projects() {
 							</TransparentLink>
 						</div>
 					</div>
-				))}
+				)) : <div></div>}
 			</div>
 		</div>
 	)

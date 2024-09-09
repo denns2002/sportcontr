@@ -7,10 +7,13 @@ export async function getTokenService() {
 	return cookies().get('token')?.value
 }
 
-export async function verifyUserService() {
+export async function verifyUserService(message?: string) {
 	const url = new URL('/api/users/verify/', process.env.API_BASE_URL)
 
 	const token = await getTokenService()
+
+	console.log(message);
+	
 
 	if (!token) {
 		return { authenticated: false, data: null, error: null }
@@ -18,7 +21,7 @@ export async function verifyUserService() {
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,
@@ -38,8 +41,9 @@ export async function verifyUserService() {
 		})
 
 		const responseData = await response.json()
+		
 
-		if (responseData.message) {
+		if (responseData.detail) {
 			return { authenticated: false, data: null, error: responseData.message }
 		}
 
@@ -54,25 +58,10 @@ export async function verifyUserService() {
 export async function siginUserService(userData: SiginUserData) {
 	const url = new URL('/api/users/login/', process.env.API_BASE_URL)
 
-	const token = await getTokenService()
-
-	var headers = {}
-
-	if (token !== undefined) {
-		headers = {
-			'Content-Type': 'application/json',
-			Authorization: `Token ${token}`,
-		}
-	} else {
-		headers = {
-			'Content-Type': 'application/json',
-		}
-	}
-
 	try {
 		const response = await fetch(url, {
 			method: 'POST',
-			headers: { ...headers },
+			headers: { 'Content-Type': 'application/json', },
 			body: JSON.stringify({ ...userData }),
 			cache: 'no-cache',
 		})
@@ -96,7 +85,7 @@ export async function signoutUserService() {
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,
@@ -131,29 +120,10 @@ export async function signoutUserService() {
 export async function signupUserService(userData: SignupUserData) {
 	const url = new URL('/api/users/register/', process.env.API_BASE_URL)
 
-	const token = await getTokenService()
-
-	if (!token) {
-		return { authenticated: false, data: null, error: null }
-	}
-
-	var headers = {}
-
-	if (token !== undefined) {
-		headers = {
-			'Content-Type': 'application/json',
-			Authorization: `Token ${token}`,
-		}
-	} else {
-		headers = {
-			'Content-Type': 'application/json',
-		}
-	}
-
 	try {
 		const response = await fetch(url, {
 			method: 'POST',
-			headers: { ...headers },
+			headers: { 'Content-Type': 'application/json', },
 			body: JSON.stringify({ ...userData }),
 			cache: 'no-cache',
 		})

@@ -13,8 +13,6 @@ interface UsersEditProps {
 async function UsersEdit({ params }: UsersEditProps) {
 	const user = await getUserDetailsService(params.id)
 
-	console.log(user)
-
 	return (
 		<div className='h-full w-full flex flex-col gap-10'>
 			<div className='h-fit w-full bg-white px-10 lg:px-10 py-10 shadow-md flex flex-col gap-10'>

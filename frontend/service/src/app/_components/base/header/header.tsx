@@ -41,7 +41,7 @@ export async function Header() {
 			{authenticated ? (
 				<div className='lg:flex flex-row gap-14 h-full hidden justify-center items-center'>
 					<HeaderLink href='/projects/'>Проекты</HeaderLink>
-					{user.avatar ? (
+					{user?.avatar ? (
 						<Link href='/profile/'>
 							<Image
 								src={user.avatar}

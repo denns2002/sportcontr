@@ -1,16 +1,15 @@
 'use server'
 
-import { getTokenService } from './auth'
-import { Settings, SettingsData } from '@/interfaces/settings'
+import { getCookie } from "../actions/cookies/get"
 
 export async function getSettingsService() {
 	const url = new URL(`/api/settings/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,
@@ -41,11 +40,11 @@ export async function getSettingsService() {
 export async function postSettingsService(settingsData: FormData) {
 	const url = new URL(`/api/settings/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			Authorization: `Token ${token}`,
 		}
@@ -74,11 +73,14 @@ export async function postSettingsService(settingsData: FormData) {
 export async function patchSettingsService(settingsData: FormData) {
 	const url = new URL(`/api/settings/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
+
+	console.log('token', token);
+	
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			Authorization: `Token ${token}`,
 		}
@@ -111,11 +113,11 @@ export async function patchSettingsService(settingsData: FormData) {
 export async function putSettingsService(settingsData: FormData) {
 	const url = new URL(`/api/settings/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			Authorization: `Token ${token}`,
 		}
@@ -144,11 +146,11 @@ export async function putSettingsService(settingsData: FormData) {
 export async function deleteSettingsService() {
 	const url = new URL(`/api/settings/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,

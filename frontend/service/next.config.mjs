@@ -5,15 +5,13 @@ const nextConfig = {
 	images: {
 		remotePatterns: [
 			{
-				protocol: 'https',
-				hostname: 'web-stroy.net',
-				port: '',
-				pathname: '/cms/media/**',
+				protocol: 'http',
+				hostname: '127.0.0.1',
+				pathname: '/media/**',
 			},
 			{
 				protocol: 'http',
-				hostname: '127.0.0.1',
-				port: '8000',
+				hostname: 'backend-service',
 				pathname: '/media/**',
 			},
 		],

@@ -32,8 +32,6 @@ export function EventMembersEditForm({ groups, event, users }: EventMembersEditF
 		activeGroup.members.filter((member) => !event.members?.includes(member))
 	)
 
-	console.log(addedMembersIds)
-
 	const [formState, formAction] = useFormState(
 		editEventMembersAction.bind(null, event.slug!, addedMembersIds),
 		INITIAL_STATE

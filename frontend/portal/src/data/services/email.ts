@@ -1,15 +1,15 @@
 'use server'
 
-import { getTokenService } from './auth'
+import { getCookie } from "../actions/cookies/get"
 
 export async function postEmailService(email: string) {
 	const url = new URL('/api/users/change-email/', process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,
@@ -41,11 +41,11 @@ export async function postEmailService(email: string) {
 export async function getEmailVerifyService() {
 	const url = new URL(`/api/users/email-verify-new/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,

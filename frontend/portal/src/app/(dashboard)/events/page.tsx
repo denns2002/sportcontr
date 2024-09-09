@@ -15,19 +15,39 @@ interface EventsProps {
 async function Events({ roles }: EventsProps) {
 	const events = (await getEventsService()) as Array<Event>
 
+	const isUpcoming = null
+
 	return (
 		<div className='h-full w-full flex flex-col gap-10'>
 			<div className='h-fit w-full bg-white px-10 lg:px-10 py-10 shadow-md flex flex-col gap-10'>
 				<H1>Мероприятия</H1>
-				{roles.includes('admin') ? (
-					<div className='flex'>
+				<div className='w-full flex flex-row flex-wrap gap-5'>
+					<div className='flex flex-wrap flex-row gap-5'>
+						<ButtonLink href='/events/' color={!isUpcoming ? 'primary' : 'gray'}>
+							Все
+						</ButtonLink>
+						<ButtonLink
+							href='/events/?is_published=true'
+							color={isUpcoming === 'true' ? 'primary' : 'gray'}
+						>
+							Предстоящие
+						</ButtonLink>
+						<ButtonLink
+							href='/events/?is_published=false'
+							color={isUpcoming === 'false' ? 'primary' : 'gray'}
+						>
+							Прошедшие
+						</ButtonLink>
+					</div>
+					<div className='flex-1' />
+					{roles.includes('admin') ? (
 						<ButtonLink href='/events/create/'>
 							<>
 								<FilePlus2 className='h-5 w-5' /> Создать мероприятие
 							</>
 						</ButtonLink>
-					</div>
-				) : null}
+					) : null}
+				</div>
 			</div>
 			<div className='w-full px-10 lg:px-20'>
 				<div className='w-full max-w-screen-xl mx-auto flex flex-col gap-5'>

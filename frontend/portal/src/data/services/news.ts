@@ -1,7 +1,7 @@
 'use server'
 
 import { NewsData } from '@/interfaces/news'
-import { getTokenService } from './auth'
+import { getCookie } from '../actions/cookies/get'
 
 export async function getNewsService(isPublished?: boolean) {
 	const url = new URL(
@@ -11,11 +11,11 @@ export async function getNewsService(isPublished?: boolean) {
 		process.env.API_BASE_URL
 	)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,
@@ -46,11 +46,11 @@ export async function getNewsService(isPublished?: boolean) {
 export async function postNewsService(newsData: FormData) {
 	const url = new URL('/api/news/', process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			Authorization: `Token ${token}`,
 		}
@@ -79,11 +79,11 @@ export async function postNewsService(newsData: FormData) {
 export async function getNewsDetailsService(slug: string) {
 	const url = new URL(`/api/news/detail/${slug}/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,
@@ -114,11 +114,11 @@ export async function getNewsDetailsService(slug: string) {
 export async function patchNewsDetailsService(slug: string, newsData: FormData) {
 	const url = new URL(`/api/news/detail/${slug}/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			Authorization: `Token ${token}`,
 		}
@@ -147,11 +147,11 @@ export async function patchNewsDetailsService(slug: string, newsData: FormData) 
 export async function putNewsDetailsService(slug: string, newsData: FormData) {
 	const url = new URL(`/api/news/detail/${slug}/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			Authorization: `Token ${token}`,
 		}
@@ -180,11 +180,11 @@ export async function putNewsDetailsService(slug: string, newsData: FormData) {
 export async function deleteNewsDetailsService(slug: string) {
 	const url = new URL(`/api/news/detail/${slug}/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,

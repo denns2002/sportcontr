@@ -1,11 +1,11 @@
 'use server'
 
 import { H1 } from '@/components/custom/headers'
-import { getTrainersGroupDetailsService } from '@/data/services/groups-trainers'
 import { GroupEditForm } from './_components/group-edit-form'
 import { getUsersService } from '@/data/services/users'
 import { withAuth } from '@/hocs/'
 import { notFound } from 'next/navigation'
+import { getGroupDetailsService } from '@/data/services/groups-base'
 
 interface GroupEditProps {
 	params: { slug: string }
@@ -13,7 +13,7 @@ interface GroupEditProps {
 }
 
 async function GroupEdit({ params, roles }: GroupEditProps) {
-	const data = await getTrainersGroupDetailsService(params.slug)
+	const data = await getGroupDetailsService(params.slug)
 
 	if (data.detail) {
 		notFound()

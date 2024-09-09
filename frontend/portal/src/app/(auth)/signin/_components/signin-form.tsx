@@ -58,7 +58,7 @@ export function SignInForm() {
 				<TextLink href='#'>Восстановить</TextLink>
 			</div>
 			<div className='mt-5 flex flex-col gap-1 items-center'>
-				<DefaultButton type='submit' loadingText='...'>
+				<DefaultButton full={true} type='submit' loadingText='...'>
 					Войти
 				</DefaultButton>
 				<RequestError detail={formState?.requestError} />

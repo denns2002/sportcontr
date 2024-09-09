@@ -6,7 +6,14 @@ import { verifyUserService } from '@/data/services/auth'
 import { getSettingsService } from './data/services/settings'
 
 export async function middleware(request: NextRequest) {
-	const response = await verifyUserService()
+	const response = await verifyUserService('middleware')
+
+	const headers = new Headers(request.headers)
+
+	if (!response.authenticated) {
+		headers.set('Set-Cookie', 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT')
+	}
+
 	const settings = await getSettingsService()
 
 	const authRoutes: string[] = ['/signin/']
@@ -27,18 +34,9 @@ export async function middleware(request: NextRequest) {
 		return NextResponse.redirect(new URL('/', request.url))
 	}
 
-	return NextResponse.next()
+	return NextResponse.next({ headers })
 }
 
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico, sitemap.xml, robots.txt (metadata files)
-     */
-    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
-  ],
+	matcher: ['/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)'],
 }

@@ -1,15 +1,15 @@
 'use server'
 
-import { getTokenService } from './auth'
+import { getCookie } from '../actions/cookies/get'
 
 export async function getEventsService() {
 	const url = new URL(`/api/events/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,
@@ -40,11 +40,11 @@ export async function getEventsService() {
 export async function postEventService(eventData: FormData) {
 	const url = new URL('/api/events/', process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			Authorization: `Token ${token}`,
 		}
@@ -73,11 +73,11 @@ export async function postEventService(eventData: FormData) {
 export async function getEventDetailsService(slug: string) {
 	const url = new URL(`/api/events/detail/${slug}/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,
@@ -108,11 +108,11 @@ export async function getEventDetailsService(slug: string) {
 export async function patchEventDetailsService(slug: string, eventData: FormData) {
 	const url = new URL(`/api/events/detail/${slug}/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			Authorization: `Token ${token}`,
 		}
@@ -141,11 +141,11 @@ export async function patchEventDetailsService(slug: string, eventData: FormData
 export async function putEventDetailsService(slug: string, eventData: FormData) {
 	const url = new URL(`/api/events/detail/${slug}/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			Authorization: `Token ${token}`,
 		}
@@ -174,11 +174,11 @@ export async function putEventDetailsService(slug: string, eventData: FormData) 
 export async function deleteEventDetailsService(slug: string) {
 	const url = new URL(`/api/events/detail/${slug}/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,
@@ -205,11 +205,11 @@ export async function deleteEventDetailsService(slug: string) {
 export async function patchEventMembersService(slug: string, members: Array<number>) {
 	const url = new URL(`/api/events/${slug}/members/add/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,
@@ -239,11 +239,11 @@ export async function patchEventMembersService(slug: string, members: Array<numb
 export async function putEventMembersService(slug: string, members: Array<number>) {
 	const url = new URL(`/api/events/${slug}/members/add/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,

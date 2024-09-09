@@ -30,8 +30,6 @@ async function EventMembersEdit({ params, roles }: EventMembersEditProps) {
 
 	const users = await getUsersService()
 
-  console.log(event, groups, users)
-
 	return (
 		<div className='h-full w-full flex flex-col gap-10'>
 			<div className='h-fit w-full bg-white px-10 lg:px-10 py-10 shadow-md flex flex-col gap-10'>

@@ -1,16 +1,15 @@
 'use server'
 
-import { getTokenService } from './auth'
-import { User, UserData } from '@/interfaces/users'
+import { getCookie } from "../actions/cookies/get"
 
 export async function getUsersService() {
 	const url = new URL(`/api/users/user-list/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,
@@ -41,11 +40,11 @@ export async function getUsersService() {
 export async function getUserDetailsService(id: number) {
 	const url = new URL(`/api/users/user-detail/${id}/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,
@@ -76,11 +75,11 @@ export async function getUserDetailsService(id: number) {
 export async function patchUserDetailsService(id: number, userData: FormData) {
 	const url = new URL(`/api/users/user-detail/${id}/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			Authorization: `Token ${token}`,
 		}
@@ -109,11 +108,11 @@ export async function patchUserDetailsService(id: number, userData: FormData) {
 export async function putUserDetailsService(id: number, userData: FormData) {
 	const url = new URL(`/api/users/user-detail/${id}/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			Authorization: `Token ${token}`,
 		}
@@ -142,11 +141,11 @@ export async function putUserDetailsService(id: number, userData: FormData) {
 export async function deleteUserDetailsService(id: number) {
 	const url = new URL(`/api/users/user-detail/${id}/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,

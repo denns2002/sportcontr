@@ -10,7 +10,7 @@ export async function getUsersService() {
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,
@@ -45,7 +45,7 @@ export async function getUserDetailsService(id: number) {
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,
@@ -80,7 +80,7 @@ export async function patchUserDetailsService(id: number, userData: FormData) {
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			Authorization: `Token ${token}`,
 		}
@@ -113,7 +113,7 @@ export async function putUserDetailsService(id: number, userData: FormData) {
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			Authorization: `Token ${token}`,
 		}
@@ -146,7 +146,7 @@ export async function deleteUserDetailsService(id: number) {
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,

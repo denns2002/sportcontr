@@ -3,15 +3,7 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
-import { siginUserService, verifyUserService } from '@/data/services/auth'
-
-const config = {
-	maxAge: 60 * 60 * 24 * 7, // 1 неделя
-	path: '/',
-	domain: process.env.HOST ?? 'localhost',
-	httpOnly: true,
-	secure: process.env.NODE_ENV === 'production',
-}
+import { siginUserService } from '@/data/services/auth'
 
 const schemaSignin = z.object({
 	username: z
@@ -60,13 +52,25 @@ export async function signinAction(prevState: any, formData: FormData) {
 		}
 	}
 
-	cookies().set('token', responseData.token, config)
+	cookies().set('token', responseData.token, {
+		maxAge: 60 * 60 * 24 * 7,
+		path: '/',
+		sameSite: 'none',
+		httpOnly: true,
+		secure: false,
+	})
 
 	redirect('/')
 }
 
 export async function signoutAction() {
-	cookies().set('token', '', { ...config, maxAge: 0 })
+	cookies().set('token', '', {
+		maxAge: 0,
+		path: '/',
+		sameSite: 'none',
+		httpOnly: true,
+		secure: false,
+	})
 
 	redirect('/')
 }

@@ -1,16 +1,16 @@
 'use server'
 
 import { GroupData } from '@/interfaces/groups'
-import { getTokenService } from './auth'
+import { getCookie } from '../actions/cookies/get'
 
 export async function getGroupsService() {
 	const url = new URL('/api/groups/', process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,
@@ -41,11 +41,11 @@ export async function getGroupsService() {
 export async function postGroupService(groupData: GroupData) {
 	const url = new URL('/api/groups/', process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,
@@ -77,11 +77,11 @@ export async function postGroupService(groupData: GroupData) {
 export async function getGroupDetailsService(slug: string) {
 	const url = new URL(`/api/groups/detail/${slug}/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,
@@ -112,11 +112,11 @@ export async function getGroupDetailsService(slug: string) {
 export async function patchGroupDetailsService(slug: string, groupData: GroupData) {
 	const url = new URL(`/api/groups/detail/${slug}/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,
@@ -148,11 +148,11 @@ export async function patchGroupDetailsService(slug: string, groupData: GroupDat
 export async function putGroupDetailsService(slug: string, groupData: GroupData) {
 	const url = new URL(`/api/groups/detail/${slug}/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,
@@ -184,11 +184,11 @@ export async function putGroupDetailsService(slug: string, groupData: GroupData)
 export async function deleteGroupDetailsService(slug: string) {
 	const url = new URL(`/api/groups/detail/${slug}/`, process.env.API_BASE_URL)
 
-	const token = await getTokenService()
+	const token = await getCookie('token')
 
 	var headers = {}
 
-	if (token !== undefined) {
+	if (token !== undefined && token) {
 		headers = {
 			'Content-Type': 'application/json',
 			Authorization: `Token ${token}`,

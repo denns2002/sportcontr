@@ -11,18 +11,24 @@ function checkIfStringStartsWith(toCheck: string, substrings: string[]) {
 }
 
 export async function middleware(request: NextRequest) {
-	const user = await verifyUserService()
+	const response = await verifyUserService()
+
+	const headers = new Headers(request.headers)
+
+	if (!response.authenticated) {
+		headers.set('Set-Cookie', 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT')
+	}
 
 	if (
 		checkIfStringStartsWith(request.nextUrl.pathname, protectedRoutes) &&
-		user.authenticated === false
+		response.authenticated === false
 	) {
 		return NextResponse.redirect(new URL('/signin', request.url))
 	}
 
-	if (authRoutes.includes(request.nextUrl.pathname) && user.authenticated === true) {
+	if (authRoutes.includes(request.nextUrl.pathname) && response.authenticated === true) {
 		return NextResponse.redirect(new URL('/', request.url))
 	}
 
-	return NextResponse.next()
+	return NextResponse.next({ headers })
 }
