@@ -148,10 +148,7 @@ class ProjectDeployAPIView(ProjectMixin):
         if not instance.on_prod:
             new_conf = change_docker_compose_conf(self.request.user.email)
             stdout = run_command(generate_yc_create(new_conf))
-            print(stdout)
             ip = read_vm_ip(stdout)
-            print(ip)
-            #TODO:доделать это
             instance.url = ip
             instance.on_prod = True
             instance.save()

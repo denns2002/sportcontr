@@ -13,7 +13,7 @@ def read_vm_ip(lines):
 def change_docker_compose_conf(user_email: str, new_conf: str = 'new-docker-compose.yml'):
     lines = open_file('docker-compose.yml')
     # TODO:добавить env адрес сервера
-    lines.insert(11, f'            - ADMINEMAIL={user_email}')
+    lines.insert(11, f'            - ADMINEMAIL={user_email}\n')
 
     with open(f'{BASE_DIR / new_conf}', 'w', encoding='utf-8') as f:
         f.writelines(lines)
