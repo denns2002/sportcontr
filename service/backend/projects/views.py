@@ -149,7 +149,7 @@ class ProjectDeployAPIView(ProjectMixin):
             new_conf = change_docker_compose_conf(self.request.user.email)
             stdout = run_command(generate_yc_create(new_conf))
             ip = read_vm_ip(stdout)
-            instance.url = f'{"https" if request.is_secure() else "http"}://{ip}'
+            instance.url = f'{"https" if request.is_secure() else "http"}://{ip}:3000'
             instance.on_prod = True
             instance.save()
 
