@@ -1,0 +1,30 @@
+services:
+    portal-backend:
+        container_name: portal-server
+        build:
+            context: ./backend/portal
+        ports:
+            - "8001:8001"
+        networks:
+            - portal
+        environment:
+            - SECRET_KEY=django-insecure-e!&uwx-=vcc1tl0xu_5lfsq8k8t#+=5t+yw3dxdgy!)-divt)!
+            - DEBUG=true
+            - ALLOWED_HOSTS=*
+            - EMAIL_HOST_USER=Denns2002
+            - EMAIL_HOST_PASSWORD=lujukxqmltgjvyza
+        command: bash -c "python manage.py runserver 0.0.0.0:8001"
+    portal-frontend:
+        container_name: portal-client
+        build:
+            context: ./frontend/portal
+        ports:
+            - "3001:3001"
+        networks:
+            - portal
+        environment:
+            - API_BASE_URL=http://portal-backend:8001
+        command: yarn start -p 3001
+
+networks:
+    portal:
