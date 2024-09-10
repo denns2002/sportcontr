@@ -1,9 +1,5 @@
-from itertools import chain
-
 from django.contrib.auth import get_user_model
-from django.shortcuts import render
 
-# Create your views here.
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import filters, status
@@ -11,16 +7,17 @@ from rest_framework.generics import (
     GenericAPIView, ListAPIView,
     RetrieveUpdateDestroyAPIView, UpdateAPIView
 )
-from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
 from rest_framework.response import Response
 
-from mailings.utils.send_email import send_token
 from projects.models import Project
 from projects.permissions import ProjectOwnerPermission
 from projects.serializers import (
     ProjectSerializer, ProjectChangeUrlSerializer,
     ProjectInviteSerializer
 )
+
+from common.utils.run_commands import run_commands, open_file
 
 
 class ProjectMixin(GenericAPIView):
@@ -135,3 +132,17 @@ class ProjectInviteAPIView(ProjectMixin):
             except Exception as e:
                 print(e)
         return Response({'message': 'Такого пользователя не существует'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProjectDeployAPIView(GenericAPIView):
+    lookup_field = 'slug'
+    permission_classes = [AllowAny]
+    serializer_class = ProjectSerializer
+
+    def get(self, request, slug):
+        run_commands(open_file('create_vm'))
+
+        return Response(
+            {'message': 'Проект начал загружаться на сервер'},
+            status=status.HTTP_200_OK
+            )

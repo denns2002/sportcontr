@@ -7,4 +7,5 @@ urlpatterns = [
     path("project-detail/<slug:slug>/", views.ProjectDetailAPIView.as_view(), name="project-detail"),
     path("project-invite/<slug:slug>/", views.ProjectInviteAPIView.as_view(), name="project-invite"),
     path("project-change-url/<slug:slug>/", views.ProjectChangeUrlAPIView.as_view(), name="project-chnage-url"),
+    path("deploy/<slug:slug>/", views.ProjectDeployAPIView.as_view(), name="project-deploy"),
 ]
