@@ -12,8 +12,7 @@ def read_vm_ip(lines):
 
 def change_docker_compose_conf(user_email: str, new_conf: str = 'new-docker-compose.yml'):
     lines = open_file('docker-compose.yml')
-    # # TODO:добавить env адрес сервера
-    # lines.insert(11, f'            - ADMINEMAIL={user_email}\n')
+    lines.insert(11, f'            - ADMINEMAIL={user_email}\n')
 
     with open(f'{BASE_DIR / new_conf}', 'w', encoding='utf-8') as f:
         f.writelines(lines)
@@ -22,7 +21,7 @@ def change_docker_compose_conf(user_email: str, new_conf: str = 'new-docker-comp
 
 
 def generate_yc_create(docker_compose_filepath: str = ""):
-    command = f"{open_file('create_vm')[0].rstrip()}  --docker-compose-file {docker_compose_filepath}"
+    command = f"{open_file('create_vm')[0].rstrip()} --docker-compose-file {docker_compose_filepath}"
 
     return command
 
