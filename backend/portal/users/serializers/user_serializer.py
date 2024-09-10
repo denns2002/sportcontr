@@ -18,21 +18,11 @@ class UserSerializer(WritableNestedModelSerializer):
     class Meta:
         model = get_user_model()
         fields = [
-            "id",
-            "username",
-            "email",
-            "is_staff",
-            "is_active",
-            "is_superuser",
-            "is_verified",
-            "is_trainer",
-            "first_name",
-            "last_name",
-            'middle_name',
-            'birth_date',
-            'avatar',
-            "created_at",
-            "updated_at",
+            "id", "username", "email",
+            "is_staff", "is_active", "is_superuser",
+            "is_verified", "is_trainer", "first_name",
+            "last_name", 'middle_name', 'birth_date',
+            'avatar', "created_at", "updated_at",
             "userphonenumber_set"
         ]
         read_only_fields = [
