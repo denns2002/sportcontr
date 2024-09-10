@@ -1,6 +1,5 @@
 'use server'
 
-import { NewsData } from '@/interfaces/news'
 import { getCookie } from '../actions/cookies/get'
 
 export async function getNewsService(isPublished?: boolean) {

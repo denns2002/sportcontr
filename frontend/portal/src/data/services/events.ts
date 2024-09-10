@@ -2,8 +2,11 @@
 
 import { getCookie } from '../actions/cookies/get'
 
-export async function getEventsService() {
-	const url = new URL(`/api/events/`, process.env.API_BASE_URL)
+export async function getEventsService(isActive?: boolean) {
+	const url = new URL(
+		`/api/events/${isActive === undefined ? '' : isActive ? '?active=True' : '?active=False'}`,
+		process.env.API_BASE_URL
+	)
 
 	const token = await getCookie('token')
 
@@ -223,7 +226,7 @@ export async function patchEventMembersService(slug: string, members: Array<numb
 			method: 'PATCH',
 			headers: { ...headers },
 			cache: 'no-cache',
-			body: JSON.stringify({members: members}),
+			body: JSON.stringify({ members: members }),
 		})
 
 		const responseData = await response.json()
@@ -257,7 +260,7 @@ export async function putEventMembersService(slug: string, members: Array<number
 			method: 'PUT',
 			headers: { ...headers },
 			cache: 'no-cache',
-			body: JSON.stringify({members: members}),
+			body: JSON.stringify({ members: members }),
 		})
 
 		const responseData = await response.json()

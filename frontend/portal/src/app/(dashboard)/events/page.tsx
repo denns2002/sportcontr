@@ -9,13 +9,18 @@ import { EventCard } from './_components/event-card'
 import { Event } from '@/interfaces/events'
 
 interface EventsProps {
+	searchParams: { [key: string]: string | string[] | undefined }
 	roles: Array<string>
 }
 
-async function Events({ roles }: EventsProps) {
-	const events = (await getEventsService()) as Array<Event>
+async function Events({ searchParams, roles }: EventsProps) {
+	const isActive = searchParams['is_active']
 
-	const isUpcoming = null
+	if (isActive) {
+		var events = (await getEventsService(isActive === 'true' ? true : false)) as Array<Event>
+	} else {
+		var events = (await getEventsService()) as Array<Event>
+	}
 
 	return (
 		<div className='h-full w-full flex flex-col gap-10'>
@@ -23,18 +28,18 @@ async function Events({ roles }: EventsProps) {
 				<H1>Мероприятия</H1>
 				<div className='w-full flex flex-row flex-wrap gap-5'>
 					<div className='flex flex-wrap flex-row gap-5'>
-						<ButtonLink href='/events/' color={!isUpcoming ? 'primary' : 'gray'}>
+						<ButtonLink href='/events/' color={!isActive ? 'primary' : 'gray'}>
 							Все
 						</ButtonLink>
 						<ButtonLink
-							href='/events/?is_published=true'
-							color={isUpcoming === 'true' ? 'primary' : 'gray'}
+							href='/events/?is_active=true'
+							color={isActive === 'true' ? 'primary' : 'gray'}
 						>
 							Предстоящие
 						</ButtonLink>
 						<ButtonLink
-							href='/events/?is_published=false'
-							color={isUpcoming === 'false' ? 'primary' : 'gray'}
+							href='/events/?is_active=false'
+							color={isActive === 'false' ? 'primary' : 'gray'}
 						>
 							Прошедшие
 						</ButtonLink>

@@ -4,12 +4,13 @@ import { Dropdown } from '@/app/_components/custom/dropdown'
 import { DefaultButton, TransparentButton } from '@/components/custom/buttons'
 import { ButtonLink } from '@/components/custom/links'
 import { FormElementWrapper } from '@/components/form-elements'
+import { editGroupAction } from '@/data/actions/groups-base'
 import { deleteTrainerGroupAction, editTrainerGroupAction } from '@/data/actions/groups-trainer'
 import { FormElementAttributes } from '@/interfaces/forms'
 import { Group } from '@/interfaces/groups'
 import { User } from '@/interfaces/users'
 import { getUserAge } from '@/lib/dates'
-import { ArrowLeft, ChevronDown, FilePenLine, Plus, Trash2, X } from 'lucide-react'
+import { ArrowLeft, FilePenLine, Plus, Trash2, X } from 'lucide-react'
 import { useState } from 'react'
 import { useFormState } from 'react-dom'
 
@@ -31,9 +32,10 @@ export function GroupEditForm({ group, users }: GroupEditFormProps) {
 			?.filter((users) => !addedMembersIds?.includes(users?.id!) && !users?.is_trainer)
 			.map((users) => users?.id!)
 	)
+	const [trainersIds, setTrainersIds] = useState<Array<number>>(group.trainers)
 
 	const [formState, formAction] = useFormState(
-		editTrainerGroupAction.bind(null, group.slug, addedMembersIds),
+		editGroupAction.bind(null, group.slug, addedMembersIds, trainersIds),
 		INITIAL_STATE
 	)
 
@@ -172,6 +174,63 @@ export function GroupEditForm({ group, users }: GroupEditFormProps) {
 					) : (
 						<span className='p-5'>Больше некого добавлять...</span>
 					)}
+				</div>
+			</Dropdown>
+			<Dropdown label='Назначить тренера'>
+				<div className='w-full flex flex-col'>
+					{users
+						.filter((user) => user.is_trainer)
+						.map((user, index) => {
+							return (
+								<div
+									className='w-full flex flex-row items-center p-5 hover:bg-hover hover:text-active transition-all duration-300'
+									key={index}
+								>
+									<div className='flex flex-row flex-wrap gap-2'>
+										<span>{user.last_name}</span>
+										<span>{user.first_name}</span>
+										<span>{user.middle_name},</span>
+										<span>{getUserAge(user.birth_date!)}</span>
+										<span>лет</span>
+									</div>
+									<div className='flex-1' />
+									{trainersIds.includes(user.id!) ? (
+										<DefaultButton
+											color='error'
+											type='button'
+											full={false}
+											handler={() => {
+												setTrainersIds((prev: Array<number>) => {
+													let newMembers = [...prev.filter((e) => e !== user.id)]
+
+													return newMembers
+												})
+											}}
+											size='small'
+										>
+											<X className='h-5 w-5' />
+										</DefaultButton>
+									) : (
+										<DefaultButton
+											type='button'
+											full={false}
+											handler={() => {
+												setTrainersIds((prev: Array<number>) => {
+													let newMembers = [...prev]
+
+													newMembers.push(user?.id!)
+
+													return newMembers
+												})
+											}}
+											size='small'
+										>
+											<Plus className='h-5 w-5' />
+										</DefaultButton>
+									)}
+								</div>
+							)
+						})}
 				</div>
 			</Dropdown>
 			<div className='w-full flex flex-row flex-wrap gap-y-5 gap-x-10'>
