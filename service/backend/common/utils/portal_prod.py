@@ -22,7 +22,7 @@ def change_docker_compose_conf(user_email: str, new_conf: str = 'new-docker-comp
 
 
 def generate_yc_create(docker_compose_filepath: str = ""):
-    command = f"{open_file('create_vm')[0]}  --docker-compose-file {docker_compose_filepath}"
+    command = f"{open_file('create_vm')[0].rstrip()}  --docker-compose-file {docker_compose_filepath}"
 
     return command
 
