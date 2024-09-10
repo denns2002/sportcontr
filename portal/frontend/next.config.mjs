@@ -11,7 +11,7 @@ const nextConfig = {
 			},
 			{
 				protocol: 'http',
-				hostname: 'backend-portal',
+				hostname: 'portal-backend',
 				pathname: '/media/**',
 			},
 		],
