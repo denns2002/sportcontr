@@ -17,7 +17,10 @@ from projects.serializers import (
     ProjectInviteSerializer
 )
 
-from common.utils.run_commands import run_commands, open_file
+from common.utils.portal_prod import (
+    open_file, run_command,
+    change_docker_compose_conf, generate_yc_create, read_vm_ip
+)
 
 
 class ProjectMixin(GenericAPIView):
@@ -134,15 +137,32 @@ class ProjectInviteAPIView(ProjectMixin):
         return Response({'message': 'Такого пользователя не существует'}, status=status.HTTP_400_BAD_REQUEST)
 
 
-class ProjectDeployAPIView(GenericAPIView):
-    lookup_field = 'slug'
-    permission_classes = [AllowAny]
-    serializer_class = ProjectSerializer
+@method_decorator(name='get', decorator=swagger_auto_schema(
+    tags=["Проекты"],
+    operation_id="project-deploy_get/",
+    operation_description="Начинает запуск проекта на сервер",
+))
+class ProjectDeployAPIView(ProjectMixin):
+    def get(self, request, slug, *args, **kwargs):
+        instance = self.get_object()
+        if not instance.on_prod:
+            new_conf = change_docker_compose_conf(self.request.user.email)
+            stdout = run_command(generate_yc_create(new_conf))
+            print(stdout)
+            ip = read_vm_ip(stdout)
+            print(ip)
+            #TODO:доделать это
+            instance.url = ip
+            instance.on_prod = True
+            instance.save()
 
-    def get(self, request, slug):
-        run_commands(open_file('create_vm'))
-
+            return Response(
+                {'message': 'Проект загружается на сервер, подождите несколько минут'},
+                status=status.HTTP_200_OK
+                )
         return Response(
-            {'message': 'Проект начал загружаться на сервер'},
-            status=status.HTTP_200_OK
-            )
+            {
+                'message': 'Проект уже загружен на сервер'
+            },
+            status=status.HTTP_400_BAD_REQUEST
+        )
