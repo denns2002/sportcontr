@@ -146,10 +146,10 @@ class ProjectDeployAPIView(ProjectMixin):
     def get(self, request, slug, *args, **kwargs):
         instance = self.get_object()
         if not instance.on_prod:
-            new_conf = change_docker_compose_conf(self.request.user.email)
+            new_conf = change_docker_compose_conf(self.request.user.email, 'docker-compose.yml')
             stdout = run_command(generate_yc_create(new_conf))
             ip = read_vm_ip(stdout)
-            instance.url = ip
+            instance.url = f'{"https" if request.is_secure() else "http"}://{ip}'
             instance.on_prod = True
             instance.save()
 
