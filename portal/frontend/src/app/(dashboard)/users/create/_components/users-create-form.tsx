@@ -7,7 +7,7 @@ import { FormElementWrapper } from '@/components/form-elements'
 import { createUsersAction } from '@/data/actions/users'
 import { FormElementAttributes } from '@/interfaces/forms'
 import { UserCreateData } from '@/interfaces/users'
-import { ArrowLeft, FilePenLine, Plus, X } from 'lucide-react'
+import { ArrowLeft, FileDown, FilePenLine, FolderCog, Plus, X } from 'lucide-react'
 import { useState } from 'react'
 import { useFormState } from 'react-dom'
 import { UserForm } from './user-form'
@@ -117,27 +117,36 @@ export function UsersCreateForm() {
 					<UserForm userData={userData} handleChange={handleChange.bind(null, index)} />
 				</Dropdown>
 			))}
-			<DefaultButton
-				type='button'
-				color='primary'
-				full
-				handler={() =>
-					setUsersData((prev) => [
-						...prev,
-						{
-							last_name: '',
-							first_name: '',
-							middle_name: '',
-							birth_date: '',
-						},
-					])
-				}
-			>
-				<>
-					<Plus className='h-5 w-5' />
-					<span>Добавить пользователя</span>
-				</>
-			</DefaultButton>
+			{formState?.data?.url ? (
+				<ButtonLink href={formState?.data?.url} download={true} color='warning'>
+					<>
+						<FileDown className='h-5 w-5' />
+						<span>Скачать список</span>
+					</>
+				</ButtonLink>
+			) : (
+				<DefaultButton
+					type='button'
+					color='primary'
+					full
+					handler={() =>
+						setUsersData((prev) => [
+							...prev,
+							{
+								last_name: '',
+								first_name: '',
+								middle_name: '',
+								birth_date: '',
+							},
+						])
+					}
+				>
+					<>
+						<Plus className='h-5 w-5' />
+						<span>Добавить пользователя</span>
+					</>
+				</DefaultButton>
+			)}
 
 			<div className='w-full flex flex-row flex-wrap gap-y-5 gap-x-10'>
 				<ButtonLink href={`/users/`} color='gray'>
@@ -147,10 +156,10 @@ export function UsersCreateForm() {
 					</>
 				</ButtonLink>
 				<div className='flex-1' />
-				<DefaultButton type='submit' full={false}>
+				<DefaultButton type='submit' disabled={formState?.data?.url ? true : false} full={false}>
 					<>
-						<FilePenLine className='h-5 w-5' />
-						<span>Сохранить</span>
+						<FolderCog className='h-5 w-5' />
+						<span>Сгенерировать</span>
 					</>
 				</DefaultButton>
 			</div>
