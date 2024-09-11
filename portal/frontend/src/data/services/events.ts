@@ -4,7 +4,7 @@ import { getCookie } from '../actions/cookies/get'
 
 export async function getEventsService(isActive?: boolean) {
 	const url = new URL(
-		`/api/events/${isActive === undefined ? '' : isActive ? '?active=True' : '?active=False'}`,
+		`/api/events/${isActive === undefined ? '' : isActive ? '?active=true' : '?active=false'}`,
 		process.env.API_BASE_URL
 	)
 

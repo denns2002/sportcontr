@@ -52,11 +52,10 @@ export async function signupAction(prevState: any, formData: FormData) {
 		first_name: validatedFields.data.first_name,
 		last_name: validatedFields.data.last_name,
 		middle_name: (formData.get('middle_name') as string) || '',
+		is_verified: true,
 	}
 
 	const responseData = await signupUserService(userData)
-
-	console.log('response', responseData)
 
 	if (!responseData) {
 		return {
@@ -67,7 +66,7 @@ export async function signupAction(prevState: any, formData: FormData) {
 		}
 	}
 
-	if (responseData.code !== 200) {
+	if (responseData.detail) {
 		return {
 			...prevState,
 			requestError: responseData.detail,

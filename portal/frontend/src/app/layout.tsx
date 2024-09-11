@@ -53,7 +53,7 @@ export async function generateMetadata(
 	const settings = await getSettingsService()
 
 	return {
-		title: settings.title || 'Cringe',
+		title: settings.title || 'Портал',
 		icons: {
 			icon: settings.favicon || { rel: 'icon', url: icon.src },
 		},

@@ -276,3 +276,38 @@ export async function putProjectSettingsService(slug: string, projectData: Proje
 		throw error
 	}
 }
+
+export async function deployProjectService(slug: string) {
+	const url = new URL(`/api/projects/deploy/${slug}/`, process.env.API_BASE_URL)
+
+	const token = await getTokenService()
+
+	var headers = {}
+
+	if (token !== undefined && token) {
+		headers = {
+			'Content-Type': 'application/json',
+			Authorization: `Token ${token}`,
+		}
+	} else {
+		headers = {
+			'Content-Type': 'application/json',
+		}
+	}
+
+	try {
+		const response = await fetch(url, {
+			method: 'GET',
+			headers: { ...headers },
+			cache: 'no-cache',
+		})
+
+		const responseData = await response.json()
+
+		return responseData
+	} catch (error) {
+		console.error('Get Project Service Error:', error)
+
+		throw error
+	}
+}

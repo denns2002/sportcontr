@@ -2,7 +2,7 @@ import { FormElementAttributes } from '@/interfaces/forms'
 import { ValidationError } from '@/components/errors/'
 
 type TextareaPorps = FormElementAttributes & {
-	errors: string[]
+	errors?: string[]
 	disabled?: boolean
 	value?: string
 }
@@ -19,7 +19,7 @@ export function Textarea({ label, errors, value, ...attributes }: TextareaPorps)
 				defaultValue={value}
 				className='w-full mb-1 p-3 border-2 border-gray-300 rounded-lg focus:outline-none transition-all duration-300 focus:border-sky-500 mt-2'
 			/>
-			<ValidationError errors={errors} />
+			{errors ? <ValidationError errors={errors} /> : null}
 		</div>
 	)
 }
