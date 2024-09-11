@@ -16,7 +16,8 @@ def generate_excel_file(json_list):
         'password':  [user['password'] for user in json_list],
     }
     df = pd.DataFrame(users)
-    filepath = f'{BASE_DIR / MEDIA_ROOT}\\excel_users{time.time()}.xlsx'
+    name = f'excel_users{time.time()}.xlsx'
+    filepath = f'{MEDIA_ROOT}/{name}'
     df.to_excel(filepath)
 
-    return filepath
+    return name

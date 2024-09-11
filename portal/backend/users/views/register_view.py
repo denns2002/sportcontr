@@ -98,8 +98,8 @@ class RegisterManyAPIView(CreateAPIView):
                 user.save()
 
             filepath = generate_excel_file(data)
-
-            return FileResponse(open(filepath, 'rb'))
+            url = f'{"https" if request.is_secure() else "http"}://{request.META["HTTP_HOST"]}/media/{filepath}'
+            return Response({'url': url}, status=status.HTTP_200_OK)
 
         return Response({'message': 'Не правильно заполнены данные'},
                         status=status.HTTP_400_BAD_REQUEST)
