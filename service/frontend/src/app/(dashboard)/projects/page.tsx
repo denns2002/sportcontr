@@ -10,8 +10,6 @@ import { ArrowUpRight, Code, Plus } from 'lucide-react'
 async function Projects() {
 	const projects = await getUserProjectsService()
 
-	console.log(projects)
-
 	return (
 		<div className='h-full w-full mx-auto max-w-screen-lg flex flex-col'>
 			<H1>Список проектов</H1>
