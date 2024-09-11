@@ -1,13 +1,10 @@
 import { Roboto, Montserrat, Noto_Sans, Onest } from 'next/font/google'
 
-import { Navbar } from '@/app/_components/navbar'
-import { getSettingsService } from '@/data/services/settings'
+import { Navbar } from '@/app/demo/_components/navbar'
 
 import type { Metadata, ResolvingMetadata } from 'next'
 
-import './globals.css'
-
-import icon from '@/static/favicon.ico'
+import '../../globals.css'
 
 const roboto = Roboto({
 	weight: ['100', '300', '400', '500', '700', '900'],
@@ -50,13 +47,8 @@ export async function generateMetadata(
 	{ params, searchParams }: Props,
 	parent: ResolvingMetadata
 ): Promise<Metadata> {
-	const settings = await getSettingsService()
-
 	return {
-		title: settings.title || 'Портал',
-		icons: {
-			icon: settings.favicon || { rel: 'icon', url: icon.src },
-		},
+		title: 'Портал',
 	}
 }
 
@@ -70,7 +62,6 @@ const INIT_SETTINGS = {
 }
 
 export default async function RootLayout({ children }: RootLayoutProps) {
-	const settings = await getSettingsService()
 
 	return (
 		<html
@@ -78,17 +69,17 @@ export default async function RootLayout({ children }: RootLayoutProps) {
 			className={`h-full w-full ${roboto.variable} ${montserrat.variable} ${notosans.variable} ${onest.variable}`}
 		>
 			<body
-				className={`${settings.typography || INIT_SETTINGS.typography} ${
-					settings.palette || INIT_SETTINGS.palette
+				className={`${INIT_SETTINGS.typography} ${
+					INIT_SETTINGS.palette
 				} min-h-full w-full bg-background flex flex-row`}
 			>
 				<Navbar
 					modules={{
-						news: settings.news || false,
-						events: settings.events || false,
-						groups: settings.groups || false,
+						news: true,
+						events: true,
+						groups: true,
 					}}
-					logo={settings?.logo}
+					logo={''}
 				/>
 				<main className='min-h-[100vh] w-full lg:ml-72 pb-10'>{children}</main>
 			</body>

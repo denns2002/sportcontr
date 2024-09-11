@@ -10,6 +10,17 @@ const config: Config = {
 		extend: {
 			fontFamily: {
 				roboto: ['var(--font-roboto)'],
+				montserrat: ['var(--font-montserrat))'],
+				notosans: ['var(--font-notosans)'],
+				onest: ['var(--font-onest)'],
+			},
+			colors: {
+				primary: 'var(--primary-color)',
+				hover: 'var(--hover-color)',
+				active: 'var(--active-color)',
+				background: 'var(--background-color)',
+				error: 'var(--error-color)',
+				warning: 'var(--warning-color)',
 			},
 		},
 	},

@@ -1,10 +1,10 @@
 import { Roboto } from 'next/font/google'
-import './globals.css'
+import '../globals.css'
 
 import type { Metadata } from 'next'
 
-import { Header } from '@/app/_components/base/header'
-import { Footer } from '@/app/_components/base/footer'
+import { Header } from '@/app/(dashboard)/_components/base/header'
+import { Footer } from '@/app/(dashboard)/_components/base/footer'
 
 export const metadata: Metadata = {
 	title: 'Создайте свой портал!',
@@ -16,6 +16,7 @@ const roboto = Roboto({
 	subsets: ['latin', 'cyrillic', 'cyrillic-ext'],
 	display: 'swap',
 	variable: '--font-roboto',
+	preload: false,
 })
 
 interface RootLayoutProps {
