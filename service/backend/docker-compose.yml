@@ -11,7 +11,7 @@ services:
             - ALLOWED_HOSTS=*
             - EMAIL_HOST_USER=Denns2002
             - EMAIL_HOST_PASSWORD=lujukxqmltgjvyza
-        command: bash -c "python manage.py runserver 0.0.0.0:8000"
+        command: bash -c "python manage.py runserver 0.0.0.0:8000 && python manage.py sendadmincreds"
     portal-frontend:
         image: aniwoov/portal-frontend:deploy-1.0.0
         ports:
