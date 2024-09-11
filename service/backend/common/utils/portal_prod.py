@@ -18,8 +18,10 @@ def change_docker_compose_conf(user, new_conf: str = 'new-docker-compose.yml'):
         'ADMIN_FIRST_NAME': user.first_name,
         'ADMIN_LAST_NAME': user.last_name,
     }
-    for f, v in fields:
+    for f, v in fields.items():
         lines.insert(11, f'            - {f}={v}\n')
+
+    new_conf = new_conf[:-4] + str(time.time()) + '.yml'
 
     with open(f'{BASE_DIR / new_conf}', 'w', encoding='utf-8') as f:
         f.writelines(lines)
