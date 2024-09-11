@@ -6,6 +6,7 @@ interface ButtonLinkProps {
 	color?: 'primary' | 'error' | 'warning' | 'gray'
 	size?: 'default' | 'small'
 	external?: boolean
+	download?: boolean
 }
 
 const COLORS = {
@@ -26,16 +27,33 @@ export function ButtonLink({
 	color = 'primary',
 	size = 'default',
 	external = false,
+	download = false,
 }: ButtonLinkProps) {
-	return external ? (
-		<a
-			href={href}
-			target='_blank'
-			className={`flex flex-row gap-2 items-center justify-center ${SIZES[size]} ${COLORS[color]} text-white font-medium text-base shadow-md transition-all duration-300`}
-		>
-			{children}
-		</a>
-	) : (
+	if (external) {
+		return (
+			<a
+				href={href}
+				target='_blank'
+				className={`flex flex-row gap-2 items-center justify-center ${SIZES[size]} ${COLORS[color]} text-white font-medium text-base shadow-md transition-all duration-300`}
+			>
+				{children}
+			</a>
+		)
+	}
+
+	if (download) {
+		return (
+			<a
+				href={href}
+				download={true}
+				className={`flex flex-row gap-2 items-center justify-center ${SIZES[size]} ${COLORS[color]} text-white font-medium text-base shadow-md transition-all duration-300`}
+			>
+				{children}
+			</a>
+		)
+	}
+
+	return (
 		<Link
 			href={href}
 			className={`flex flex-row gap-2 items-center justify-center ${SIZES[size]} ${COLORS[color]} text-white font-medium text-base shadow-md transition-all duration-300`}
