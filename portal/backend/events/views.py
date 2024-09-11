@@ -24,8 +24,11 @@ class EventMixin(GenericAPIView):
     def get_queryset(self):
         queryset = Event.objects.order_by('-created_at')
         active = self.request.query_params.get('active')
-        if active:
+
+        if active == 'true':
             queryset = queryset.filter(date_end__gte=timezone.now())
+        elif active == 'false':
+            queryset = queryset.filter(date_end__lte=timezone.now())
 
         return queryset
 
