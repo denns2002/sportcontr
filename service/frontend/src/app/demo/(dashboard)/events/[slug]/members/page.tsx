@@ -6,12 +6,7 @@ import { isRegClosed, parseDate } from '@/lib/dates'
 import { ArrowLeft, FileText } from 'lucide-react'
 import { MembersList } from './_components/members-list'
 
-interface EventMembersProps {
-	params: { slug: string }
-	roles: Array<string>
-}
-
-async function EventMembers({ params, roles }: EventMembersProps) {
+async function EventMembers() {
 	const event = {
 		id: 1,
 		slug: 'SJdsF',

@@ -7,11 +7,6 @@ import { ButtonLink } from '@/app/demo/_components/components/custom/links'
 import { Camera, FileText } from 'lucide-react'
 import Image from 'next/image'
 
-interface NewsDetailedProps {
-	params: { slug: string }
-	roles: Array<string>
-}
-
 const news = {
 	title: 'Сумасшедшая новость',
 	description:
@@ -24,7 +19,7 @@ const news = {
 	updated_at: '2018-06-12T19:30',
 }
 
-async function NewsDetailed({ params, roles }: NewsDetailedProps) {
+async function NewsDetailed() {
 	return (
 		<div className='h-full w-full flex flex-col gap-10'>
 			<div className='h-fit w-full bg-white px-10 lg:px-10 py-10 shadow-md flex flex-col gap-10'>

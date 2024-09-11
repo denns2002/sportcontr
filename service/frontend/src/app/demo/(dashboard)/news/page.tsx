@@ -8,7 +8,6 @@ import image from '../../_static/images.jpeg'
 
 interface Props {
 	searchParams: { [key: string]: string | string[] | undefined }
-	roles: Array<string>
 }
 
 const news = [
@@ -69,7 +68,7 @@ const news = [
 	},
 ]
 
-async function News({ searchParams, roles }: Props) {
+async function News({ searchParams }: Props) {
 	const isPublished = searchParams['is_published']
 
 	if (isPublished) {

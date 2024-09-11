@@ -7,7 +7,6 @@ import { EventCard } from "./_components/event-card"
 
 interface EventsProps {
 	searchParams: { [key: string]: string | string[] | undefined }
-	roles: Array<string>
 }
 
 const events = [
@@ -69,7 +68,7 @@ const events = [
 	}
 ]
 
-async function Events({ searchParams, roles }: EventsProps) {
+async function Events({ searchParams }: EventsProps) {
 	const isActive = searchParams['is_active']
 
 	var data = events

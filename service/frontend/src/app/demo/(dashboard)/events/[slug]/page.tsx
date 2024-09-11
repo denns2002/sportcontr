@@ -6,12 +6,7 @@ import { Dropdown } from '@/app/demo/_components/custom/dropdown'
 import { isRegClosed, parseDate } from '@/lib/dates'
 import { ArrowLeft, Check, FileText, Users, X } from 'lucide-react'
 
-interface GroupEditProps {
-	params: { slug: string }
-	roles: Array<string>
-}
-
-async function Event({ params, roles }: GroupEditProps) {
+async function Event() {
 	const event = {
 		id: 1,
 		slug: 'SJdsF',

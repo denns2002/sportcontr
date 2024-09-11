@@ -3,12 +3,7 @@
 import { H1 } from '@/app/demo/_components/components/custom/headers'
 import { EventMembersEditForm } from './_components/event-members-edit-form'
 
-interface EventMembersEditProps {
-	params: { slug: string }
-	roles: Array<string>
-}
-
-async function EventMembersEdit({ params, roles }: EventMembersEditProps) {
+async function EventMembersEdit() {
 	const event = {
 		id: 1,
 		slug: 'SJdsF',

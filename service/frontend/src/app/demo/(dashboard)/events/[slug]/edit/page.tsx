@@ -3,11 +3,7 @@
 import { H1 } from '@/app/demo/_components/components/custom/headers'
 import { EventEditForm } from './_components/event-edit-form'
 
-interface EventEditProps {
-	params: { slug: string }
-}
-
-async function EventEdit({ params }: EventEditProps) {
+async function EventEdit() {
 	const data = {
 		id: 1,
 		slug: 'SJdsF',

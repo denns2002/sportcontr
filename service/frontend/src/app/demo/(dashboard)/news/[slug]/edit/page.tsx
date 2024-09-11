@@ -6,10 +6,6 @@ import { notFound } from 'next/navigation'
 
 import image from '../../../../_static/images.jpeg'
 
-interface NewsEditProps {
-	params: { slug: string }
-}
-
 const news = {
 	title: 'Сумасшедшая новость',
 	description:
@@ -22,7 +18,7 @@ const news = {
 	updated_at: '2018-06-12T19:30',
 }
 
-async function NewsEdit({ params }: NewsEditProps) {
+async function NewsEdit() {
 	return (
 		<div className='h-full w-full flex flex-col gap-10'>
 			<div className='h-fit w-full bg-white px-10 lg:px-10 py-10 shadow-md flex flex-col gap-10'>

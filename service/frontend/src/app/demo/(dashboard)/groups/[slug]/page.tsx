@@ -3,12 +3,7 @@
 import { H1 } from "@/app/demo/_components/components/custom/headers"
 import { GroupEditForm } from "./_components/group-edit-form"
 
-interface GroupEditProps {
-	params: { slug: string }
-	roles?: Array<string>
-}
-
-async function GroupEdit({ params, roles }: GroupEditProps) {
+async function GroupEdit() {
 	const data = 		{
 		id: 1,
 		slug: 'hDjkfF',

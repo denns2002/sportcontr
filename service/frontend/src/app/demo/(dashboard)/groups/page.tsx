@@ -4,11 +4,7 @@ import { ButtonLink } from '../../_components/components/custom/links'
 import { Group } from 'next/dist/shared/lib/router/utils/route-regex'
 import { GroupCard } from './_components/group-card'
 
-interface GroupsProps {
-	roles: Array<string>
-}
-
-async function Groups({ roles }: GroupsProps) {
+async function Groups() {
 	const groups = [
 		{
 			id: 1,

@@ -3,11 +3,7 @@
 import { H1 } from '@/app/demo/_components/components/custom/headers'
 import { GroupCreateForm } from './_components/group-create-form'
 
-interface GroupCreateProps {
-	roles: Array<string>
-}
-
-async function GroupCreate({ roles }: GroupCreateProps) {
+async function GroupCreate() {
 	const users = [
 		{
 			last_name: 'Иванов',
