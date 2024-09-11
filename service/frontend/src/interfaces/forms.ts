@@ -12,9 +12,10 @@ export interface FormElementAttributes {
 		| 'url'
 		| 'file'
 		| 'tel'
+		| 'checkbox'
 	placeholder: string
 	required: boolean
 	label: string
 	id: string
-	element: 'input' | 'textarea' | 'uploader'
+	element: 'input' | 'textarea' | 'uploader' | 'checkbox'
 }

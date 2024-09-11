@@ -2,13 +2,14 @@
 
 import { editProjectAction } from '@/data/actions/projects/edit'
 import { FormElementAttributes } from '@/interfaces/forms'
-import { useFormState } from 'react-dom'
+import { useFormState, useFormStatus } from 'react-dom'
 import { Project } from '@/interfaces/projects'
 import { deleteProjectAction } from '@/data/actions/projects/delete'
 import { FormElementWrapper } from '@/components/form-elements'
 import { ButtonLink } from '@/components/custom/links'
 import { ArrowLeft, FilePenLine, Trash2 } from 'lucide-react'
 import { DefaultButton } from '@/components/custom/buttons'
+import { Loader } from './loader'
 
 interface ProjectEditFormProps {
 	project: Project
@@ -34,7 +35,7 @@ export function ProjectEditForm({ project }: ProjectEditFormProps) {
 			placeholder: 'Название',
 			required: true,
 			element: 'input',
-			id: 'title'
+			id: 'title',
 		},
 		{
 			name: 'description',
@@ -43,7 +44,16 @@ export function ProjectEditForm({ project }: ProjectEditFormProps) {
 			placeholder: 'Портал школы по самому популярному в мире спорту...',
 			required: true,
 			element: 'textarea',
-			id: 'description'
+			id: 'description',
+		},
+		{
+			name: 'on_prod',
+			type: 'checkbox',
+			label: 'Развернуть портал',
+			placeholder: '',
+			required: false,
+			element: 'checkbox',
+			id: 'on_prod',
 		},
 	]
 
@@ -88,6 +98,7 @@ export function ProjectEditForm({ project }: ProjectEditFormProps) {
 					</>
 				</DefaultButton>
 			</div>
+			<Loader />
 		</form>
 	)
 }

@@ -11,4 +11,5 @@ export interface SignupUserData {
   first_name: string
   last_name: string
 	middle_name?: string
+	is_verified?: boolean
 }

@@ -3,7 +3,7 @@
 import { H1 } from '@/components/custom/headers'
 import { getProjectService } from '@/data/services/projects'
 import { notFound } from 'next/navigation'
-import { ProjectEditForm } from './_components/project-edit'
+import { ProjectEditForm } from './_components/project-edit-form'
 
 interface ProjectProps {
 	params: { slug: string }

@@ -2,7 +2,7 @@
 
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
-import { patchProjectService } from '@/data/services/projects'
+import { deployProjectService, patchProjectService } from '@/data/services/projects'
 
 const schemaSignin = z.object({
 	title: z.string().min(1, { message: 'Название должно содержать минимум 1 символ' }),
@@ -41,6 +41,30 @@ export async function editProjectAction(slug: string, prevState: any, formData: 
 			requestError: responseData.detail,
 			validationErrors: {},
 			message: 'Ошибка редактирования проекта',
+		}
+	}
+
+	const onProd = formData.get('on_prod')
+
+	if (onProd) {
+		const deployResponse = await deployProjectService(slug)
+
+		if (!deployResponse) {
+			return {
+				...prevState,
+				requestError: null,
+				validationErrors: {},
+				message: 'Упс! Что-то пошло не так. Попробуйте еще раз',
+			}
+		}
+
+		if (deployResponse.detail) {
+			return {
+				...prevState,
+				requestError: responseData.detail,
+				validationErrors: {},
+				message: 'Ошибка разорачивания проекта',
+			}
 		}
 	}
 
