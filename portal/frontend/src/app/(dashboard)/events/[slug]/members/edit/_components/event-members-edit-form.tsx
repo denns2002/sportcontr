@@ -1,7 +1,7 @@
 'use client'
 
 import { Dropdown } from '@/app/_components/custom/dropdown'
-import { DefaultButton, TransparentButton } from '@/components/custom/buttons'
+import { DefaultButton } from '@/components/custom/buttons'
 import { ButtonLink } from '@/components/custom/links'
 import { editEventMembersAction } from '@/data/actions/events'
 import { Event } from '@/interfaces/events'

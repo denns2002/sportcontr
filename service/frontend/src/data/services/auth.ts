@@ -11,7 +11,6 @@ export async function verifyUserService(message?: string) {
 	const url = new URL('/api/users/verify/', process.env.API_BASE_URL)
 
 	const token = await getTokenService()
-	
 
 	if (!token) {
 		return { authenticated: false, data: null, error: null }
@@ -39,7 +38,6 @@ export async function verifyUserService(message?: string) {
 		})
 
 		const responseData = await response.json()
-		
 
 		if (responseData.detail) {
 			return { authenticated: false, data: null, error: responseData.message }
@@ -59,7 +57,26 @@ export async function siginUserService(userData: SiginUserData) {
 	try {
 		const response = await fetch(url, {
 			method: 'POST',
-			headers: { 'Content-Type': 'application/json', },
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ ...userData }),
+			cache: 'no-cache',
+		})
+
+		return response.json()
+	} catch (error) {
+		console.error('Signin Service Error:', error)
+
+		return false
+	}
+}
+
+export async function signupUserService(userData: SignupUserData) {
+	const url = new URL('/api/users/register/', process.env.API_BASE_URL)
+
+	try {
+		const response = await fetch(url, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ ...userData }),
 			cache: 'no-cache',
 		})
@@ -98,31 +115,6 @@ export async function signoutUserService() {
 		const response = await fetch(url, {
 			method: 'GET',
 			headers: { ...headers },
-			cache: 'no-cache',
-		})
-
-		const responseData = await response.json()
-
-		if (responseData.detail) {
-			return { authenticated: false, data: null, error: responseData.detail }
-		}
-
-		return { authenticated: true, data: responseData.user, error: null }
-	} catch (error) {
-		console.error('Verify Service Error:', error)
-
-		return { authenticated: false, data: null, error: error }
-	}
-}
-
-export async function signupUserService(userData: SignupUserData) {
-	const url = new URL('/api/users/register/', process.env.API_BASE_URL)
-
-	try {
-		const response = await fetch(url, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json', },
-			body: JSON.stringify({ ...userData }),
 			cache: 'no-cache',
 		})
 

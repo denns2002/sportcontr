@@ -40,7 +40,7 @@ export function DefaultButton({
 	return (
 		<button
 			onClick={() => handler()}
-			className={`${full && 'w-full'} flex flex-row gap-2 items-center justify-center ${
+			className={`h-fit ${full && 'w-full'} flex flex-row gap-2 items-center justify-center ${
 				SIZES[size]
 			} ${
 				COLORS[color]

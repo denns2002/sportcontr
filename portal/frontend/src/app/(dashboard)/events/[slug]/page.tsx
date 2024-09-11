@@ -68,6 +68,7 @@ async function Event({ params, roles }: GroupEditProps) {
 					<div className='flex flex-row flex-wrap gap-5'>
 						<div className='flex-1 bg-white p-5 flex flex-row gap-5 items-center shadow-md'>
 							<span>Аттестация:</span>
+							<div className='flex-1' />
 							{event.is_attestation ? (
 								<div className='bg-primary p-2 text-white shadow-md'>
 									<Check className='h-5 w-5' />
@@ -80,6 +81,7 @@ async function Event({ params, roles }: GroupEditProps) {
 						</div>
 						<div className='flex-1 bg-white p-5 flex flex-row gap-5 items-center shadow-md'>
 							<span>Семинар:</span>
+							<div className='flex-1' />
 							{event.is_seminar ? (
 								<div className='bg-primary p-2 text-white shadow-md'>
 									<Check className='h-5 w-5' />

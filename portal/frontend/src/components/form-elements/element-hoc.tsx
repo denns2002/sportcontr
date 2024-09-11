@@ -9,17 +9,19 @@ interface FormElementWrapperProps {
 	errors?: string[]
 	disabled?: boolean
 	value?: string
+	handleChange?(event: React.ChangeEvent<HTMLInputElement>): void 
 }
 
 export function FormElementWrapper({
 	attributes,
 	errors,
 	disabled,
+	handleChange,
 	value = '',
 }: FormElementWrapperProps) {
 	switch (attributes.element) {
 		case 'input': {
-			return <Input {...attributes} errors={errors} disabled={disabled} value={value} />
+			return <Input {...attributes} errors={errors} disabled={disabled} value={value} handleChange={handleChange} />
 		}
 		case 'textarea': {
 			return <Textarea {...attributes} errors={errors} disabled={disabled} value={value} />

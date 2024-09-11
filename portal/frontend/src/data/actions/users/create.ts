@@ -50,5 +50,5 @@ export async function createUsersAction(
 		}
 	}
 
-	redirect('/users/')
+	// redirect('/users/')
 }

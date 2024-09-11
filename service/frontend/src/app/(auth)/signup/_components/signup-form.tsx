@@ -1,12 +1,12 @@
 'use client'
 
 import { FormElementAttributes } from '@/interfaces/forms'
-import { signinAction } from '@/data/actions/auth'
 import { useFormState } from 'react-dom'
 import { RequestError } from '@/components/errors'
 import { DefaultButton } from '@/components/custom/buttons'
 import { TextLink } from '@/components/custom/links'
 import { FormElementWrapper } from '../../../../components/form-elements'
+import { signupAction } from '@/data/actions/auth/signup'
 
 const INITIAL_STATE = {
 	data: null,
@@ -14,7 +14,7 @@ const INITIAL_STATE = {
 }
 
 export function SignUpForm() {
-	const [formState, formAction] = useFormState(signinAction, INITIAL_STATE)
+	const [formState, formAction] = useFormState(signupAction, INITIAL_STATE)
 
 	const elements: FormElementAttributes[] = [
 		{
@@ -36,15 +36,6 @@ export function SignUpForm() {
 			id: 'email',
 		},
 		{
-			name: 'first_name',
-			type: 'text',
-			label: 'Имя',
-			placeholder: 'Иван',
-			required: true,
-			element: 'input',
-			id: 'first_name',
-		},
-		{
 			name: 'last_name',
 			type: 'text',
 			label: 'Фамилия',
@@ -52,6 +43,15 @@ export function SignUpForm() {
 			required: true,
 			element: 'input',
 			id: 'last_name',
+		},
+		{
+			name: 'first_name',
+			type: 'text',
+			label: 'Имя',
+			placeholder: 'Иван',
+			required: true,
+			element: 'input',
+			id: 'first_name',
 		},
 		{
 			name: 'middle_name',
@@ -84,7 +84,7 @@ export function SignUpForm() {
 
 	return (
 		<form
-			// action={formAction}
+			action={formAction}
 			className='w-full max-w-xl bg-white px-8 py-8 flex flex-col rounded-lg shadow-md'
 		>
 			<h1 className='font-medium text-3xl'>Регистрация</h1>

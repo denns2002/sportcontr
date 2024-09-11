@@ -8,9 +8,10 @@ interface DropdownProps {
 	label: string
 	children: React.ReactElement | string
 	defaultState?: boolean
+	button?: React.ReactElement
 }
 
-export function Dropdown({ label, children, defaultState=true }: DropdownProps) {
+export function Dropdown({ label, children, button, defaultState=true }: DropdownProps) {
 	const [isActive, setIsActive] = useState(defaultState)
 
 	return (
@@ -18,11 +19,12 @@ export function Dropdown({ label, children, defaultState=true }: DropdownProps) 
 			<div className='flex flex-row gap-5 p-5 bg-white'>
 				<div className='flex justify-center items-center'><label className='font-medium'>{label}:</label></div>
 				<div className='flex-1' />{' '}
-				<TransparentButton full={false} type='button' handler={() => setIsActive((prev) => !prev)}>
+				<TransparentButton full={false} size='small' type='button' handler={() => setIsActive((prev) => !prev)}>
 					<ChevronDown
 						className={`h-5 w-5 ${isActive ? '-rotate-180' : null} transition-all duration-300`}
 					/>
 				</TransparentButton>
+				{button}
 			</div>
 			<div
 				className={`${

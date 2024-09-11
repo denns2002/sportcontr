@@ -19,7 +19,7 @@ async function Users() {
 					<ButtonLink href='/users/create/'>
 						<>
 							<UserPlus className='h-5 w-5' />
-							Добавить пользователя
+							Добавить пользователей
 						</>
 					</ButtonLink>
 				</div>

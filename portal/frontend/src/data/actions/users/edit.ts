@@ -17,8 +17,6 @@ export async function editUserAction(user: User, prevState: any, formData: FormD
 		last_name: formData.get('last_name'),
 	})
 
-	console.log('cringe', formData.get('is_trainer'))
-
 	if (!validatedFields.success) {
 		return {
 			...prevState,

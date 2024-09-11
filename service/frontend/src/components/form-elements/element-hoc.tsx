@@ -1,3 +1,5 @@
+'use client'
+
 import { FormElementAttributes } from '@/interfaces/forms'
 import { Input } from './input'
 import { Textarea } from './textarea'
@@ -10,7 +12,7 @@ interface FormElementWrapperProps {
 	value?: string
 }
 
-export function FormElementWrapper({ attributes, errors, disabled, value = '' }: FormElementWrapperProps) {	
+export function FormElementWrapper({ attributes, errors, disabled, value = '' }: FormElementWrapperProps) {
 	switch (attributes.element) {
 		case 'input': {
 			return <Input {...attributes} errors={errors} disabled={disabled} value={value} />

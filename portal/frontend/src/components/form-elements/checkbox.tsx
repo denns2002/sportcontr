@@ -5,8 +5,6 @@ import { useState } from 'react'
 type InputPorps = FormElementAttributes & { value?: any }
 
 export function Checkbox({ label, id, value, ...attributes }: InputPorps) {
-	console.log('cringe', value)
-
 	const [isChecked, setIsChecked] = useState<boolean>(value)
 
 	return (
@@ -15,7 +13,7 @@ export function Checkbox({ label, id, value, ...attributes }: InputPorps) {
 				{label}
 			</label>
 			<div className='flex-1' />
-			<input {...attributes} id={id} checked={isChecked} hidden />
+			<input {...attributes} id={id} checked={isChecked} readOnly hidden />
 			<div
 				className='h-full cursor-pointer border-primary border-2 hover:border-hover transition-all duration-300'
 				onClick={() => setIsChecked((prev) => !prev)}

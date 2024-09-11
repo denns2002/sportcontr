@@ -6,7 +6,7 @@ import { useFormState } from 'react-dom'
 import { RequestError } from '@/components/errors'
 import { DefaultButton } from '@/components/custom/buttons'
 import { TextLink } from '@/components/custom/links'
-import { FormElementWrapper } from '../../../../components/form-elements'
+import { FormElementWrapper } from '@/components/form-elements/element-hoc'
 
 const INITIAL_STATE = {
 	data: null,
@@ -25,7 +25,7 @@ export function SignInForm() {
 			placeholder: 'Username',
 			required: true,
 			element: 'input',
-			id: 'username'
+			id: 'username',
 		},
 		{
 			name: 'password',
@@ -34,7 +34,7 @@ export function SignInForm() {
 			placeholder: '******',
 			required: true,
 			element: 'input',
-			id: 'password'
+			id: 'password',
 		},
 	]
 
@@ -49,7 +49,7 @@ export function SignInForm() {
 				{elements.map((attributes, index) => (
 					<FormElementWrapper
 						attributes={attributes}
-						errors={formState?.validationErrors[attributes.name]}
+						errors={formState?.validationErrors?.[attributes.name]}
 						key={index}
 					/>
 				))}

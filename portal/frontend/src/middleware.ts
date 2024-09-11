@@ -6,13 +6,7 @@ import { verifyUserService } from '@/data/services/auth'
 import { getSettingsService } from './data/services/settings'
 
 export async function middleware(request: NextRequest) {
-	const response = await verifyUserService('middleware')
-
-	const headers = new Headers(request.headers)
-
-	if (!response.authenticated) {
-		headers.set('Set-Cookie', 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT')
-	}
+	const { authenticated } = await verifyUserService('middleware')
 
 	const settings = await getSettingsService()
 
@@ -26,12 +20,20 @@ export async function middleware(request: NextRequest) {
 
 	const url = request.nextUrl.pathname
 
-	if (authRoutes.includes(url) && response.authenticated === true) {
+	if (authRoutes.includes(url) && authenticated === true) {
 		return NextResponse.redirect(new URL('/', request.url))
 	}
 
 	if (modules.some((module) => module.path === url && !module.isActive)) {
 		return NextResponse.redirect(new URL('/', request.url))
+	}
+
+	const response = NextResponse.next()
+
+	const headers = new Headers(response.headers)
+
+	if (!authenticated) {
+		headers.set('Set-Cookie', 'token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT')
 	}
 
 	return NextResponse.next({ headers })

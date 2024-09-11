@@ -53,7 +53,7 @@ export function DropdownMenu({
 								{link.label}
 							</DropdownLink>
 						))}
-						{authenticated && <DropdownLink href='projects'>Проекты</DropdownLink>}
+						{authenticated && <DropdownLink href='/projects/'>Проекты</DropdownLink>}
 					</div>
 					<div className='flex-1' />
 					{authenticated ? (
