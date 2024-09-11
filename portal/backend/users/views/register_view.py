@@ -98,7 +98,7 @@ class RegisterManyAPIView(CreateAPIView):
                 user.save()
 
             filepath = generate_excel_file(data)
-            url = f'{"https" if request.is_secure() else "http"}://{request.META["HTTP_HOST"]}/media/{filepath}'
+            url = f'/media/{filepath}'
             return Response({'url': url}, status=status.HTTP_200_OK)
 
         return Response({'message': 'Не правильно заполнены данные'},
