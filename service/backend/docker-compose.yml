@@ -1,6 +1,6 @@
 services:
     portal-backend:
-        image: aniwoov/portal-backend:deploy-1.2.0
+        image: aniwoov/portal-backend:deploy-1.3.0
         ports:
             - "8000:8000"
         networks:
@@ -13,7 +13,7 @@ services:
             - EMAIL_HOST_PASSWORD=lujukxqmltgjvyza
         command: bash -c "python manage.py sendadmincreds && python manage.py runserver 0.0.0.0:8000"
     portal-frontend:
-        image: aniwoov/portal-frontend:deploy-1.2.0
+        image: aniwoov/portal-frontend:deploy-1.3.0
         ports:
             - "3000:3000"
         networks:
