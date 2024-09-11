@@ -45,7 +45,11 @@ async function Projects() {
 										<span className='text-base'>Редактировать</span>
 									</>
 								</ButtonLink>
-								<TransparentLink href={'https://google.com'} size='small' external={true}>
+								<TransparentLink
+									href={project?.url ? project.url : '#'}
+									size='small'
+									external={true}
+								>
 									<ArrowUpRight className='h-5 w-5' />
 								</TransparentLink>
 							</div>
