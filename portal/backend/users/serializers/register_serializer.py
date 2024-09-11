@@ -45,3 +45,14 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.save()
 
         return user
+
+
+class UserManyRegisterSerializer(serializers.Serializer):
+    first_name = serializers.CharField()
+    last_name = serializers.CharField()
+    middle_name = serializers.CharField(required=False)
+    birth_date = serializers.DateField(required=False)
+
+
+class RegisterManySerializer(serializers.Serializer):
+    users = UserManyRegisterSerializer(many=True)

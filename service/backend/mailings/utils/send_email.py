@@ -42,6 +42,7 @@ def send_email(email_subject: str,
     except Exception as error:
         instance.is_error = True
         instance.error = error
+        instance.save()
 
     users = get_user_model().objects.filter(email__in=to_emails)
     for user in users:

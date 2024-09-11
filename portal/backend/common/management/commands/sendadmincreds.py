@@ -2,7 +2,6 @@ import os
 
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
-from django.urls import reverse
 from django.utils.crypto import get_random_string
 from dotenv import load_dotenv
 
@@ -30,7 +29,7 @@ class Command(BaseCommand):
 
         send_email(
             email_subject="Ваш портал создан!",
-            email_body="Здравствуйте, вы создали свой портал, вот ваши данные"
+            email_body="Здравствуйте, вы создали свой портал, вот ваши данные "
                        "для входа в качестве администратора:\n"
                        f"логин: {user.username}\n"
                        f"пароль: {password}\n"

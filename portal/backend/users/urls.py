@@ -7,7 +7,7 @@ from users.views.change_email_view import (
 from users.views.email_verify_view import activate
 from users.views.login_view import LoginAPIView, VerifyAPIView
 from users.views.logout_view import Logout
-from users.views.register_view import RegisterAPIView
+from users.views.register_view import RegisterAPIView, RegisterManyAPIView
 from users.views.reset_password_view import (
     RequestPasswordResetAPIView,
     PasswordTokenCheckAPI, SetPasswordTokenAPI
@@ -26,6 +26,7 @@ urlpatterns = [
     re_path(r"^change-email/", ChangeEmailAPIView.as_view(), name="change-email"),
     re_path(r"^email-verify-new/", activate_new_email, name="email-verify-new"),
 
+    re_path(r"^register-many/", RegisterManyAPIView.as_view(), name="register-many"),
     re_path(r"^user-list/", UserListAPIView.as_view(), name="user-list"),
     path("user-detail/<int:id>/", UserDetailAPIView.as_view(), name="user-detail"),
 ]

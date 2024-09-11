@@ -154,7 +154,9 @@ class ProjectDeployAPIView(ProjectMixin):
             instance.save()
 
             return Response(
-                {'message': 'Проект загружается на сервер, подождите несколько минут'},
+                {'message': 'Проект загружается на сервер, подождите '
+                            'несколько минут, к вам на почту придет письмо с '
+                            'данными для входа'},
                 status=status.HTTP_200_OK
                 )
         return Response(
