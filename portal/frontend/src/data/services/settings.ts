@@ -1,6 +1,6 @@
 'use server'
 
-import { getCookie } from "../actions/cookies/get"
+import { getCookie } from '../actions/cookies/get'
 
 export async function getSettingsService() {
 	const url = new URL(`/api/settings/`, process.env.API_BASE_URL)
@@ -23,7 +23,7 @@ export async function getSettingsService() {
 	try {
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: { ...headers },
+			headers: { 'Content-Type': 'application/json' },
 			cache: 'no-cache',
 		})
 
@@ -74,7 +74,6 @@ export async function patchSettingsService(settingsData: FormData) {
 	const url = new URL(`/api/settings/`, process.env.API_BASE_URL)
 
 	const token = await getCookie('token')
-	
 
 	var headers = {}
 

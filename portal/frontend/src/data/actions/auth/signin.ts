@@ -55,7 +55,7 @@ export async function signinAction(prevState: any, formData: FormData) {
 	cookies().set('token', responseData.token, {
 		maxAge: 60 * 60 * 24 * 7,
 		path: '/',
-		sameSite: 'none',
+		sameSite: 'lax',
 		httpOnly: true,
 		secure: false,
 	})
@@ -67,7 +67,7 @@ export async function signoutAction() {
 	cookies().set('token', '', {
 		maxAge: 0,
 		path: '/',
-		sameSite: 'none',
+		sameSite: 'lax',
 		httpOnly: true,
 		secure: false,
 	})
