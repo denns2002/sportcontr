@@ -1,3 +1,7 @@
 *.idea
 *yacloud-commands
 venv
+/backend
+*.env
+*db.sqlite3
+*new-docker-compose.yml

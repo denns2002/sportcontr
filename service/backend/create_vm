@@ -1,0 +1,1 @@
+yc compute instance create-with-container --zone ru-central1-a --memory 2 --cores 2 --core-fraction 20 --platform standard-v3 --network-interface subnet-name=default-ru-central1-a,nat-ip-version=ipv4 --ssh-key ~/.ssh/id_rsa_2.pub

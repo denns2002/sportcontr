@@ -1,9 +1,5 @@
-from itertools import chain
-
 from django.contrib.auth import get_user_model
-from django.shortcuts import render
 
-# Create your views here.
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import filters, status
@@ -11,15 +7,19 @@ from rest_framework.generics import (
     GenericAPIView, ListAPIView,
     RetrieveUpdateDestroyAPIView, UpdateAPIView
 )
-from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
 from rest_framework.response import Response
 
-from mailings.utils.send_email import send_token
 from projects.models import Project
 from projects.permissions import ProjectOwnerPermission
 from projects.serializers import (
     ProjectSerializer, ProjectChangeUrlSerializer,
     ProjectInviteSerializer
+)
+
+from common.utils.portal_prod import (
+    open_file, run_command,
+    change_docker_compose_conf, generate_yc_create, read_vm_ip
 )
 
 
@@ -135,3 +135,31 @@ class ProjectInviteAPIView(ProjectMixin):
             except Exception as e:
                 print(e)
         return Response({'message': 'Такого пользователя не существует'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@method_decorator(name='get', decorator=swagger_auto_schema(
+    tags=["Проекты"],
+    operation_id="project-deploy_get/",
+    operation_description="Начинает запуск проекта на сервер",
+))
+class ProjectDeployAPIView(ProjectMixin):
+    def get(self, request, slug, *args, **kwargs):
+        instance = self.get_object()
+        if not instance.on_prod:
+            new_conf = change_docker_compose_conf(self.request.user.email)
+            stdout = run_command(generate_yc_create(new_conf))
+            ip = read_vm_ip(stdout)
+            instance.url = f'{"https" if request.is_secure() else "http"}://{ip}:3000'
+            instance.on_prod = True
+            instance.save()
+
+            return Response(
+                {'message': 'Проект загружается на сервер, подождите несколько минут'},
+                status=status.HTTP_200_OK
+                )
+        return Response(
+            {
+                'message': 'Проект уже загружен на сервер'
+            },
+            status=status.HTTP_400_BAD_REQUEST
+        )

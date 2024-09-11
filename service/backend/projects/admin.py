@@ -15,12 +15,12 @@ class ProjectAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {'fields': (
-            'id', 'title', 'description' ,'on_prod', 'url', 'created_at', 'updated_at'
+            'id', 'slug', 'title', 'description','on_prod', 'url', 'created_at', 'updated_at'
         )}),
         ('Owners', {'fields': (
             'owner', 'members'
         )})
     )
 
-    readonly_fields = ["id", "created_at", "updated_at"]
+    readonly_fields = ["id", 'slug', "created_at", "updated_at"]
     filter_horizontal = ['members']
